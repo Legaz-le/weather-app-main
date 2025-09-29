@@ -3,11 +3,9 @@ import { TopSide } from "./components/TopSide";
 
 export const App = () => {
   return (
-    <div className="flex items-center justify-center container mx-auto">
-      <div className="flex flex-col">
-        <TopSide />
-        <MainBody />
-      </div>
+    <div className="flex flex-col items-center justify-center  container mx-auto  w-full px-30 py-5 text-Neutral-0">
+      <TopSide />
+      <MainBody />
     </div>
   );
 };
