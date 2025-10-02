@@ -14,9 +14,9 @@ export const TopSide = () => {
           <img src={dropdown} alt="icon-dropdrown" />
         </button>
       </div>
-      <div className="flex flex-col items-center justify-center mt-15">
+      <div className="flex flex-col items-center justify-center mt-16">
         <h1 className="text-5xl">How's the sky looking today?</h1>
-        <div className="flex items-center justify-between mt-10 gap-2">
+        <div className="flex items-center justify-between mt-16 gap-2">
           <div className="flex bg-Neutral-600 p-2 rounded-lg px-5 max-w-md gap-2 items-center">
             <img src={search} alt="search-icon" />
             <input
