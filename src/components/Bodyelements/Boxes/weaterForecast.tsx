@@ -2,7 +2,7 @@ import weatherIcon from "../../../public/images/icon-overcast.webp"
 
 export const WeaterForecast = () => {
   return (
-    <div className="w-[100.57px] h-[165px] bg-[#262540]">
+    <div className="w-[100.57px] h-[165px] bg-[#262540] rounded-xl text-center">
         <p>Tue</p>
         <img src={weatherIcon} alt="icon-overcast" />
         <div>
