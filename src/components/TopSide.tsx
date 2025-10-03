@@ -15,17 +15,17 @@ export const TopSide = () => {
         </button>
       </div>
       <div className="flex flex-col items-center justify-center mt-16">
-        <h1 className="text-[52px]">How's the sky looking today?</h1> 
-        <div className="flex items-center justify-between mt-16 gap-2">
-          <div className="flex bg-Neutral-600 p-2 rounded-lg px-5 max-w-md gap-2 items-center">
+        <h1 className="text-[52px] font-family font-[700] ">How's the sky looking today?</h1> 
+        <div className="flex items-center justify-between mt-16 gap-4">
+          <div className="flex bg-Neutral-600 p-2 w-[656px] rounded-lg py-4 px-6 max-w-md gap-4 items-center">
             <img src={search} alt="search-icon" />
             <input
               type="search"
               placeholder="Search for the place.."
-              className=" w-md border-none bg-transparent text-white focus:outline-none "
+              className=" w-full border-none bg-transparent font-[500] text-white focus:outline-none placeholder:text-xl"
             />
           </div>
-          <button className="px-4 py-2 bg-Neutral-600 rounded-lg cursor-pointer">
+          <button className="py-4 px-6 bg-Blue-500 rounded-xl cursor-pointer text-xl">
             Search
           </button>
         </div>

@@ -19,3 +19,13 @@ html {
   --color-Blue-500: hsl(233, 67%, 56%);
   --color-Blue-700: hsl(248, 70%, 36%);
 }
+
+.font-family {
+  
+
+/* text-preset-2 */
+font-family: 'Bricolage Grotesque';
+line-height: 120%;
+text-align: center;
+
+}
