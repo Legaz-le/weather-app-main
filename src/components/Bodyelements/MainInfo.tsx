@@ -1,7 +1,11 @@
-
+import bg from "../../public/images/bg-today-large.svg";
+import { WeatherInfo } from "./Boxes/weatherInfo";
 
 export const MainInfo = () => {
   return (
-    <div>MainInfo</div>
-  )
-}
+    <div className="flex flex-col gap-8   mb-12 mr-8">
+      <img src={bg} alt="blue-background"  />
+      <WeatherInfo />
+    </div>
+  );
+};

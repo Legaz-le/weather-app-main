@@ -5,17 +5,17 @@ import search from "../public/images/icon-search.svg";
 
 export const TopSide = () => {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full mb-12">
       <div className="flex items-center justify-between">
         <img src={logo} alt="logo-icon" />
-        <button className="flex gap-2 px-4 py-2 bg-Neutral-600 rounded-lg cursor-pointer">
+        <button className="flex items-center gap-2.5 px-4 py-3 bg-Neutral-600 rounded-lg cursor-pointer">
           <img src={icon} alt="icon-units" />
           Units
           <img src={dropdown} alt="icon-dropdrown" />
         </button>
       </div>
       <div className="flex flex-col items-center justify-center mt-16">
-        <h1 className="text-5xl">How's the sky looking today?</h1>
+        <h1 className="text-[52px]">How's the sky looking today?</h1> 
         <div className="flex items-center justify-between mt-16 gap-2">
           <div className="flex bg-Neutral-600 p-2 rounded-lg px-5 max-w-md gap-2 items-center">
             <img src={search} alt="search-icon" />

@@ -1,7 +1,10 @@
-
+import { WeaterForecast } from "./Boxes/weaterForecast";
 
 export const BottomTable = () => {
   return (
-    <div>BottomTable</div>
-  )
-}
+    <div className=" ">
+      <p className="text-[20px]">Weather forecast</p>
+      <WeaterForecast />
+    </div>
+  );
+};

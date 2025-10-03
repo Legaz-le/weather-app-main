@@ -4,10 +4,12 @@ import { SideTable } from "./Bodyelements/SideTable";
 
 export const MainBody = () => {
   return (
-    <div>
-      <MainInfo/>
-      <SideTable/>
-      <BottomTable />
+    <div className="flex ">
+      <div>
+        <MainInfo/>
+        <BottomTable/>
+      </div>
+      <SideTable />
     </div>
   );
 };
