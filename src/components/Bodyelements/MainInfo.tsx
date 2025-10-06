@@ -3,7 +3,7 @@ import { WeatherInfo } from "./Boxes/weatherInfo";
 
 export const MainInfo = () => {
   return (
-    <div className="flex flex-col gap-8   mb-12 mr-5">
+    <div className="flex flex-col gap-8   mb-12 mr-8">
       <img src={bg} alt="blue-background" />
       <WeatherInfo />
     </div>

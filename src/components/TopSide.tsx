@@ -14,15 +14,15 @@ export const TopSide = () => {
           <img src={dropdown} alt="icon-dropDrown" />
         </button>
       </div>
-      <div className="flex flex-col items-center justify-center mt-16">
-        <h1 className="text-[52px] font-family font-[700] ">How's the sky looking today?</h1> 
-        <div className="flex items-center justify-between mt-16 gap-4">
-          <div className="flex bg-Neutral-600 p-2 w-[656px] rounded-lg py-4 px-6 max-w-md gap-4 items-center">
+      <div className="flex flex-col items-center justify-center   mt-16">
+        <h1 className="text-[52px] font-family font-[700]">How's the sky looking today?</h1> 
+        <div className="flex items-center justify-center mt-16 w-full gap-4">
+          <div className="flex bg-Neutral-600 p-2 w-[465px] rounded-lg py-4 px-6 max gap-4 items-center">
             <img src={search} alt="search-icon" />
             <input
               type="search"
               placeholder="Search for the place.."
-              className=" w-full border-none bg-transparent font-[500] text-white focus:outline-none placeholder:text-xl"
+              className=" border-none  bg-transparent font-[500]  text-white focus:outline-none placeholder:text-xl"
             />
           </div>
           <button className="py-4 px-6 bg-Blue-500 rounded-xl cursor-pointer text-xl">
