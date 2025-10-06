@@ -5,13 +5,13 @@ import search from "../public/images/icon-search.svg";
 
 export const TopSide = () => {
   return (
-    <div className="flex flex-col w-full mb-12">
+    <div className="flex flex-col w-full  mb-12">
       <div className="flex items-center justify-between">
         <img src={logo} alt="logo-icon" />
         <button className="flex items-center gap-2.5 px-4 py-3 bg-Neutral-600 rounded-lg cursor-pointer">
           <img src={icon} alt="icon-units" />
           Units
-          <img src={dropdown} alt="icon-dropdrown" />
+          <img src={dropdown} alt="icon-dropDrown" />
         </button>
       </div>
       <div className="flex flex-col items-center justify-center mt-16">
