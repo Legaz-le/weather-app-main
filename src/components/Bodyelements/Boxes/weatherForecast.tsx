@@ -1,4 +1,4 @@
-import weatherIcon from "../../../public/images/icon-overcast.webp"
+import weatherIcon from "/images/icon-overcast.webp"
 
 export const WeatherForecast = () => {
   return (

@@ -1,4 +1,4 @@
-import bg from "../../public/images/bg-today-large.svg";
+import bg from "/images/bg-today-large.svg";
 import { WeatherInfo } from "./Boxes/weatherInfo";
 
 export const MainInfo = () => {

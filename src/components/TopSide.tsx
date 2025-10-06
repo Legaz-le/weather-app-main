@@ -1,7 +1,7 @@
-import logo from "../public/images/logo.svg";
-import icon from "../public/images/icon-units.svg";
-import dropdown from "../public/images/icon-dropdown.svg";
-import search from "../public/images/icon-search.svg";
+import logo from "/images/logo.svg";
+import icon from "/images/icon-units.svg";
+import dropdown from "/images/icon-dropdown.svg";
+import search from "/images/icon-search.svg";
 
 export const TopSide = () => {
   return (

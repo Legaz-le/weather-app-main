@@ -4,7 +4,6 @@ html {
   background-color: var(--color-Neutral-900);
 }
 
-
 @theme {
   --color-Neutral-900: hsl(243, 96%, 9%);
   --color-Neutral-800: hsl(243, 27%, 20%);
@@ -21,11 +20,7 @@ html {
 }
 
 .font-family {
-  
-
-/* text-preset-2 */
-font-family: 'Bricolage Grotesque';
-line-height: 120%;
-text-align: center;
-
+  font-family: "Bricolage Grotesque";
+  line-height: 120%;
+  text-align: center;
 }
