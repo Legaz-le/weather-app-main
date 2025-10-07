@@ -37,3 +37,7 @@ html {
 .font-DM-Sans {
   font-family: "DM Sans", sans-serif;
 }
+
+.p-forDailyForecast {
+  padding: 10px 16px 10px 12px;
+}
