@@ -1,6 +1,6 @@
 import drizzle_icon from "/images/icon-drizzle.webp";
 
-export const HourleForcast = () => {
+export const HourForecast = () => {
   return (
     <div className="flex justify-between items-center w-full bg-[#302F4A] p-forDailyForecast rounded-lg border-inline">
       <div className="flex flex-row items-center gap-3">

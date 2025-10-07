@@ -1,4 +1,4 @@
-import { HourleForcast } from "./Boxes/hourleForcast";
+import { HourForecast } from "./Boxes/hourForecast";
 import dropdown from "/images/icon-dropdown.svg";
 
 export const SideTable = () => {
@@ -13,7 +13,7 @@ export const SideTable = () => {
           <img src={dropdown} alt="icon-dropDrown" />
         </button>
       </div>
-      <HourleForcast />
+      <HourForecast />
     </div>
   );
 };
