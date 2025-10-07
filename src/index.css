@@ -19,6 +19,10 @@ html {
   --color-Blue-700: hsl(248, 70%, 36%);
 }
 
+.p-window {
+  padding: 48px 112px 80px;
+}
+
 .border-inline {
   border: 1px solid #3c3b5e;
   border-radius: 12px;
