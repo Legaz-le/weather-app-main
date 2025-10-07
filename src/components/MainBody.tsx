@@ -5,9 +5,9 @@ import { SideTable } from "./BodyElements/SideTable";
 export const MainBody = () => {
   return (
     <div className="flex w-full">
-      <div className="">
-        <MainInfo/>
-        <BottomTable/>
+      <div className="w-full">
+        <MainInfo />
+        <BottomTable />
       </div>
       <SideTable />
     </div>

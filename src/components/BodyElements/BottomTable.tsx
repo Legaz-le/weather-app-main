@@ -1,4 +1,4 @@
-import { WeatherForecast } from "../BodyElements/Boxes/weatherForecast";
+import { WeatherForecast } from "./Boxes/weatherForecast";
 
 export const BottomTable = () => {
   return (
