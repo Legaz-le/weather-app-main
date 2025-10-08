@@ -1,6 +1,7 @@
 import bg from "/images/bg-today-large.svg";
 import { WeatherInfo } from "./Boxes/weatherInfo";
 import sunny_icon from "/images/icon-sunny.webp";
+import { MainInfoData } from "../../mockData/data";
 
 export const MainInfo = () => {
   return (
@@ -14,11 +15,21 @@ export const MainInfo = () => {
           </p>
         </div>
         <div className="flex items-center gap-5 ">
-          <img src={sunny_icon} alt="sunny_icon" className="w-[120px] h-[120px]" />
-          <span className="text-8xl font-DM-Sans font-[600] italic text-white tracking-[-0.02em]">20°</span>
+          <img
+            src={sunny_icon}
+            alt="sunny_icon"
+            className="w-[120px] h-[120px]"
+          />
+          <span className="text-8xl font-DM-Sans font-[600] italic text-white tracking-[-0.02em]">
+            20°
+          </span>
         </div>
       </div>
-      <WeatherInfo />
+      <div className="flex gap-6">
+      {MainInfoData.map((data) => (
+        <WeatherInfo key={data.key} Name={data.Name} number={data.number} />
+      ))}
+      </div>
     </div>
   );
 };

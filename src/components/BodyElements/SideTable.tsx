@@ -1,3 +1,4 @@
+import { HourlyForecastData } from "../../mockData/data";
 import { HourForecast } from "./Boxes/hourForecast";
 import dropdown from "/images/icon-dropdown.svg";
 
@@ -13,7 +14,13 @@ export const SideTable = () => {
           <img src={dropdown} alt="icon-dropDrown" />
         </button>
       </div>
-      <HourForecast />
+      {HourlyForecastData.map((data)=> (
+        <HourForecast 
+        key={data.key}
+        hour={data.hour}
+        img={data.img}
+        temp={data.Temp}/>
+      ))}
     </div>
   );
 };
