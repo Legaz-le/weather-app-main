@@ -8,7 +8,7 @@ export const TopSide = () => {
     <div className="flex flex-col  w-full  mb-12">
       <div className="flex items-center justify-between w-full">
         <img src={logo} alt="logo-icon" />
-        <button className="flex items-center gap-1.5 sm:gap-2.5 px-2 py-2.5 sm:px-4 sm:py-3 bg-Neutral-700 rounded-md sm:rounded-lg cursor-pointer">
+        <button className="flex items-center font-DM-Sans gap-1.5 sm:gap-2.5 px-2 py-2.5 sm:px-4 sm:py-3 bg-Neutral-700 rounded-md sm:rounded-lg cursor-pointer">
           <img src={icon} alt="icon-units" />
           Units
           <img src={dropdown} alt="icon-dropDrown" />
