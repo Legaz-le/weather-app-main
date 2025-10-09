@@ -15,8 +15,8 @@ export const TopSide = () => {
         </button>
       </div>
       <div className="flex flex-col items-center justify-center  mt-16">
-        <h1 className="text-[55px] font-family font-[700] md:max-w-md lg:max-w-full break-words ">How's the sky looking today?</h1> 
-        <div className="flex items-center justify-center mt-16 w-full gap-4">
+        <h1 className="text-[55px] font-family font-[700] max-w-[300px] md:max-w-md lg:max-w-full break-words ">How's the sky looking today?</h1> 
+        <div className="flex items-center justify-center flex-col sm:flex-row mt-16 w-full gap-4">
           <div className="flex bg-Neutral-600 p-2 w-full  xl:w-[526px]  rounded-lg py-4 px-6  gap-4 items-center">
             <img src={search} alt="search-icon" />
             <input
@@ -25,7 +25,7 @@ export const TopSide = () => {
               className=" border-none  bg-transparent font-[500]  text-white focus:outline-none placeholder:text-xl"
             />
           </div>
-          <button className="py-4 px-6 bg-Blue-500 rounded-xl cursor-pointer text-xl">
+          <button className="py-4 px-6 w-full bg-Blue-500 rounded-xl cursor-pointer text-xl">
             Search
           </button>
         </div>
