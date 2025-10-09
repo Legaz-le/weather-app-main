@@ -22,7 +22,7 @@ html {
 }
 
 .p-window {
-  @apply xl:p-[48px_112px_80px] md:p-[24px_24px_80px]
+  @apply p-[16px_16px_48px] xl:p-[48px_112px_80px] md:p-[24px_24px_80px]
 }
 .border-inline {
   border: 1px solid #3c3b5e;

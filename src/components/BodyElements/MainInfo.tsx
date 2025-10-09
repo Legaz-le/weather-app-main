@@ -18,14 +18,14 @@ export const MainInfo = () => {
           <img
             src={sunny_icon}
             alt="sunny_icon"
-            className=" md:w-[120px]"
+            className=" w-[120px]"
           />
           <span className="text-4xl md:text-8xl  font-DM-Sans font-[600] italic text-white tracking-[-0.02em]">
             20°
           </span>
         </div>
       </div>
-      <div className="flex w-full gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 w-full  gap-6">
       {MainInfoData.map((data) => (
         <WeatherInfo key={data.key} Name={data.Name} number={data.number} />
       ))}
