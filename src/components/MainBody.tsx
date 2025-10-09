@@ -5,11 +5,11 @@ import { SideTable } from "./BodyElements/SideTable";
 export const MainBody = () => {
   return (
     <div className="flex items-center justify-center flex-col lg:flex-row w-full gap-8 ">
-      <div className="flex-1 flex-col w-full w-[]">
+      <div className=" flex-col w-full">
         <MainInfo />
         <BottomTable />
       </div>
-      <div className="flex-1 w-full ">
+      <div className=" w-full ">
         <SideTable />
       </div>
     </div>

@@ -43,3 +43,7 @@ html {
 .p-forDailyForecast {
   padding: 10px 16px 10px 12px;
 }
+
+.p-for1024px  {
+  padding: 3px 16px 4px 6px;
+}
