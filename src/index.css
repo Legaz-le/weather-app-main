@@ -22,9 +22,8 @@ html {
 }
 
 .p-window {
-  padding: 48px 112px 80px;
+  @apply xl:p-[48px_112px_80px] md:p-[24px_24px_80px]
 }
-
 .border-inline {
   border: 1px solid #3c3b5e;
   border-radius: 12px;
@@ -41,9 +40,5 @@ html {
 }
 
 .p-forDailyForecast {
-  padding: 10px 16px 10px 12px;
-}
-
-.p-for1024px  {
-  padding: 3px 16px 4px 6px;
+  @apply xl:p-[10px_16px_10px_12px] lg:p-[3px_16px_4px_6px];
 }

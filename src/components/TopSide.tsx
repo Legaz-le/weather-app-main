@@ -15,9 +15,9 @@ export const TopSide = () => {
         </button>
       </div>
       <div className="flex flex-col items-center justify-center  mt-16">
-        <h1 className="text-[55px] font-family font-[700]">How's the sky looking today?</h1> 
+        <h1 className="text-[55px] font-family font-[700] md:max-w-md lg:max-w-full break-words ">How's the sky looking today?</h1> 
         <div className="flex items-center justify-center mt-16 w-full gap-4">
-          <div className="flex bg-Neutral-600 p-2 w-full lg:w-[446px] xl:w-[526px]  rounded-lg py-4 px-6  gap-4 items-center">
+          <div className="flex bg-Neutral-600 p-2 w-full  xl:w-[526px]  rounded-lg py-4 px-6  gap-4 items-center">
             <img src={search} alt="search-icon" />
             <input
               type="search"
