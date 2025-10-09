@@ -1,5 +1,5 @@
 import { HourlyForecastData } from "../../mockData/data";
-import { HourForecast } from "./Boxes/hourForecast";
+import { HourForecast } from "./Boxes/hourlyForecast";
 import dropdown from "/images/icon-dropdown.svg";
 
 export const SideTable = () => {
