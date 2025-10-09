@@ -25,7 +25,7 @@ export const TopSide = () => {
               className=" border-none  bg-transparent font-[500]  text-white focus:outline-none placeholder:text-xl"
             />
           </div>
-          <button className="py-4 px-6 w-full bg-Blue-500 rounded-xl cursor-pointer text-xl">
+          <button className="py-4 px-6 w-full sm:w-[120px] bg-Blue-500 rounded-xl cursor-pointer text-xl">
             Search
           </button>
         </div>

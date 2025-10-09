@@ -25,7 +25,7 @@ export const MainInfo = () => {
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 w-full  gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:flex w-full  gap-6">
         {MainInfoData.map((data) => (
           <WeatherInfo key={data.key} Name={data.Name} number={data.number} />
         ))}
