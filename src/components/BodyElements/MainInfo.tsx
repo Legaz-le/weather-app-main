@@ -10,7 +10,7 @@ export const MainInfo = () => {
       <div className="absolute inset-x-4 xl:px-6 xl:py-20 lg:py-10 md:py-15 flex flex-col md:flex-row justify-between items-center z-10 ">
         <div className="flex flex-col gap-3 ">
           <p className="text-[28px] font-[700] font-DM-Sans">Berlin, Germany</p>
-          <p className="text-lg font-[500] font-DM-Sans text-[#45405c]">
+          <p className="text-lg font-[500] font-DM-Sans ">
             Tuesday, August 5, 2025
           </p>
         </div>

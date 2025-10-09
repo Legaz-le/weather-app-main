@@ -40,5 +40,5 @@ html {
 }
 
 .p-forDailyForecast {
-  @apply md:p-[10px_16px_10px_12px] lg:p-[3px_16px_4px_6px];
+  @apply xl:p-[10px_16px_10px_12px] md:p-[3px_16px_4px_6px];
 }
