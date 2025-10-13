@@ -5,7 +5,7 @@ import dropdown from "/images/icon-dropdown.svg";
 export const SideTable = () => {
   return (
     <div className="p-6 bg-[#262540] rounded-[20px] flex flex-col items-start w-full gap-[16px]">
-      <div className="flex  w-full xl:w-[333px]   flex-row justify-between items-center">
+      <div className="flex  w-full    flex-row justify-between items-center">
         <p className="font-DM-Sans  xl:text-xl font-[600]">
           Hourly forecast
         </p>
