@@ -36,7 +36,7 @@ export const TopSide = () => {
                 Switch to imperial
               </p>
               {OptionData.map((data, index) => (
-                <div key={data.key} className="flex flex-col gap-2">
+                <div key={data.key} className="flex flex-col gap-1">
                   <DropDown
                     title={data.title}
                     options={data.options}
