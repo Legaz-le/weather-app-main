@@ -29,7 +29,7 @@ export const TopSide = () => {
           {isOpen && (
             <div
               className="absolute top-full right-0 mt-2 text-start flex flex-col 
-            bg-Neutral-800 rounded-xl shadow-lg px-2 py-1.5 w-48 z-10 gap-1
+            bg-Neutral-800 rounded-xl shadow-lg px-2 py-1.5 w-[214px] z-10 gap-1
             border-inline"
             >
               <p className="font-DM-Sans font-[500] text-[16px] px-2 py-2.5 ">
