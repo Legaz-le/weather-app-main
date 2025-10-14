@@ -3,9 +3,12 @@ import icon from "/images/icon-units.svg";
 import dropdown from "/images/icon-dropdown.svg";
 import search from "/images/icon-search.svg";
 import { useState } from "react";
+import { DropDown } from "./BodyElements/Boxes/DropDown";
+import { OptionData } from "../mockData/data";
 
 export const TopSide = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState("");
   return (
     <div className="flex flex-col  w-full  mb-12">
       <div className="flex items-center justify-between w-full">
@@ -20,29 +23,27 @@ export const TopSide = () => {
           Units
           <img src={dropdown} alt="icon-dropDrown" />
           {isOpen && (
-            <div className="absolute top-full right-0 mt-2 text-start flex flex-col 
-            bg-Neutral-700 rounded-xl shadow-lg px-2 py-1.5 w-48 z-10 gap-1
-            border-inline">
-              <p className="font-DM-Sans font-[500] text-[16px]">
+            <div
+              className="absolute top-full right-0 mt-2 text-start flex flex-col 
+            bg-Neutral-800 rounded-xl shadow-lg px-2 py-1.5 w-48 z-10 gap-1
+            border-inline"
+            >
+              <p className="font-DM-Sans font-[500] text-[16px] px-2.5 py-2 gap-2.5 ">
                 Switch to imperial
               </p>
-              <div>
-                <h4>Temperature</h4>
-                <p>Celsius (°C)</p>
-                <p>Fahrenheit (°F)</p>
-              </div>
-              <hr />
-              <div>
-                <h4>Wind Speed</h4>
-                <p>Km/h</p>
-                <p>mph</p>
-              </div>
-              <hr />
-              <div>
-                <h4>Precipitation</h4>
-                <p>Millimeters(mm)</p>
-                <p>Inches(in)</p>
-              </div>
+              {OptionData.map((data, index) => (
+                <div key={data.key} className="flex flex-col gap-2">
+                  <DropDown
+                    title={data.title}
+                    options={data.options}
+                    selectedOption={selected}
+                    onSelect={(option) => setSelected(option)}
+                  />
+                  {index < OptionData.length - 1 && index < 2 && (
+                    <hr className="border-Neutral-500 w-full" />
+                  )}
+                </div>
+              ))}
             </div>
           )}
         </button>
