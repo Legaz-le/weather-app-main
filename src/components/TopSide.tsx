@@ -8,7 +8,11 @@ import { OptionData } from "../mockData/data";
 
 export const TopSide = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+
+  const handleSelect = (title: string, option: string) => {
+    setSelectedOptions((prev) => ({ ...prev, [title]: option }));
+  };
   return (
     <div className="flex flex-col  w-full  mb-12">
       <div className="flex items-center justify-between w-full">
@@ -28,7 +32,7 @@ export const TopSide = () => {
             bg-Neutral-800 rounded-xl shadow-lg px-2 py-1.5 w-48 z-10 gap-1
             border-inline"
             >
-              <p className="font-DM-Sans font-[500] text-[16px] px-2.5 py-2 gap-2.5 ">
+              <p className="font-DM-Sans font-[500] text-[16px] px-2 py-1.5 ">
                 Switch to imperial
               </p>
               {OptionData.map((data, index) => (
@@ -36,8 +40,8 @@ export const TopSide = () => {
                   <DropDown
                     title={data.title}
                     options={data.options}
-                    selectedOption={selected}
-                    onSelect={(option) => setSelected(option)}
+                    selectedOption={selectedOptions[data.title]}
+                    onSelect={(option) => handleSelect(data.title, option)}
                   />
                   {index < OptionData.length - 1 && index < 2 && (
                     <hr className="border-Neutral-500 w-full" />
