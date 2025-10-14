@@ -6,15 +6,12 @@ import { useState } from "react";
 
 export const TopSide = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
   return (
     <div className="flex flex-col  w-full  mb-12">
       <div className="flex items-center justify-between w-full">
         <img src={logo} alt="logo-icon" />
         <button
-          onClick={toggleDropdown}
+          onClick={() => setIsOpen(!isOpen)}
           className="relative flex items-center font-DM-Sans gap-1.5 sm:gap-2.5 px-2 py-2.5 sm:px-4 sm:py-3 
             bg-Neutral-700 rounded-md sm:rounded-lg cursor-pointer transition duration-300 focus:outline-none 
              focus:ring-1 focus:ring-Neutral-0 focus:ring-offset-1 "
@@ -23,7 +20,9 @@ export const TopSide = () => {
           Units
           <img src={dropdown} alt="icon-dropDrown" />
           {isOpen && (
-            <div className="absolute top-full right-0 mt-2 text-start flex flex-col bg-Neutral-700 rounded-xl shadow-lg px-2 py-1.5 w-48 z-10 gap-1">
+            <div className="absolute top-full right-0 mt-2 text-start flex flex-col 
+            bg-Neutral-700 rounded-xl shadow-lg px-2 py-1.5 w-48 z-10 gap-1
+            border-inline">
               <p className="font-DM-Sans font-[500] text-[16px]">
                 Switch to imperial
               </p>
