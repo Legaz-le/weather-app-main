@@ -35,8 +35,13 @@ html {
   text-align: center;
 }
 
+.font-Awsom {
+  font-family: 'Font Awesome 5 Pro', sans-serif;
+
+}
+
 .font-DM-Sans {
-  font-family: "DM Sans";
+  font-family: "DM Sans", sans-serif;
 }
 
 .p-forDailyForecast {

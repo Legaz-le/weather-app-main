@@ -22,7 +22,7 @@ export const DropDown = ({ title, options, selectedOption, onSelect }: DropDownP
             className={`flex flex-row items-center justify-between px-2 py-1 w-full text-left rounded-md transition-colors 
               ${isSelected ? "bg-Neutral-700" : "hover:bg-Neutral-600 cursor-pointer"}`}
           >
-            <span className="font-DM-Sans font-[500] text-[16px]">{option}</span>
+            <span className="font-Awsom font-[400] text-[14px]">{option}</span>
             <img
               src={checkMark}
               alt="checkMark-icon"
