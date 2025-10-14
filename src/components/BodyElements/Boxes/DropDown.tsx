@@ -20,7 +20,7 @@ export const DropDown = ({ title, options, selectedOption, onSelect }: DropDownP
             key={option}
             onClick={() => onSelect(option)}
             className={`flex flex-row items-center justify-between px-2 py-1 w-full text-left rounded-md transition-colors 
-              ${isSelected ? "bg-Neutral-600" : "hover:bg-Neutral-650"}`}
+              ${isSelected ? "bg-Neutral-700" : "hover:bg-Neutral-600 cursor-pointer"}`}
           >
             <span className="font-DM-Sans font-[500] text-[16px]">{option}</span>
             <img
