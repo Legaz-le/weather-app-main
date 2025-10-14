@@ -47,3 +47,7 @@ html {
 .p-forDailyForecast {
   @apply xl:p-[10px_16px_10px_12px] p-[3px_16px_4px_6px];
 }
+
+.p-titleOption {
+  padding: 6px 8px 0px;
+}
