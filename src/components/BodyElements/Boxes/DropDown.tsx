@@ -32,7 +32,7 @@ export const DropDown = ({
                   : "hover:bg-Neutral-600 cursor-pointer"
               }`}
             >
-              <span className="font-Awsom font-[400] text-[14px]">
+              <span className="font-DM-Sans font-[600] text-[16px]">
                 {option}
               </span>
               <img

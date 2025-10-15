@@ -8,7 +8,9 @@ import { OptionData } from "../mockData/data";
 
 export const TopSide = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, string>
+  >({});
 
   const handleSelect = (title: string, option: string) => {
     setSelectedOptions((prev) => ({ ...prev, [title]: option }));
@@ -60,14 +62,20 @@ export const TopSide = () => {
           <div
             className="flex bg-Neutral-600 p-2 w-full xl:w-[526px] rounded-lg py-4 px-6 gap-4 
                items-center cursor-pointer border-2 border-transparent box-border 
-               focus-within:ring-2 focus-within:ring-Neutral-0 focus-within:ring-offset-2 focus-within:ring-offset-Neutral-700"
+               focus-within:ring-2 focus-within:ring-Neutral-0 focus-within:ring-offset-2 focus-within:ring-offset-Neutral-700 relative"
           >
             <img src={search} alt="search-icon" />
             <input
               type="search"
               placeholder="Search for the place.."
-              className=" border-none  bg-transparent font-[500]  text-white focus:outline-none placeholder:text-xl"
+              className=" border-none  bg-transparent font-[500]  text-white focus:outline-none placeholder:text-xl w-full"
             />
+
+            <div className="absolute top-full bg-Neutral-800 rounded-xl flex flex-col left-0 mt-2 p-2 gap-1  w-full border-inline z-20">
+              <p className="px-2 py-2.5 flex flex-row border-inline rounded-lg gap-2.5 bg-Neutral-700 font-[500] text-[16px] font-DM-Sans">
+                e.g London
+              </p>
+            </div>
           </div>
           <button
             className="py-4 px-6 w-full sm:w-[120px] bg-Blue-500 rounded-xl cursor-pointer text-xl 
