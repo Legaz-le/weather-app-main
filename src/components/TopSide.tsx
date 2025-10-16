@@ -98,7 +98,7 @@ export const TopSide = () => {
             />
 
             {focused && (
-              <div className="absolute top-full left-0 w-full mt-2 bg-Neutral-800 rounded-xl p-2 z-20">
+              <div className="absolute top-full left-0 w-full mt-2 bg-Neutral-800 rounded-xl p-2 z-20 border-inline">
                 <p
                   className="px-2 py-2 rounded-lg hover:bg-Neutral-700 cursor-pointer text-white"
                   onClick={() => {

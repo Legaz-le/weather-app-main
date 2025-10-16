@@ -1,14 +1,14 @@
 type weatherForecastType = {
   day: string;
   img: string;
-  higestTemp: string;
+  highestTemp: string;
   lowestTemp: string;
 };
 
 export const WeatherForecast = ({
   day,
   img,
-  higestTemp,
+  highestTemp,
   lowestTemp,
 }: weatherForecastType) => {
   return (
@@ -16,7 +16,7 @@ export const WeatherForecast = ({
       <p className="text-lg font-[500] font-DM-Sans">{day}</p>
       <img src={img} alt="icon-overcast" />
       <div className="flex items-center justify-between text-[16px] font-[500] font-DM-Sans">
-        <span className="">{higestTemp}</span>
+        <span className="">{highestTemp}</span>
         <span className="text-[#D4D3D9]">{lowestTemp}</span>
       </div>
     </div>

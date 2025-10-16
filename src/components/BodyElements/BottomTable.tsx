@@ -11,7 +11,7 @@ export const BottomTable = () => {
             key={data.key}
             day={data.Name}
             img={data.img}
-            higestTemp={data.higestTem}
+            highestTemp={data.higestTem}
             lowestTemp={data.lowestTem}
           />
         ))}
