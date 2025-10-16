@@ -19,25 +19,25 @@ export const SideTable = () => {
           <img src={dropdown} alt="icon-dropDrown" />
           {isOpen && (
             <div className="absolute top-full  bg-Neutral-800 rounded-xl flex flex-col right-0 mt-2 p-2 gap-1 border-inline z-10 text-start w-[214px]">
-              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5 bg-Neutral-700 font-[500] text-[16px] font-DM-Sans">
+              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5 bg-Neutral-700 font-[500] text-[16px] font-DM-Sans hover:bg-Neutral-600">
                 Monday
               </p>
-              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5 font-[500] text-[16px] font-DM-Sans">
+              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5 font-[500] text-[16px] font-DM-Sans hover:bg-Neutral-600">
                 Tuesday
               </p>
-              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-Sans">
+              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-Sans hover:bg-Neutral-600">
                 Wednesday
               </p>
-              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-Sans">
+              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-Sans hover:bg-Neutral-600">
                 Thursday
               </p>
-              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-Sans">
+              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-Sans hover:bg-Neutral-600">
                 Friday
               </p>
-              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-Sans">
+              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-Sans hover:bg-Neutral-600">
                 Saturday
               </p>
-              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-Sans">
+              <p className="px-2 py-2.5 flex flex-row  rounded-lg gap-2.5  font-[500] text-[16px] font-DM-San hover:bg-Neutral-600">
                 Sunday
               </p>
             </div>

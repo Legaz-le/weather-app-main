@@ -2,7 +2,7 @@ import logo from "/images/logo.svg";
 import icon from "/images/icon-units.svg";
 import dropdown from "/images/icon-dropdown.svg";
 import search from "/images/icon-search.svg";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { DropDown } from "./BodyElements/Boxes/DropDown";
 import { OptionData } from "../mockData/data";
 
@@ -15,6 +15,26 @@ export const TopSide = () => {
   const handleSelect = (title: string, option: string) => {
     setSelectedOptions((prev) => ({ ...prev, [title]: option }));
   };
+
+  const [inputValue, setInputValue] = useState("");
+  const [focused, setFocused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const historyItem = "London";
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setFocused(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <div className="flex flex-col  w-full  mb-12">
       <div className="flex items-center justify-between w-full">
@@ -58,7 +78,10 @@ export const TopSide = () => {
         <h1 className="text-[55px] font-family font-[700] max-w-[300px] md:max-w-md lg:max-w-full break-words ">
           How's the sky looking today?
         </h1>
-        <div className="flex items-center justify-center flex-col sm:flex-row mt-16 w-full gap-4">
+        <div
+          ref={containerRef}
+          className="flex items-center justify-center flex-col sm:flex-row mt-16 w-full gap-4"
+        >
           <div
             className="flex bg-Neutral-600 p-2 w-full xl:w-[526px] rounded-lg py-4 px-6 gap-4 
                items-center cursor-pointer border-2 border-transparent box-border 
@@ -69,13 +92,24 @@ export const TopSide = () => {
               type="search"
               placeholder="Search for the place.."
               className=" border-none  bg-transparent font-[500]  text-white focus:outline-none placeholder:text-xl w-full"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onFocus={() => setFocused(true)}
             />
 
-            <div className="absolute top-full bg-Neutral-800 rounded-xl hidden left-0 mt-2 p-2 gap-1  w-full border-inline z-20 ">
-              <p className="px-2 py-2.5 flex flex-row border-inline rounded-lg gap-2.5 bg-Neutral-700 font-[500] text-[16px] font-DM-Sans">
-                e.g London
-              </p>
-            </div>
+            {focused && (
+              <div className="absolute top-full left-0 w-full mt-2 bg-Neutral-800 rounded-xl p-2 z-20">
+                <p
+                  className="px-2 py-2 rounded-lg hover:bg-Neutral-700 cursor-pointer text-white"
+                  onClick={() => {
+                    setInputValue(historyItem);
+                    setFocused(false);
+                  }}
+                >
+                  {historyItem}
+                </p>
+              </div>
+            )}
           </div>
           <button
             className="py-4 px-6 w-full sm:w-[120px] bg-Blue-500 rounded-xl cursor-pointer text-xl 
