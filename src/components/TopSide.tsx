@@ -9,7 +9,9 @@ import { useOutsideClick } from "../hooks/useOutsideClick";
 
 export const TopSide = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, string>
+  >({});
   const [inputValue, setInputValue] = useState("");
   const [focused, setFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,20 +25,22 @@ export const TopSide = () => {
   };
 
   return (
-    <div className="flex flex-col w-full mb-12">
+    <div className="mb-12 flex w-full flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between w-full">
+      <div className="flex w-full items-center justify-between">
         <img src={logo} alt="logo-icon" />
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative flex items-center font-dm gap-2.5 btn-neutral sm:px-4 sm:py-3 focus:ring-1 focus:ring-Neutral-0 focus:ring-offset-1"
+          className="font-dm btn-neutral focus:ring-Neutral-0 relative flex items-center gap-2.5 focus:ring-1 focus:ring-offset-1 sm:px-4 sm:py-3"
         >
           <img src={icon} alt="icon-units" />
           Units
           <img src={dropdown} alt="icon-dropDrown" />
           {isOpen && (
-            <div className="absolute text-start top-full right-0 mt-2 flex flex-col bg-Neutral-800 rounded-xl shadow-lg px-2 py-1.5 w-[214px] z-10 gap-1 border-inline">
-              <p className="font-dm font-medium text-[16px] px-2 py-2.5">Switch to imperial</p>
+            <div className="bg-Neutral-800 border-inline absolute top-full right-0 z-10 mt-2 flex w-[214px] flex-col gap-1 rounded-xl px-2 py-1.5 text-start shadow-lg">
+              <p className="font-dm px-2 py-2.5 text-[16px] font-medium">
+                Switch to imperial
+              </p>
               {OptionData.map((data, index) => (
                 <div key={data.key} className="flex flex-col gap-1">
                   <DropDown
@@ -46,7 +50,7 @@ export const TopSide = () => {
                     onSelect={(option) => handleSelect(data.title, option)}
                   />
                   {index < OptionData.length - 1 && index < 2 && (
-                    <hr className="border-Neutral-500 w-full border-0.5 border-[#3C3B5E]" />
+                    <hr className="border-Neutral-500 border-0.5 w-full border-[#3C3B5E]" />
                   )}
                 </div>
               ))}
@@ -55,16 +59,19 @@ export const TopSide = () => {
         </button>
       </div>
 
-      <div className="flex flex-col items-center justify-center mt-16">
-        <h1 className="headline font-d">How's the sky looking today?</h1>
+      <div className="mt-16 flex flex-col items-center justify-center">
+        <h1 className="headline">How's the sky looking today?</h1>
 
-        <div ref={containerRef} className="flex items-center justify-center flex-col sm:flex-row mt-16 w-full gap-4">
+        <div
+          ref={containerRef}
+          className="mt-16 flex w-full flex-col items-center justify-center gap-4 sm:flex-row"
+        >
           <div className="input-container w-full xl:w-[526px]">
             <img src={search} alt="search-icon" />
             <input
               type="search"
               placeholder="Search for the place.."
-              className="border-none bg-transparent font-medium text-white focus:outline-none placeholder:text-xl w-full"
+              className="w-full border-none bg-transparent font-medium text-white placeholder:text-xl focus:outline-none"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onFocus={() => setFocused(true)}
@@ -73,7 +80,7 @@ export const TopSide = () => {
             {focused && (
               <div className="dropdown-box border-inline">
                 <p
-                  className="px-2 py-2 rounded-lg hover:bg-Neutral-700 cursor-pointer text-white"
+                  className="hover:bg-Neutral-700 cursor-pointer rounded-lg px-2 py-2 text-white"
                   onClick={() => {
                     setInputValue(historyItem);
                     setFocused(false);

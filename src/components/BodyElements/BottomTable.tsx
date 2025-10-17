@@ -3,9 +3,9 @@ import { WeatherForecast } from "./Boxes/weatherForecast";
 
 export const BottomTable = () => {
   return (
-    <div className="flex flex-col gap-5 w-full">
-      <p className="text-xl  font-DM-Sans font-[600]">Daily forecast</p>
-      <div className="grid grid-cols-3 sm:grid-cols-7 md:flex w-full gap-4">
+    <div className="flex w-full flex-col gap-5">
+      <p className=" text-xl font-[600]">Daily forecast</p>
+      <div className="grid w-full grid-cols-3 gap-4 sm:grid-cols-7 md:flex">
         {DailyForecastData.map((data) => (
           <WeatherForecast
             key={data.key}

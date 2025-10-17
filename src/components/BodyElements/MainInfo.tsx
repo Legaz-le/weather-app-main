@@ -6,26 +6,26 @@ import { MainInfoData } from "../../mockData/data";
 
 export const MainInfo = () => {
   return (
-    <div className="flex flex-col gap-8  mb-12  relative w-full ">
+    <div className="relative mb-12 flex w-full flex-col gap-8">
       <picture>
         <source media="(min-width: 465px)" srcSet={bg} />
         <img src={bg_mobile} alt="blue-background" className="w-full" />
       </picture>
-      <div className="absolute inset-x-4 py-15 xl:px-6 xl:py-20 lg:py-10  flex flex-col md:flex-row justify-between items-center z-10 ">
-        <div className="flex flex-col gap-3 ">
-          <p className="text-[28px] font-[700] font-DM-Sans">Berlin, Germany</p>
-          <p className="text-lg font-[500] font-DM-Sans ">
+      <div className="absolute inset-x-4 z-10 flex flex-col items-center justify-between py-15 md:flex-row lg:py-10 xl:px-6 xl:py-20">
+        <div className="flex flex-col gap-3">
+          <p className="text-[28px] font-[700]">Berlin, Germany</p>
+          <p className="text-lg font-[500]">
             Tuesday, August 5, 2025
           </p>
         </div>
-        <div className="flex items-center gap-5 ">
-          <img src={sunny_icon} alt="sunny_icon" className=" w-[120px]" />
-          <span className="text-8xl  font-DM-Sans font-[600] italic text-white tracking-[-0.02em]">
+        <div className="flex items-center gap-5">
+          <img src={sunny_icon} alt="sunny_icon" className="w-[120px]" />
+          <span className=" text-8xl font-[600] tracking-[-0.02em] text-white italic">
             20°
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:flex w-full  gap-6">
+      <div className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex">
         {MainInfoData.map((data) => (
           <WeatherInfo key={data.key} Name={data.Name} number={data.number} />
         ))}

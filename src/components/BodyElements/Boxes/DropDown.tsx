@@ -15,7 +15,7 @@ export const DropDown = ({
 }: DropDownProps) => {
   return (
     <div className="flex flex-col gap-2">
-      <h4 className="text-sm font-DM-Sans font-[500] text-Neutral-300 p-titleOption">
+      <h4 className="font-DM-Sans text-Neutral-300 p-titleOption text-sm font-[500]">
         {title}
       </h4>
       <div className="flex flex-col gap-1">
@@ -25,14 +25,13 @@ export const DropDown = ({
             <button
               key={option}
               onClick={() => onSelect(option)}
-              className={`flex flex-row items-center justify-between px-2 py-2.5 w-full text-left rounded-md transition-colors 
-              ${
+              className={`flex w-full flex-row items-center justify-between rounded-md px-2 py-2.5 text-left transition-colors ${
                 isSelected
                   ? "bg-Neutral-700"
                   : "hover:bg-Neutral-600 cursor-pointer"
               }`}
             >
-              <span className="font-DM-Sans font-[600] text-[16px]">
+              <span className=" text-[16px] font-[600]">
                 {option}
               </span>
               <img
