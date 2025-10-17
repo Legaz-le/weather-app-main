@@ -1,10 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Bricolage+Grotesque:wght@400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-@import "tailwindcss";
 
-html {
-  background-color: var(--color-Neutral-900);
-}
+@import "tailwindcss";
 
 @theme {
   --color-Neutral-900: hsl(243, 96%, 9%);
@@ -16,42 +14,12 @@ html {
   --color-Neutral-0: hsl(0, 0%, 100%);
 
   --color-Orange-500: hsl(28, 100%, 52%);
-
   --color-Blue-500: hsl(233, 67%, 56%);
   --color-Blue-700: hsl(248, 70%, 36%);
 }
 
-.p-window {
-  @apply p-[16px_16px_48px] xl:p-[48px_112px_80px] md:p-[24px_24px_80px]
-}
-.border-inline {
-  border: 1px solid #3c3b5e;
-  border-radius: 12px;
-}
-
-.font-family {
-  font-family: "Bricolage Grotesque" ;
-  line-height: 120%;
-  text-align: center;
-}
-
-.font-Awsom {
-  font-family: 'Font Awesome 5 Pro', sans-serif;
-
-}
-
-.font-DM-Sans {
+html {
+  background-color: var(--color-Neutral-900);
+  color: var(--color-Neutral-0);
   font-family: "DM Sans", sans-serif;
-}
-
-.p-forDailyForecast {
-  @apply xl:p-[10px_16px_10px_12px] p-[3px_16px_4px_6px];
-}
-
-.p-titleOption {
-  padding: 6px 8px 0px;
-}
-
-input[type="search"]::-webkit-search-cancel-button {
-  display: none;
 }

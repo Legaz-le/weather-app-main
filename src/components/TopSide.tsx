@@ -2,61 +2,41 @@ import logo from "/images/logo.svg";
 import icon from "/images/icon-units.svg";
 import dropdown from "/images/icon-dropdown.svg";
 import search from "/images/icon-search.svg";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { DropDown } from "./BodyElements/Boxes/DropDown";
 import { OptionData } from "../mockData/data";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 export const TopSide = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<
-    Record<string, string>
-  >({});
-
-  const handleSelect = (title: string, option: string) => {
-    setSelectedOptions((prev) => ({ ...prev, [title]: option }));
-  };
-
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [inputValue, setInputValue] = useState("");
   const [focused, setFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const historyItem = "London";
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
-        setFocused(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useOutsideClick(containerRef, () => setFocused(false));
+
+  const handleSelect = (title: string, option: string) => {
+    setSelectedOptions((prev) => ({ ...prev, [title]: option }));
+  };
 
   return (
-    <div className="flex flex-col  w-full  mb-12">
+    <div className="flex flex-col w-full mb-12">
+      {/* Header */}
       <div className="flex items-center justify-between w-full">
         <img src={logo} alt="logo-icon" />
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative flex items-center font-DM-Sans gap-1.5 sm:gap-2.5 px-2 py-2.5 sm:px-4 sm:py-3 
-            bg-Neutral-700 rounded-md sm:rounded-lg cursor-pointer transition duration-300 focus:outline-none 
-             focus:ring-1 focus:ring-Neutral-0 focus:ring-offset-1 "
+          className="relative flex items-center font-dm gap-2.5 btn-neutral sm:px-4 sm:py-3 focus:ring-1 focus:ring-Neutral-0 focus:ring-offset-1"
         >
           <img src={icon} alt="icon-units" />
           Units
           <img src={dropdown} alt="icon-dropDrown" />
           {isOpen && (
-            <div
-              className="absolute top-full right-0 mt-2 text-start flex flex-col 
-            bg-Neutral-800 rounded-xl shadow-lg px-2 py-1.5 w-[214px] z-10 gap-1
-            border-inline"
-            >
-              <p className="font-DM-Sans font-[500] text-[16px] px-2 py-2.5 ">
-                Switch to imperial
-              </p>
+            <div className="absolute text-start top-full right-0 mt-2 flex flex-col bg-Neutral-800 rounded-xl shadow-lg px-2 py-1.5 w-[214px] z-10 gap-1 border-inline">
+              <p className="font-dm font-medium text-[16px] px-2 py-2.5">Switch to imperial</p>
               {OptionData.map((data, index) => (
                 <div key={data.key} className="flex flex-col gap-1">
                   <DropDown
@@ -74,31 +54,24 @@ export const TopSide = () => {
           )}
         </button>
       </div>
-      <div className="flex flex-col items-center justify-center  mt-16">
-        <h1 className="text-[55px] font-family font-[700] max-w-[300px] md:max-w-md lg:max-w-full break-words ">
-          How's the sky looking today?
-        </h1>
-        <div
-          ref={containerRef}
-          className="flex items-center justify-center flex-col sm:flex-row mt-16 w-full gap-4"
-        >
-          <div
-            className="flex bg-Neutral-600 p-2 w-full xl:w-[526px] rounded-lg py-4 px-6 gap-4 
-               items-center cursor-pointer border-2 border-transparent box-border 
-               focus-within:ring-2 focus-within:ring-Neutral-0 focus-within:ring-offset-2 focus-within:ring-offset-Neutral-700 relative"
-          >
+
+      <div className="flex flex-col items-center justify-center mt-16">
+        <h1 className="headline font-d">How's the sky looking today?</h1>
+
+        <div ref={containerRef} className="flex items-center justify-center flex-col sm:flex-row mt-16 w-full gap-4">
+          <div className="input-container w-full xl:w-[526px]">
             <img src={search} alt="search-icon" />
             <input
               type="search"
               placeholder="Search for the place.."
-              className=" border-none  bg-transparent font-[500]  text-white focus:outline-none placeholder:text-xl w-full"
+              className="border-none bg-transparent font-medium text-white focus:outline-none placeholder:text-xl w-full"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onFocus={() => setFocused(true)}
             />
 
             {focused && (
-              <div className="absolute top-full left-0 w-full mt-2 bg-Neutral-800 rounded-xl p-2 z-20 border-inline">
+              <div className="dropdown-box border-inline">
                 <p
                   className="px-2 py-2 rounded-lg hover:bg-Neutral-700 cursor-pointer text-white"
                   onClick={() => {
@@ -111,13 +84,8 @@ export const TopSide = () => {
               </div>
             )}
           </div>
-          <button
-            className="py-4 px-6 w-full sm:w-[120px] bg-Blue-500 rounded-xl cursor-pointer text-xl 
-             hover:bg-Blue-700 transition duration-300 focus:outline-none 
-             focus:ring-2 focus:ring-Blue-500 focus:ring-offset-2 focus:ring-offset-Blue-700"
-          >
-            Search
-          </button>
+
+          <button className="btn-primary w-full sm:w-[120px]">Search</button>
         </div>
       </div>
     </div>
