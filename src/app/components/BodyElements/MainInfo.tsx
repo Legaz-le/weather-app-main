@@ -17,7 +17,7 @@ export const MainInfo = () => {
         <Image
           src={bg}
           alt="blue-background-large"
-          className="hidden  sm:block w-full "
+          className="hidden  sm:block w-full " 
         />
       </div>
       <div className="absolute inset-x-4 z-10 flex flex-col items-center justify-between py-15 md:flex-row lg:py-10 xl:px-6 xl:py-20">

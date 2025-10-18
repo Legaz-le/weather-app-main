@@ -5,7 +5,7 @@ export const BottomTable = () => {
   return (
     <div className="flex w-full flex-col gap-5">
       <p className=" text-xl font-[600]">Daily forecast</p>
-      <div className="grid w-full grid-cols-3 gap-4 sm:grid-cols-7 md:flex">
+      <div className="grid w-full grid-cols-3 gap-4 sm:grid-cols-7 md:flex md:justify-between">
         {DailyForecastData.map((data) => (
           <WeatherForecast
             key={data.key}

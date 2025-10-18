@@ -4,8 +4,8 @@ import { SideTable } from "./BodyElements/SideTable";
 
 export const MainBody = () => {
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-8 lg:flex-row">
-      <div className="w-full flex-col">
+    <div className="flex w-full flex-col items-start justify-center gap-8 lg:flex-row">
+      <div className="flex w-full flex-col">
         <MainInfo />
         <BottomTable />
       </div>
