@@ -20,12 +20,12 @@ export const MainInfo = () => {
           className="hidden  sm:block w-full " 
         />
       </div>
-      <div className="absolute inset-x-4 z-10 flex flex-col items-center justify-between py-15 md:flex-row lg:py-10 xl:px-6 xl:py-20">
+      <div className="absolute font-DM-Sans inset-x-4 z-10 flex flex-col items-center justify-between py-15 md:flex-row lg:py-10 xl:px-6 xl:py-20">
         <div className="flex flex-col gap-3">
           <p className="text-[28px] font-[700]">Berlin, Germany</p>
-          <p className="text-lg font-[500]">Tuesday, August 5, 2025</p>
+          <p className="text-lg font-[500] opacity-80">Tuesday, August 5, 2025</p>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 ">
           <Image src={sunny_icon} alt="sunny_icon" width={120} height={0} />
           <span className="text-8xl font-[600] tracking-[-0.02em] text-white italic">
             20°

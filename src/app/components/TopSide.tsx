@@ -61,14 +61,14 @@ export const TopSide = () => {
       </div>
 
       <div className="mt-16 flex flex-col items-center justify-center">
-        <h1 className="headline">How the sky looking today?</h1>
+        <h1 className="headline font-family ">How&apos;s the sky looking today?</h1>
 
         <div
           ref={containerRef}
           className="mt-16 flex w-full flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <div className="input-container w-full xl:w-[526px]">
-            <Image src={search} alt="search-icon" />
+          <div className="input-container w-full xl:w-[536px]">
+            <Image src={search} alt="search-icon"  />
             <input
               type="search"
               placeholder="Search for the place.."

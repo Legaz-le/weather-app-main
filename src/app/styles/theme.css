@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Bricolage+Grotesque:wght@400;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 
 @import "tailwindcss";
 
@@ -17,8 +16,8 @@
   --color-Blue-700: hsl(248, 70%, 36%);
 }
 
-html,body {
+body {
   background-color: var(--color-Neutral-900);
   color: var(--color-Neutral-0);
-  font-family: "DM Sans", sans-serif;
+  font-family: "DM Sans";
 }
