@@ -8,6 +8,7 @@ import { useState, useRef } from "react";
 import { DropDown } from "./BodyElements/Boxes/DropDown";
 import { OptionData } from "../../mockData/data";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { weatherCodeToIcon } from "../../utils/weatherCodeToIcon";
 import Image from "next/image";
 import { useWeather } from "../../context/WeatherContext";
 
@@ -38,10 +39,19 @@ export const TopSide = () => {
       const data = await response.json();
       console.log("Weather data:", data);
       setCity({
+        city: data.city,
+        country: data.country,
         temperature: data.current.temperature,
         humidity: data.current.humidity,
         windSpeed: data.current.windSpeed,
         perception: data.current.perception,
+        daily: {
+          highTemp: data.daily.temperature_2m_max,
+          lowTemp: data.daily.temperature_2m_min,
+          weatherIcons: data.daily.weathercode.map(
+            (code: number) => weatherCodeToIcon[code] || "/images/default-icon.webp"
+          ),
+        },
       });
     } catch (error) {
       console.error("Error fetching weather data:", error);

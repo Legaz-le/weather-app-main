@@ -1,11 +1,18 @@
+"use client";
+
 import bg from "../../../../public/images/bg-today-large.svg";
 import bg_mobile from "../../../../public/images/bg-today-small.svg";
 import { WeatherInfo } from "./Boxes/weatherInfo";
 import sunny_icon from "../../../../public/images/icon-sunny.webp";
 import { MainInfoData } from "../../../mockData/data";
 import Image from "next/image";
+import { useWeather } from "@/context/WeatherContext";
 
 export const MainInfo = () => {
+  const { city } = useWeather();
+
+  const today = new Date();
+
   return (
     <div className="relative mb-12 flex w-full flex-col gap-8">
       <div className="w-full">
@@ -22,21 +29,23 @@ export const MainInfo = () => {
       </div>
       <div className="absolute font-DM-Sans inset-x-4 z-10 flex flex-col items-center justify-between py-15 md:flex-row lg:py-10 xl:px-6 xl:py-20">
         <div className="flex flex-col gap-3">
-          <p className="text-[28px] font-[700]">Berlin, Germany</p>
+          <p className="text-[28px] font-[700]">
+            {city?.city}, {city?.country}
+          </p>
           <p className="text-lg font-[500] opacity-80">
-            Tuesday, August 5, 2025
+            {today.toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
           </p>
         </div>
         <div className="flex items-center gap-5 ">
           <Image src={sunny_icon} alt="sunny_icon" width={120} height={0} />
           <span className="text-8xl font-[600] tracking-[-0.02em] text-white italic">
-            20°
+            {city?.temperature ?? "N/A"}°
           </span>
         </div>
       </div>
       <div className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex">
         {MainInfoData.map((data) => (
-          <WeatherInfo key={data.key} Name={data.Name}  />
+          <WeatherInfo key={data.key} Name={data.Name} />
         ))}
       </div>
     </div>

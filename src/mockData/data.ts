@@ -4,59 +4,6 @@ export const MainInfoData = [
   { key: "3", Name: "Wind", number: "14km/h" },
   { key: "4", Name: "Perception", number: "0 mm" },
 ];
-
-export const DailyForecastData = [
-  {
-    key: "1",
-    Name: "Tue",
-    img: "/images/icon-drizzle.webp",
-    highestTem: "20°",
-    lowestTem: "14°",
-  },
-  {
-    key: "2",
-    Name: "Wed",
-    img: "/images/icon-fog.webp",
-    highestTem: "21°",
-    lowestTem: "12°",
-  },
-  {
-    key: "3",
-    Name: "Thu",
-    img: "/images/icon-overcast.webp",
-    highestTem: "22°",
-    lowestTem: "15°",
-  },
-  {
-    key: "4",
-    Name: "Fri",
-    img: "/images/icon-partly-cloudy.webp",
-    highestTem: "23°",
-    lowestTem: "17°",
-  },
-  {
-    key: "5",
-    Name: "Sat",
-    img: "/images/icon-rain.webp",
-    highestTem: "24°",
-    lowestTem: "12°",
-  },
-  {
-    key: "6",
-    Name: "Sun",
-    img: "/images/icon-snow.webp",
-    highestTem: "25°",
-    lowestTem: "19°",
-  },
-  {
-    key: "7",
-    Name: "Mon",
-    img: "/images/icon-storm.webp",
-    highestTem: "26°",
-    lowestTem: "20°",
-  },
-];
-
 export const HourlyForecastData = [
   { key: "1", img: "/images/icon-drizzle.webp", hour: "3 PM", Temp: "20°" },
   { key: "2", img: "/images/icon-fog.webp", hour: "4 PM", Temp: "20°" },

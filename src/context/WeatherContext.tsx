@@ -3,10 +3,17 @@
 import { createContext, useContext, ReactNode, useState } from "react";
 
 type WeatherData = {
+  city: string;
+  country: string;
   temperature: number;
   humidity: number;
   windSpeed: number;
   perception: number;
+  daily?: {
+    highTemp: number[];
+    lowTemp: number[];
+    weatherIcons?: string[];
+  };
 };
 
 interface WeatherContextProps {
@@ -26,7 +33,6 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </WeatherContext.Provider>
   );
-
 };
 
 export const useWeather = () => {

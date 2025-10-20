@@ -1,18 +1,22 @@
-import { DailyForecastData } from "../../../mockData/data";
+"use client";
+
 import { WeatherForecast } from "./Boxes/weatherForecast";
+import { useWeather } from "@/context/WeatherContext";
 
 export const BottomTable = () => {
+  const { city } = useWeather();
+  const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   return (
     <div className="flex w-full flex-col gap-5">
       <p className=" text-xl font-[600]">Daily forecast</p>
       <div className="grid w-full grid-cols-3 gap-4 sm:grid-cols-7 md:flex md:justify-between">
-        {DailyForecastData.map((data) => (
+        {city?.daily?.highTemp.map((high, index) => (
           <WeatherForecast
-            key={data.key}
-            day={data.Name}
-            img={data.img}
-            highestTemp={data.highestTem}
-            lowestTemp={data.lowestTem}
+            key={index}
+            day={weekDays[index]}
+            img={city?.daily?.weatherIcons?.[index] || '/images/default-icon.webp'}
+            highestTemp={`${high}`}
+            lowestTemp={`${city?.daily?.lowTemp[index]}`}
           />
         ))}
       </div>
