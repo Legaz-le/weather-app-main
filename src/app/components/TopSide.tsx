@@ -1,13 +1,15 @@
 "use client";
+
 import logo from "../../../public/images/logo.svg";
 import icon from "../../../public/images/icon-units.svg";
 import dropdown from "../../../public/images/icon-dropdown.svg";
 import search from "../../../public/images/icon-search.svg";
 import { useState, useRef } from "react";
 import { DropDown } from "./BodyElements/Boxes/DropDown";
-import { OptionData } from "../mockData/data";
-import { useOutsideClick } from "../hooks/useOutsideClick";
+import { OptionData } from "../../mockData/data";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 import Image from "next/image";
+import { useWeather } from "../../context/WeatherContext";
 
 export const TopSide = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +19,7 @@ export const TopSide = () => {
   const [inputValue, setInputValue] = useState("");
   const [focused, setFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { setCity } = useWeather();
 
   const historyItem = "London";
 
@@ -26,17 +29,36 @@ export const TopSide = () => {
     setSelectedOptions((prev) => ({ ...prev, [title]: option }));
   };
 
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`/api/weather?city=${inputValue}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log("Weather data:", data);
+      setCity({
+        temperature: data.current.temperature,
+        humidity: data.current.humidity,
+        windSpeed: data.current.windSpeed,
+        perception: data.current.perception,
+      });
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+    }
+  };
+
   return (
     <div className="mb-12 flex w-full flex-col">
       <div className="flex w-full items-center justify-between">
-        <Image src={logo} alt="logo-icon"  width={0} height={0}/>
+        <Image src={logo} alt="logo-icon" width={0} height={0} />
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="font-dm btn-neutral focus:ring-Neutral-0 relative flex items-center gap-2.5 focus:ring-1 focus:ring-offset-1 sm:px-4 sm:py-3"
         >
-          <Image src={icon} alt="icon-units" width={0} height={0}/>
+          <Image src={icon} alt="icon-units" width={0} height={0} />
           Units
-          <Image src={dropdown} alt="icon-dropDrown" width={0} height={0}/>
+          <Image src={dropdown} alt="icon-dropDrown" width={0} height={0} />
           {isOpen && (
             <div className="bg-Neutral-800 border-inline absolute top-full right-0 z-10 mt-2 flex w-[214px] flex-col gap-1 rounded-xl px-2 py-1.5 text-start shadow-lg">
               <p className="font-dm px-2 py-2.5 text-[16px] font-medium">
@@ -61,14 +83,16 @@ export const TopSide = () => {
       </div>
 
       <div className="mt-16 flex flex-col items-center justify-center">
-        <h1 className="headline font-family ">How&apos;s the sky looking today?</h1>
+        <h1 className="headline font-family ">
+          How&apos;s the sky looking today?
+        </h1>
 
         <div
           ref={containerRef}
           className="mt-16 flex w-full flex-col items-center justify-center gap-4 sm:flex-row"
         >
           <div className="input-container w-full xl:w-[536px]">
-            <Image src={search} alt="search-icon"  />
+            <Image src={search} alt="search-icon" />
             <input
               type="search"
               placeholder="Search for the place.."
@@ -93,7 +117,12 @@ export const TopSide = () => {
             )}
           </div>
 
-          <button className="btn-primary w-full sm:w-[120px]">Search</button>
+          <button
+            className="btn-primary w-full sm:w-[120px]"
+            onClick={handleSearch}
+          >
+            Search
+          </button>
         </div>
       </div>
     </div>

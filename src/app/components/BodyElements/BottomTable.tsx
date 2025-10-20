@@ -1,4 +1,4 @@
-import { DailyForecastData } from "../../mockData/data";
+import { DailyForecastData } from "../../../mockData/data";
 import { WeatherForecast } from "./Boxes/weatherForecast";
 
 export const BottomTable = () => {

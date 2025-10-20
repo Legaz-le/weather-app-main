@@ -23,7 +23,7 @@ export const DropDown = ({
         {options.map((option) => {
           const isSelected = selectedOption === option;
           return (
-            <button
+            <p
               key={option}
               onClick={() => onSelect(option)}
               className={`flex w-full flex-row items-center justify-between rounded-md px-2 py-2.5 text-left transition-colors ${
@@ -41,7 +41,7 @@ export const DropDown = ({
                 className={isSelected ? "block" : "hidden"}
                 width={0} height={0}
               />
-            </button>
+            </p>
           );
         })}
       </div>
