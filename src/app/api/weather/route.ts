@@ -39,6 +39,7 @@ export async function GET(req: Request) {
         perception: perception ?? null,
       },
       daily: weatherData.daily,
+      hourly: weatherData.hourly,
     }),
     { status: 200 }
   );

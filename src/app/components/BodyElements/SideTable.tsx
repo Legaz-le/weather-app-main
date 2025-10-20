@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { HourlyForecastData } from "../../../mockData/data";
 import { HourForecast } from "./Boxes/hourlyForecast";
+import { useWeather } from "@/context/WeatherContext";
 import dropdown from "../../../../public/images/icon-dropdown.svg";
 import Image from "next/image";
 
 export const SideTable = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { city } = useWeather();
+  const [selectedDay, setSelectedDay] = useState("Tuesday");
 
   return (
     <div className="side-table">
@@ -28,7 +30,14 @@ export const SideTable = () => {
                 "Saturday",
                 "Sunday",
               ].map((day) => (
-                <p key={day} className="dropdown-item">
+                <p
+                  key={day}
+                  className="dropdown-item"
+                  onClick={() => {
+                    setSelectedDay(day);
+                    setIsOpen(false);
+                  }}
+                >
                   {day}
                 </p>
               ))}
@@ -37,12 +46,12 @@ export const SideTable = () => {
         </button>
       </div>
 
-      {HourlyForecastData.map((data) => (
+      {city?.hourly?.time?.map((time, index) => (
         <HourForecast
-          key={data.key}
-          hour={data.hour}
-          img={data.img}
-          temp={data.Temp}
+          key={index}
+          hour={time}
+          img={city?.hourly?.weatherIcons?.[index] || "/images/default-icon.webp"}
+          temp={`${Math.round(city?.hourly?.temperature?.[index] ?? 0)}°`}
         />
       ))}
     </div>

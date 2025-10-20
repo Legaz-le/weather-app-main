@@ -52,6 +52,13 @@ export const TopSide = () => {
             (code: number) => weatherCodeToIcon[code] || "/images/default-icon.webp"
           ),
         },
+        hourly : {
+          time: data.hourly.time,
+          temperature: data.hourly.temperature_2m,
+          weatherIcons: data.daily.weathercode.map(
+            (code: number) => weatherCodeToIcon[code] || "/images/default-icon.webp"
+          ),
+        }
       });
     } catch (error) {
       console.error("Error fetching weather data:", error);
