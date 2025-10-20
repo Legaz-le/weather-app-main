@@ -14,11 +14,11 @@ export const WeatherInfo = ({ Name }: MainInfoType) => {
 
     switch (Name.toLowerCase()) {
       case "feels like":
-        return `${city.temperature}°C`;
+        return `${Math.round(city.temperature)}°`;
       case "humidity":
         return `${city.humidity}%`;
       case "wind":
-        return `${city.windSpeed} km/h`;
+        return `${Math.round(city.windSpeed)} km/h`;
       case "perception":
         return `${city.perception} mm`;
       default:
@@ -30,7 +30,9 @@ export const WeatherInfo = ({ Name }: MainInfoType) => {
       <p className="text-lg leading-[120%] font-medium text-[#D4D3D9]">
         {Name}
       </p>
-      <span className="text-[32px] leading-[100%] font-light">{getValue()}</span>
+      <span className="text-[32px] leading-[100%] font-light">
+        {getValue()}
+      </span>
     </div>
   );
 };

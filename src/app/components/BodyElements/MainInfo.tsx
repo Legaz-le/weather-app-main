@@ -33,13 +33,18 @@ export const MainInfo = () => {
             {city?.city}, {city?.country}
           </p>
           <p className="text-lg font-[500] opacity-80">
-            {today.toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+            {today.toLocaleDateString("en-US", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
           </p>
         </div>
         <div className="flex items-center gap-5 ">
           <Image src={sunny_icon} alt="sunny_icon" width={120} height={0} />
           <span className="text-8xl font-[600] tracking-[-0.02em] text-white italic">
-            {city?.temperature ?? "N/A"}°
+            {`${Math.round(city?.temperature || 0)}°`}
           </span>
         </div>
       </div>

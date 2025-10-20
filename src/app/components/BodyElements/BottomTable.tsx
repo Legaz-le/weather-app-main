@@ -14,9 +14,11 @@ export const BottomTable = () => {
           <WeatherForecast
             key={index}
             day={weekDays[index]}
-            img={city?.daily?.weatherIcons?.[index] || '/images/default-icon.webp'}
-            highestTemp={`${high}`}
-            lowestTemp={`${city?.daily?.lowTemp[index]}`}
+            img={
+              city?.daily?.weatherIcons?.[index] || "/images/default-icon.webp"
+            }
+            highestTemp={`${Math.round(high).toString()}°`}
+            lowestTemp={`${Math.trunc(city?.daily?.lowTemp[index] || 0).toString()}°`}
           />
         ))}
       </div>
