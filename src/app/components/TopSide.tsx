@@ -11,6 +11,7 @@ import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { weatherCodeToIcon } from "../../utils/weatherCodeToIcon";
 import Image from "next/image";
 import { useWeather } from "../../context/WeatherContext";
+import axios from "axios";
 
 export const TopSide = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,11 +33,11 @@ export const TopSide = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`/api/weather?city=${inputValue}`);
-      if (!response.ok) {
+      const response = await axios(`/api/weather?city=${encodeURIComponent(inputValue)}`);
+      if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
-      const data = await response.json();
+      const data = await response.data;
       console.log("Weather data:", data);
       setCity({
         city: data.city,

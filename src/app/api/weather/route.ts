@@ -1,21 +1,35 @@
+import https from "https";
+import axios from "axios";
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const city = searchParams.get("city");
+  const httpsAgent = new https.Agent({ family: 4 });
 
   if (!city) {
     return new Response(JSON.stringify({ error: "City not provided" }), { status: 400 });
   }
 
-  const geoResponse = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
+  const geoResponse = await axios(
+    `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`,
+    {
+    params: { name: city, count: 1 },
+    timeout: 8000,
+    httpsAgent,
+  }
   );
-  const geoData = await geoResponse.json();
+  const geoData = await geoResponse.data;
   const { latitude, longitude, timezone, name, country } = geoData.results[0];
 
-  const weatherResponse = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=${timezone}`
+  const weatherResponse = await axios(
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=${timezone}`,
+    {
+    params: { name: city, count: 1 },
+    timeout: 8000,
+    httpsAgent,
+  }
   );
-  const weatherData = await weatherResponse.json();
+  const weatherData = await weatherResponse.data;
 
   const current = weatherData.current_weather;
 
