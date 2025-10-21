@@ -33,12 +33,19 @@ export const TopSide = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios(`/api/weather?city=${encodeURIComponent(inputValue)}`);
+      const response = await axios(
+        `/api/weather?city=${encodeURIComponent(inputValue)}`
+      );
       if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
       const data = await response.data;
       console.log("Weather data:", data);
+
+      const hourlyIcons = data.hourly.time.map((_: number, i: string) => {
+        const code = data.daily.weathercode[i] ?? data.daily.weathercode[0];
+        return weatherCodeToIcon[code] || "/images/default-icon.webp";
+      });
       setCity({
         city: data.city,
         country: data.country,
@@ -50,17 +57,22 @@ export const TopSide = () => {
           highTemp: data.daily.temperature_2m_max,
           lowTemp: data.daily.temperature_2m_min,
           weatherIcons: data.daily.weathercode.map(
-            (code: number) => weatherCodeToIcon[code] || "/images/default-icon.webp"
+            (code: number) =>
+              weatherCodeToIcon[code] || "/images/default-icon.webp"
           ),
+          hourly: {
+            time: data.hourly.time,
+            temperature: data.hourly.temperature_2m,
+            weatherIcons: hourlyIcons,
+          },
         },
-        hourly : {
+        hourly: {
           time: data.hourly.time,
           temperature: data.hourly.temperature_2m,
-          weatherIcons: data.daily.weathercode.map(
-            (code: number) => weatherCodeToIcon[code] || "/images/default-icon.webp"
-          ),
-        }
+          weatherIcons: hourlyIcons,
+        },
       });
+      setInputValue("");
     } catch (error) {
       console.error("Error fetching weather data:", error);
     }

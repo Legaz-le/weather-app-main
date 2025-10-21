@@ -6,6 +6,15 @@ import { useWeather } from "@/context/WeatherContext";
 export const BottomTable = () => {
   const { city } = useWeather();
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const todayIndex = new Date().getDay();
+  const adjustedIndex = todayIndex === 0 ? 6 : todayIndex - 1;
+
+  const orderedWeekDays = [
+    ...weekDays.slice(adjustedIndex),
+    ...weekDays.slice(0, adjustedIndex),
+  ];
+
+  console.log(orderedWeekDays);
   return (
     <div className="flex w-full flex-col gap-5">
       <p className=" text-xl font-[600]">Daily forecast</p>
@@ -13,7 +22,7 @@ export const BottomTable = () => {
         {city?.daily?.highTemp.map((high, index) => (
           <WeatherForecast
             key={index}
-            day={weekDays[index]}
+            day={orderedWeekDays[index]}
             img={
               city?.daily?.weatherIcons?.[index] || "/images/default-icon.webp"
             }

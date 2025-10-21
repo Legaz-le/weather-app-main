@@ -13,12 +13,17 @@ type WeatherData = {
     highTemp: number[];
     lowTemp: number[];
     weatherIcons?: string[];
+    hourly?: {
+      time: string[];
+      temperature: number[];
+      weatherIcons?: string[];
+    };
   };
   hourly?: {
     time: string[];
     temperature: number[];
     weatherIcons?: string[];
-  }
+  };
 };
 
 interface WeatherContextProps {

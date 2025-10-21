@@ -3,7 +3,6 @@
 import bg from "../../../../public/images/bg-today-large.svg";
 import bg_mobile from "../../../../public/images/bg-today-small.svg";
 import { WeatherInfo } from "./Boxes/weatherInfo";
-import sunny_icon from "../../../../public/images/icon-sunny.webp";
 import { MainInfoData } from "../../../mockData/data";
 import Image from "next/image";
 import { useWeather } from "@/context/WeatherContext";
@@ -42,7 +41,12 @@ export const MainInfo = () => {
           </p>
         </div>
         <div className="flex items-center gap-5 ">
-          <Image src={sunny_icon} alt="sunny_icon" width={120} height={0} />
+          <Image
+            src={city?.hourly?.weatherIcons?.[0] || "/images/default-icon.webp"}
+            alt="sunny_icon"
+            width={120}
+            height={0}
+          />
           <span className="text-8xl font-[600] tracking-[-0.02em] text-white italic">
             {`${Math.round(city?.temperature || 0)}°`}
           </span>
