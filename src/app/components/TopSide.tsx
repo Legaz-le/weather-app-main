@@ -60,11 +60,6 @@ export const TopSide = () => {
             (code: number) =>
               weatherCodeToIcon[code] || "/images/default-icon.webp"
           ),
-          hourly: {
-            time: data.hourly.time,
-            temperature: data.hourly.temperature_2m,
-            weatherIcons: hourlyIcons,
-          },
         },
         hourly: {
           time: data.hourly.time,
