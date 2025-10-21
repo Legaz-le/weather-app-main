@@ -70,7 +70,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .dropdown-menu {
-  @apply bg-Neutral-800 absolute top-full right-0 z-10 mt-2 flex w-[214px] flex-col gap-1 rounded-xl p-2 text-start;
+  @apply bg-Neutral-800 absolute top-full right-0 z-10 mt-2 flex w-[214px] flex-col gap-1 rounded-xl p-2 text-start ;
 }
 
 .dropdown-item {

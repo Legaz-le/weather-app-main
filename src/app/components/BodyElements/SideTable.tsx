@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { HourForecast } from "./Boxes/hourlyForecast";
 import { useWeather } from "@/context/WeatherContext";
+import { formatHour } from "@/utils/weatherCodeToIcon";
 import dropdown from "../../../../public/images/icon-dropdown.svg";
 import Image from "next/image";
 
@@ -10,7 +11,6 @@ export const SideTable = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { city } = useWeather();
   const [selectedDay, setSelectedDay] = useState("Tuesday");
-
   return (
     <div className="side-table">
       <div className="side-table__header">
@@ -45,15 +45,21 @@ export const SideTable = () => {
           )}
         </button>
       </div>
-
-      {city?.hourly?.time?.map((time, index) => (
-        <HourForecast
-          key={index}
-          hour={time}
-          img={city?.hourly?.weatherIcons?.[index] || "/images/default-icon.webp"}
-          temp={`${Math.round(city?.hourly?.temperature?.[index] ?? 0)}°`}
-        />
-      ))}
+      <div
+        className="w-full flex flex-col gap-4 max-h-[600px] overflow-y-auto
+             lg:max-h-[500px] xl:max-h-[600px]"
+      >
+        {city?.hourly?.time?.map((time, index) => (
+          <HourForecast
+            key={index}
+            hour={formatHour(time)}
+            img={
+              city?.hourly?.weatherIcons?.[index] || "/images/default-icon.webp"
+            }
+            temp={`${Math.round(city?.hourly?.temperature?.[index] ?? 0)}°`}
+          />
+        ))}
+      </div>
     </div>
   );
 };

@@ -18,7 +18,7 @@ export async function GET(req: Request) {
     httpsAgent,
   }
   );
-  const geoData = await geoResponse.data;
+  const geoData =  geoResponse.data;
   const { latitude, longitude, timezone, name, country } = geoData.results[0];
 
   const weatherResponse = await axios(
@@ -29,7 +29,7 @@ export async function GET(req: Request) {
     httpsAgent,
   }
   );
-  const weatherData = await weatherResponse.data;
+  const weatherData =  weatherResponse.data;
 
   const current = weatherData.current_weather;
 
