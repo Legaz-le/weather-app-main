@@ -31,7 +31,7 @@ export const SideTable = () => {
       if (selectedDay === todayText) return new Date(hour.time) >= now;
       return true;
     })
-    .slice(0, 12) || [];
+    || [];
 
   return (
     <div className="side-table">
@@ -68,7 +68,7 @@ export const SideTable = () => {
         </button>
       </div>
       <div
-        className="w-full flex flex-col gap-4  overflow-y-auto
+        className="w-full flex flex-col gap-3  overflow-y-auto
              lg:max-h-[500px] xl:max-h-[600px]"
       >
          {filteredHours.map((hour, index) => (
