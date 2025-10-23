@@ -1,6 +1,7 @@
 "use client";
 
 import { useWeather } from "@/context/WeatherContext";
+import { useUnit } from "@/context/UnitContext";
 
 type MainInfoType = {
   Name: string;
@@ -8,19 +9,30 @@ type MainInfoType = {
 
 export const WeatherInfo = ({ Name }: MainInfoType) => {
   const { city } = useWeather();
+  const { unitMode } = useUnit();
 
   const getValue = () => {
     if (!city) return "N/A";
 
     switch (Name.toLowerCase()) {
       case "feels like":
-        return `${Math.round(city.temperature)}°`;
+        return unitMode === "metric"
+          ? `${Math.round(city.temperature)}°`
+          : `${Math.round((city.temperature * 9) / 5 + 32)}°`;
+
       case "humidity":
         return `${city.humidity}%`;
+
       case "wind":
-        return `${Math.round(city.windSpeed)} km/h`;
+        return unitMode === "metric"
+          ? `${Math.round(city.windSpeed * 3.6)} km/h`
+          : `${Math.round(city.windSpeed * 2.237)} mph`;
+
       case "perception":
-        return `${city.perception} mm`;
+        return unitMode === "metric"
+          ? `${city.perception} mm`
+          : `${(city.perception * 0.03937).toFixed(2)} in`;
+
       default:
         return "N/A";
     }

@@ -97,7 +97,7 @@ export const SideTable = () => {
             key={index}
             hour={formatHour(hour.time)}
             img={hour.icon}
-            temp={`${Math.round(hour.temp)}°`}
+            temp={Math.round(hour.temp)}
           />
         ))}
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useUnit } from "@/context/UnitContext";
 import { WeatherForecast } from "./Boxes/weatherForecast";
 import { useWeather } from "@/context/WeatherContext";
 
@@ -26,8 +27,8 @@ export const BottomTable = () => {
             img={
               city?.daily?.weatherIcons?.[index] || "/images/default-icon.webp"
             }
-            highestTemp={`${Math.round(high).toString()}°`}
-            lowestTemp={`${Math.trunc(city?.daily?.lowTemp[index] || 0).toString()}°`}
+            highestTemp={Math.round(high)}
+            lowestTemp={Math.trunc(city?.daily?.lowTemp[index] || 0)}
           />
         ))}
       </div>

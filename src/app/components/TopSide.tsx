@@ -12,13 +12,14 @@ import { weatherCodeToIcon } from "../../utils/weatherCodeToIcon";
 import Image from "next/image";
 import { useWeather } from "../../context/WeatherContext";
 import axios from "axios";
+import { useUnit } from "@/context/UnitContext";
 
 export const TopSide = () => {
+  const { toggleUnitMode, unitMode} = useUnit();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
-  const [unitMode, setUnitMode] = useState<"metric" | "imperial">("metric");
   const [inputValue, setInputValue] = useState("");
   const [focused, setFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -108,11 +109,7 @@ export const TopSide = () => {
           {isOpen && (
             <div className="bg-Neutral-800 border-inline absolute top-full right-0 z-10 mt-2 flex w-[214px] flex-col gap-1 rounded-xl px-2 py-1.5 text-start shadow-lg">
               <p
-                onClick={() =>
-                  setUnitMode((prev) =>
-                    prev === "metric" ? "imperial" : "metric"
-                  )
-                }
+                onClick={toggleUnitMode}
                 className="font-dm px-2 py-2.5 text-[16px] font-medium hover:bg-Neutral-600 rounded-xl cursor-pointer"
               >
                 {unitMode === "metric"
