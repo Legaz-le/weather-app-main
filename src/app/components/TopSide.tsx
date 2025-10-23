@@ -86,7 +86,7 @@ export const TopSide = () => {
           <Image src={dropdown} alt="icon-dropDrown" width={0} height={0} />
           {isOpen && (
             <div className="bg-Neutral-800 border-inline absolute top-full right-0 z-10 mt-2 flex w-[214px] flex-col gap-1 rounded-xl px-2 py-1.5 text-start shadow-lg">
-              <p className="font-dm px-2 py-2.5 text-[16px] font-medium">
+              <p className="font-dm px-2 py-2.5 text-[16px] font-medium hover:bg-Neutral-600 rounded-xl">
                 Switch to imperial
               </p>
               {OptionData.map((data, index) => (

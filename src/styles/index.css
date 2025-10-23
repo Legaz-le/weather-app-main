@@ -74,9 +74,6 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .dropdown-item {
-  @apply hover:bg-Neutral-600 flex flex-row gap-2.5 rounded-lg px-2 py-2.5 text-[16px] font-[500];
+  @apply hover:bg-Neutral-600 flex  flex-row gap-2.5 rounded-lg px-2 py-2.5 text-[16px] font-[500];
 }
 
-.dropdown-item:first-child {
-  @apply bg-Neutral-700;
-}
