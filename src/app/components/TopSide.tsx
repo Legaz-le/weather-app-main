@@ -4,7 +4,7 @@ import logo from "../../../public/images/logo.svg";
 import icon from "../../../public/images/icon-units.svg";
 import dropdown from "../../../public/images/icon-dropdown.svg";
 import search from "../../../public/images/icon-search.svg";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DropDown } from "./BodyElements/Boxes/DropDown";
 import { OptionData } from "../../mockData/data";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
@@ -18,18 +18,20 @@ export const TopSide = () => {
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
+  const [unitMode, setUnitMode] = useState<"metric" | "imperial">("metric");
   const [inputValue, setInputValue] = useState("");
   const [focused, setFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { setCity } = useWeather();
-
-  const historyItem = "London";
+  const [history, setHistory] = useState<string[]>([
+    "London",
+    "Paris",
+    "Tokyo",
+    "New York",
+    "Berlin",
+  ]);
 
   useOutsideClick(containerRef, () => setFocused(false));
-
-  const handleSelect = (title: string, option: string) => {
-    setSelectedOptions((prev) => ({ ...prev, [title]: option }));
-  };
 
   const handleSearch = async () => {
     try {
@@ -72,22 +74,50 @@ export const TopSide = () => {
       console.error("Error fetching weather data:", error);
     }
   };
+  useEffect(() => {
+    localStorage.setItem("unitMode", unitMode);
+  }, [unitMode]);
+
+  useEffect(() => {
+    const newSelections: Record<string, string> = {};
+    OptionData.forEach((data) => {
+      const matchedOption =
+        data.options.find((opt) =>
+          unitMode === "metric"
+            ? opt.includes("C") || opt.includes("m/s") || opt.includes("mm")
+            : opt.includes("F") || opt.includes("mph") || opt.includes("in")
+        ) || data.options[0];
+      newSelections[data.title] = matchedOption;
+    });
+    setSelectedOptions(newSelections);
+  }, [unitMode]);
 
   return (
     <div className="mb-12 flex w-full flex-col">
       <div className="flex w-full items-center justify-between">
         <Image src={logo} alt="logo-icon" width={0} height={0} />
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="font-dm btn-neutral focus:ring-Neutral-0 relative flex items-center gap-2.5 focus:ring-1 focus:ring-offset-1 sm:px-4 sm:py-3"
-        >
-          <Image src={icon} alt="icon-units" width={0} height={0} />
-          Units
-          <Image src={dropdown} alt="icon-dropDrown" width={0} height={0} />
+        <div className="relative">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="font-dm btn-neutral focus:ring-Neutral-0  flex items-center gap-2.5 focus:ring-1 focus:ring-offset-1 sm:px-4 sm:py-3"
+          >
+            <Image src={icon} alt="icon-units" width={0} height={0} />
+            Units
+            <Image src={dropdown} alt="icon-dropDrown" width={0} height={0} />
+          </button>
           {isOpen && (
             <div className="bg-Neutral-800 border-inline absolute top-full right-0 z-10 mt-2 flex w-[214px] flex-col gap-1 rounded-xl px-2 py-1.5 text-start shadow-lg">
-              <p className="font-dm px-2 py-2.5 text-[16px] font-medium hover:bg-Neutral-600 rounded-xl">
-                Switch to imperial
+              <p
+                onClick={() =>
+                  setUnitMode((prev) =>
+                    prev === "metric" ? "imperial" : "metric"
+                  )
+                }
+                className="font-dm px-2 py-2.5 text-[16px] font-medium hover:bg-Neutral-600 rounded-xl cursor-pointer"
+              >
+                {unitMode === "metric"
+                  ? "Switch to imperial"
+                  : "Switch to metric"}
               </p>
               {OptionData.map((data, index) => (
                 <div key={data.key} className="flex flex-col gap-1">
@@ -95,7 +125,6 @@ export const TopSide = () => {
                     title={data.title}
                     options={data.options}
                     selectedOption={selectedOptions[data.title]}
-                    onSelect={(option) => handleSelect(data.title, option)}
                   />
                   {index < OptionData.length - 1 && index < 2 && (
                     <hr className="border-Neutral-500 border-0.5 w-full border-[#3C3B5E]" />
@@ -104,7 +133,7 @@ export const TopSide = () => {
               ))}
             </div>
           )}
-        </button>
+        </div>
       </div>
 
       <div className="mt-16 flex flex-col items-center justify-center">
@@ -129,15 +158,18 @@ export const TopSide = () => {
 
             {focused && (
               <div className="dropdown-box border-inline">
-                <p
-                  className="hover:bg-Neutral-700 cursor-pointer rounded-lg px-2 py-2 text-white"
-                  onClick={() => {
-                    setInputValue(historyItem);
-                    setFocused(false);
-                  }}
-                >
-                  {historyItem}
-                </p>
+                {history.slice(0, 5).map((item, index) => (
+                  <p
+                    key={index}
+                    className="hover:bg-Neutral-700 cursor-pointer rounded-lg px-2 py-2 text-white"
+                    onClick={() => {
+                      setInputValue(item);
+                      setFocused(false);
+                    }}
+                  >
+                    {item}
+                  </p>
+                ))}
               </div>
             )}
           </div>

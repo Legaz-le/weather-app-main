@@ -5,14 +5,12 @@ type DropDownProps = {
   title: string;
   options: string[];
   selectedOption?: string;
-  onSelect: (option: string) => void;
 };
 
 export const DropDown = ({
   title,
   options,
   selectedOption,
-  onSelect,
 }: DropDownProps) => {
   return (
     <div className="flex flex-col gap-2">
@@ -25,11 +23,10 @@ export const DropDown = ({
           return (
             <p
               key={option}
-              onClick={() => onSelect(option)}
               className={`flex w-full flex-row items-center justify-between rounded-md px-2 py-2.5 text-left transition-colors ${
                 isSelected
                   ? "bg-Neutral-700"
-                  : "hover:bg-Neutral-600 cursor-pointer"
+                  : ""
               }`}
             >
               <span className=" text-[16px] font-[600]">
