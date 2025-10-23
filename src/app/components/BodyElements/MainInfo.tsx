@@ -6,9 +6,11 @@ import { WeatherInfo } from "./Boxes/weatherInfo";
 import { MainInfoData } from "../../../mockData/data";
 import Image from "next/image";
 import { useWeather } from "@/context/WeatherContext";
+import { useUnit } from "@/context/UnitContext";
 
 export const MainInfo = () => {
   const { city } = useWeather();
+  const { unitMode } = useUnit();
 
   const today = new Date();
 
@@ -48,7 +50,9 @@ export const MainInfo = () => {
             height={0}
           />
           <span className="text-8xl font-[600] tracking-[-0.02em] text-white italic">
-            {`${Math.round(city?.temperature || 0)}°`}
+            {unitMode === "metric"
+              ? `${Math.round(city?.temperature ?? 0)}°`
+              : `${Math.round(((city?.temperature ?? 0) * 9) / 5 + 32)}°`}
           </span>
         </div>
       </div>

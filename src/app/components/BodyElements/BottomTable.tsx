@@ -1,6 +1,5 @@
 "use client";
 
-import { useUnit } from "@/context/UnitContext";
 import { WeatherForecast } from "./Boxes/weatherForecast";
 import { useWeather } from "@/context/WeatherContext";
 
