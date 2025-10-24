@@ -29,6 +29,8 @@ type WeatherData = {
 interface WeatherContextProps {
   city: WeatherData | null;
   setCity: (data: WeatherData) => void;
+  loading: boolean;
+  setLoading: (value: boolean) => void;
 }
 
 const WeatherContext = createContext<WeatherContextProps | undefined>(
@@ -37,9 +39,10 @@ const WeatherContext = createContext<WeatherContextProps | undefined>(
 
 export const WeatherProvider = ({ children }: { children: ReactNode }) => {
   const [city, setCity] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState(false);
 
   return (
-    <WeatherContext.Provider value={{ city, setCity }}>
+    <WeatherContext.Provider value={{ city, setCity, loading, setLoading }}>
       {children}
     </WeatherContext.Provider>
   );

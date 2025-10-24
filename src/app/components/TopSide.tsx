@@ -15,7 +15,7 @@ import axios from "axios";
 import { useUnit } from "@/context/UnitContext";
 
 export const TopSide = () => {
-  const { toggleUnitMode, unitMode} = useUnit();
+  const { toggleUnitMode, unitMode } = useUnit();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
@@ -23,7 +23,7 @@ export const TopSide = () => {
   const [inputValue, setInputValue] = useState("");
   const [focused, setFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { setCity } = useWeather();
+  const { setCity, setLoading } = useWeather();
   const [history, setHistory] = useState<string[]>([
     "London",
     "Paris",
@@ -35,6 +35,7 @@ export const TopSide = () => {
   useOutsideClick(containerRef, () => setFocused(false));
 
   const handleSearch = async () => {
+    setLoading(true);
     try {
       const response = await axios(
         `/api/weather?city=${encodeURIComponent(inputValue)}`
@@ -73,6 +74,9 @@ export const TopSide = () => {
       setInputValue("");
     } catch (error) {
       console.error("Error fetching weather data:", error);
+    }
+    finally{
+      setLoading(false);
     }
   };
   useEffect(() => {
