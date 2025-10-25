@@ -6,10 +6,11 @@ import { useWeather } from "@/context/WeatherContext";
 import { formatHour } from "@/utils/weatherCodeToIcon";
 import dropdown from "../../../../public/images/icon-dropdown.svg";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const SideTable = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { city } = useWeather();
+  const { city, loading } = useWeather();
   const now = new Date();
   const today = now.getDay();
   const weekDays = [
@@ -88,19 +89,41 @@ export const SideTable = () => {
           )}
         </button>
       </div>
-      <div
-        className="w-full flex flex-col gap-3  overflow-y-auto
+      <AnimatePresence>
+        {loading || !city ? (
+          <div
+            className="w-full flex flex-col gap-3  overflow-y-auto
              lg:max-h-[500px] xl:max-h-[600px]"
-      >
-        {filteredHours.map((hour, index) => (
-          <HourForecast
-            key={index}
-            hour={formatHour(hour.time)}
-            img={hour.icon}
-            temp={Math.round(hour.temp)}
-          />
-        ))}
-      </div>
+          >
+            {Array.from({ length: 12 }).map((_, i) => (
+              <>
+                <motion.div
+                  key={i}
+                  className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between animate-pulse rounded-lg bg-[#302F4A]"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <motion.div />
+              </>
+            ))}
+          </div>
+        ) : (
+          <div
+            className="w-full flex flex-col gap-3  overflow-y-auto
+             lg:max-h-[500px] xl:max-h-[600px]"
+          >
+            {filteredHours.map((hour, index) => (
+              <HourForecast
+                key={index}
+                hour={formatHour(hour.time)}
+                img={hour.icon}
+                temp={Math.round(hour.temp)}
+              />
+            ))}
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

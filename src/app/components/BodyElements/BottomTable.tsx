@@ -44,7 +44,7 @@ export const BottomTable = () => {
               >
                 <WeatherForecast
                   day={weekDays[index]}
-                  img={city?.daily?.weatherIcons?.[index] || "/images/default-icon.webp"}
+                  img={city?.daily?.weatherIcons?.[index] || " "}
                   highestTemp={Math.round(high)}
                   lowestTemp={Math.trunc(city?.daily?.lowTemp[index] || 0)}
                 />
