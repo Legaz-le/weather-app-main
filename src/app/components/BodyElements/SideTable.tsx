@@ -89,29 +89,29 @@ export const SideTable = () => {
           )}
         </button>
       </div>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {loading || !city ? (
           <div
             className="w-full flex flex-col gap-3  overflow-y-auto
              lg:max-h-[500px] xl:max-h-[600px]"
           >
             {Array.from({ length: 12 }).map((_, i) => (
-              <>
-                <motion.div
-                  key={i}
-                  className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between animate-pulse rounded-lg bg-[#302F4A]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                />
-                <motion.div />
-              </>
+              <motion.div
+                key={i}
+                className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between animate-pulse rounded-lg bg-[#302F4A]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              ></motion.div>
             ))}
           </div>
         ) : (
-          <div
+          <motion.div
             className="w-full flex flex-col gap-3  overflow-y-auto
              lg:max-h-[500px] xl:max-h-[600px]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
           >
             {filteredHours.map((hour, index) => (
               <HourForecast
@@ -121,7 +121,7 @@ export const SideTable = () => {
                 temp={Math.round(hour.temp)}
               />
             ))}
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

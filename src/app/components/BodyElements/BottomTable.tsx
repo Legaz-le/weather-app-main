@@ -20,7 +20,7 @@ export const BottomTable = () => {
     <div className="flex w-full flex-col gap-5">
       <p className=" text-xl font-[600]">Daily forecast</p>
       <div className="grid w-full grid-cols-3 gap-4 sm:grid-cols-7 md:flex md:justify-between">
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {loading || !city ? (
             Array.from({ length: 7 }).map((_, i) => (
               <motion.div
@@ -40,7 +40,7 @@ export const BottomTable = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 1.5 }}
               >
                 <WeatherForecast
                   day={weekDays[index]}
