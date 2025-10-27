@@ -57,8 +57,9 @@ export const MainInfo = () => {
             <div className="relative w-full">
               <motion.div
                 key="bg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 1 }}
               >
                 <Image
@@ -107,8 +108,9 @@ export const MainInfo = () => {
             </div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 1 }}
               className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex"
             >

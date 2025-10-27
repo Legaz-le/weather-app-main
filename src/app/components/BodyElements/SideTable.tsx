@@ -109,8 +109,9 @@ export const SideTable = () => {
           <motion.div
             className="w-full flex flex-col gap-3  overflow-y-auto
              lg:max-h-[500px] xl:max-h-[600px]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 1 }}
           >
             {filteredHours.map((hour, index) => (
