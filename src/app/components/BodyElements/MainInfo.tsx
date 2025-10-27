@@ -19,26 +19,39 @@ export const MainInfo = () => {
     <div className="relative mb-12 flex w-full flex-col gap-8">
       <AnimatePresence mode="wait">
         {loading || !city ? (
-          <motion.div
-            key="loading"
-            className="relative flex h-[400px] w-full flex-col items-center justify-center rounded-xl bg-[#262540]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <>
             <motion.div
-              className="h-12 w-12 rounded-full border-4 border-white/30 border-t-white"
-              animate={{ rotate: 360 }}
-              transition={{
-                repeat: Infinity,
-                ease: "linear",
-                duration: 1,
-              }}
-            />
-            <p className="mt-4 text-white/70 text-sm tracking-wide">
-              Loading weather data...
-            </p>
-          </motion.div>
+              key="loading"
+              className="relative flex h-[286px] w-full flex-col items-center justify-center rounded-xl bg-[#262540]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                className="h-12 w-12 rounded-full border-4 border-white/30 border-t-white"
+                animate={{ rotate: 360 }}
+                transition={{
+                  repeat: Infinity,
+                  ease: "linear",
+                  duration: 1,
+                }}
+              />
+              <p className="mt-4 text-white/70 text-sm tracking-wide">
+                Loading weather data...
+              </p>
+            </motion.div>
+            <div className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="border-inline flex w-full h-[118px]  justify-start gap-6 rounded-xl bg-[#262540] p-5 "
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                ></motion.div>
+              ))}
+            </div>
+          </>
         ) : (
           <>
             <div className="relative w-full">
@@ -61,7 +74,6 @@ export const MainInfo = () => {
               </motion.div>
             </div>
 
-            {/* 🌇 City & temperature info */}
             <div className="absolute font-DM-Sans inset-x-4 z-10 flex flex-col items-center justify-between py-15 md:flex-row lg:py-10 xl:px-6 xl:py-20">
               <div className="flex flex-col gap-3">
                 <p className="text-[28px] font-[700]">
@@ -94,12 +106,16 @@ export const MainInfo = () => {
               </div>
             </div>
 
-            {/* 🌤 Bottom info boxes */}
-            <div className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex"
+            >
               {MainInfoData.map((data) => (
                 <WeatherInfo key={data.key} Name={data.Name} />
               ))}
-            </div>
+            </motion.div>
           </>
         )}
       </AnimatePresence>

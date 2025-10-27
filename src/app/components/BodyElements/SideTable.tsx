@@ -98,7 +98,7 @@ export const SideTable = () => {
             {Array.from({ length: 12 }).map((_, i) => (
               <motion.div
                 key={i}
-                className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between animate-pulse rounded-lg bg-[#302F4A]"
+                className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between  rounded-lg bg-[#302F4A]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
