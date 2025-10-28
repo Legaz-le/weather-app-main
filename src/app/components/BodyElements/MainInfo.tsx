@@ -16,10 +16,16 @@ export const MainInfo = () => {
   const today = new Date();
 
   return (
-    <div className="relative mb-12 flex w-full flex-col gap-8">
+    <div className="relative mb-12">
       <AnimatePresence mode="wait">
         {loading || !city ? (
-          <>
+          <motion.div
+            key="loading"
+            className="flex flex-col min-w-full gap-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <motion.div
               key="loading"
               className="relative flex h-[286px] w-full flex-col items-center justify-center rounded-xl bg-[#262540]"
@@ -51,9 +57,16 @@ export const MainInfo = () => {
                 ></motion.div>
               ))}
             </div>
-          </>
+          </motion.div>
         ) : (
-          <>
+          <motion.div
+            key="loaded"
+            className="flex flex-col min-w-full gap-8"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 1 }}
+          >
             <div className="relative w-full">
               <motion.div
                 key="bg"
@@ -108,17 +121,17 @@ export const MainInfo = () => {
             </div>
 
             <motion.div
+              className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 1 }}
-              className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex"
             >
               {MainInfoData.map((data) => (
                 <WeatherInfo key={data.key} Name={data.Name} />
               ))}
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

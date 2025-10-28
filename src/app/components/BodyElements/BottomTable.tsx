@@ -14,8 +14,7 @@ export const BottomTable = () => {
     ...weekDays.slice(adjustedIndex),
     ...weekDays.slice(0, adjustedIndex),
   ];
-
-  console.log(orderedWeekDays);
+  
   return (
     <div className="flex w-full flex-col gap-5">
       <p className=" text-xl font-[600]">Daily forecast</p>
@@ -33,7 +32,7 @@ export const BottomTable = () => {
             ))
           ) : (
             <motion.div
-            className="flex w-full flex-row gap-4 md:justify-between"
+              className="flex w-full flex-row gap-4 md:justify-between"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -42,7 +41,7 @@ export const BottomTable = () => {
               {city?.daily?.highTemp.map((high, index) => (
                 <WeatherForecast
                   key={index}
-                  day={weekDays[index]}
+                  day={orderedWeekDays[index]}
                   img={city?.daily?.weatherIcons?.[index] || " "}
                   highestTemp={Math.round(high)}
                   lowestTemp={Math.trunc(city?.daily?.lowTemp[index] || 0)}

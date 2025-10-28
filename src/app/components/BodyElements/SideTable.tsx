@@ -97,7 +97,7 @@ export const SideTable = () => {
           >
             {Array.from({ length: 12 }).map((_, i) => (
               <motion.div
-                key={i}
+                key={"loading"}
                 className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between  rounded-lg bg-[#302F4A]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -107,6 +107,7 @@ export const SideTable = () => {
           </div>
         ) : (
           <motion.div
+            key="loaded"
             className="w-full flex flex-col gap-3  overflow-y-auto
              lg:max-h-[500px] xl:max-h-[600px]"
             initial={{ opacity: 0, y: 10 }}
