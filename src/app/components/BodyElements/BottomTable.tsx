@@ -14,11 +14,11 @@ export const BottomTable = () => {
     ...weekDays.slice(adjustedIndex),
     ...weekDays.slice(0, adjustedIndex),
   ];
-  
+
   return (
     <div className="flex w-full flex-col gap-5">
       <p className=" text-xl font-[600]">Daily forecast</p>
-      <div className="grid w-full grid-cols-3 gap-4 sm:grid-cols-7 md:flex md:justify-between">
+      <div className=" flex flex-row justify-between gap-4 md:">
         <AnimatePresence mode="wait">
           {loading || !city ? (
             Array.from({ length: 7 }).map((_, i) => (
@@ -32,7 +32,7 @@ export const BottomTable = () => {
             ))
           ) : (
             <motion.div
-              className="flex w-full flex-row gap-4 md:justify-between"
+              className="grid  w-full grid-cols-3 sm:grid-cols-4 md:grid-cols-7 md:flex gap-4  md:justify-between"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
