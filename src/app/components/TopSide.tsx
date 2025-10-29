@@ -22,7 +22,6 @@ export const TopSide = () => {
   >({});
   const [inputValue, setInputValue] = useState("");
   const [focused, setFocused] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const { setCity, setLoading } = useWeather();
   const [history, setHistory] = useState<string[]>([
     "London",
@@ -32,7 +31,11 @@ export const TopSide = () => {
     "Berlin",
   ]);
 
-  useOutsideClick(containerRef, () => setFocused(false));
+  const unitDropdownRef = useRef<HTMLDivElement>(null);
+  const searchBoxRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(unitDropdownRef, () => setIsOpen(false));
+  useOutsideClick(searchBoxRef, () => setFocused(false));
 
   const handleSearch = async () => {
     setLoading(true);
@@ -74,8 +77,7 @@ export const TopSide = () => {
       setInputValue("");
     } catch (error) {
       console.error("Error fetching weather data:", error);
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -101,7 +103,7 @@ export const TopSide = () => {
     <div className="mb-12 flex w-full flex-col">
       <div className="flex w-full items-center justify-between">
         <Image src={logo} alt="logo-icon" width={0} height={0} />
-        <div className="relative">
+        <div ref={unitDropdownRef} className="relative">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="font-dm btn-neutral focus:ring-Neutral-0  flex items-center gap-2.5 focus:ring-1 focus:ring-offset-1 sm:px-4 sm:py-3"
@@ -143,7 +145,7 @@ export const TopSide = () => {
         </h1>
 
         <div
-          ref={containerRef}
+          ref={searchBoxRef}
           className="mt-16 flex w-full flex-col items-center justify-center gap-4 sm:flex-row"
         >
           <div className="input-container w-full xl:w-[536px]">
