@@ -4,7 +4,8 @@ import { TopSide } from "./components/TopSide";
 export default function Page() {
   return (
     <div className="flex flex-col items-center justify-center  w-full  p-window    text-Neutral-0">
-      <TopSide  />
+      <TopSide />
+
       <MainBody />
     </div>
   );

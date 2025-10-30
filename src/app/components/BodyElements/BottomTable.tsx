@@ -18,7 +18,7 @@ export const BottomTable = () => {
   return (
     <div className="flex w-full flex-col gap-5">
       <p className=" text-xl font-[600]">Daily forecast</p>
-      <div className=" flex flex-row justify-between gap-4 md:">
+      <div className=" flex flex-row justify-between gap-4 ">
         <AnimatePresence mode="wait">
           {loading || !city ? (
             Array.from({ length: 7 }).map((_, i) => (

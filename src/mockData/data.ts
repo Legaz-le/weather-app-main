@@ -7,17 +7,17 @@ export const MainInfoData = [
 
 export const OptionData = [
   {
-    key: "1",
+    key: "Temperature",
     title: "Temperature",
     options: ["Celsius (°C)", "Fahrenheit (°F)"],
   },
   {
-    key: "2",
+    key: "Wind Speed",
     title: "Wind Speed",
     options: ["km/h", "mph"],
   },
   {
-    key: "3",
+    key: "Precipitation",
     title: "Precipitation",
     options: ["Millimeters (mm)", "Inches (in)"],
   },
