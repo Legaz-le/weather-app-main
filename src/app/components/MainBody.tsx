@@ -9,7 +9,7 @@ export const MainBody = () => {
   const { error } = useWeather();
   return (
     <div className="flex w-full flex-col justify-center gap-8 lg:flex-row">
-      {error === "city-not-found" ? (
+      {error ? (
         <p className="font-DM-Sans font-[700] text-[28px]">
           No search result found!
         </p>

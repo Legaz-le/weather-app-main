@@ -20,10 +20,8 @@ export const useWeatherSearch = () => {
 
       if (!response.status) {
         if (response.status === 404) {
-          
           setError("city-not-found");
         } else {
-          
           setError("api-error");
         }
         return;

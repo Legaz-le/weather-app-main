@@ -19,13 +19,13 @@ export const SideTable = () => {
   const now = new Date();
   const today = now.getDay();
   const weekDays = [
-    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
+    "Sunday",
   ];
   const todayText = weekDays[today];
   const [selectedDay, setSelectedDay] = useState(todayText);

@@ -108,7 +108,7 @@ export const TopSide = () => {
           </AnimatePresence>
         </div>
       </div>
-      {error ? (
+      {error === "city-not-found"  ? (
         <div className="flex flex-col justify-center text-center items-center gap-3">
           <Image src={errorIcon} alt="error-icon" width={0} height={0} />
           <p>Somethin went wrong</p>
