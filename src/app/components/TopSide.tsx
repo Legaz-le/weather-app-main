@@ -61,15 +61,15 @@ export const TopSide = () => {
   return (
     <div className="mb-12 flex w-full flex-col">
       <div className="flex w-full items-center justify-between">
-        <Image src={logo} alt="logo-icon" width={0} height={0} />
+        <Image src={logo} alt="logo-icon" />
         <div ref={unitDropdownRef} className="relative">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="font-dm btn-neutral focus:ring-Neutral-0  flex items-center gap-2.5 focus:ring-1 focus:ring-offset-1 sm:px-4 sm:py-3"
           >
-            <Image src={icon} alt="icon-units" width={0} height={0} />
+            <Image src={icon} alt="icon-units" />
             Units
-            <Image src={dropdown} alt="icon-dropDrown" width={0} height={0} />
+            <Image src={dropdown} alt="icon-dropDrown" />
           </button>
           <AnimatePresence>
             {isOpen && (
@@ -108,9 +108,9 @@ export const TopSide = () => {
           </AnimatePresence>
         </div>
       </div>
-      {error === "city-not-found"  ? (
+      {error === "city-not-found" ? (
         <div className="flex flex-col justify-center text-center items-center gap-3">
-          <Image src={errorIcon} alt="error-icon" width={0} height={0} />
+          <Image src={errorIcon} alt="error-icon" />
           <p>Somethin went wrong</p>
           <p>
             We couldn’t connect to the server (API error). Please try again in a
