@@ -1,19 +1,25 @@
 import { useWeather } from "@/context/WeatherContext";
 import { weatherCodeToIcon } from "@/utils/weatherCodeToIcon";
 import { useSWRConfig } from "swr";
-import axios from "axios";
+import useSWRMutation from "swr/mutation";
 import { useCallback } from "react";
 
-const fetchWeather = async (city: string) => {
-  const res = await axios.get(`/api/weather?city=${encodeURIComponent(city)}`);
-  if (res.status !== 200) throw new Error("api-error");
-  return res.data;
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("api-error");
+  return res.json();
 };
 
 export const useWeatherSearch = () => {
   const { setCity, setLoading, setError } = useWeather();
+  const { mutate } = useSWRConfig();
 
-  const { cache, mutate } = useSWRConfig();
+  const { trigger: fetchWeather } = useSWRMutation(
+    "/api/weather",
+    async (_key, { arg : city}: {arg: string })  => {
+      return fetcher(`/api/weather?city=${encodeURIComponent(city)}`);
+    }
+  )
 
   const handleSearch = useCallback(
     async (city: string) => {
@@ -22,19 +28,29 @@ export const useWeatherSearch = () => {
         return;
       }
 
-      const cacheKey = `weather:${city}`;
-      const cached = cache.get(cacheKey);
-
       setLoading(true);
       setError(null);
-      try {
-        let data = cached?.data;
-        if (!data) {
-          data = await fetchWeather(city);
-          mutate(cacheKey, data);
-        }
 
-        const hourlyIcons = data.hourly.time.map((_: number, i: number) => {
+      const cacheKey = `weather:${city.toLowerCase()}`;
+      try {
+        const cachedRaw =  sessionStorage.getItem(cacheKey);
+
+        if (cachedRaw) {
+          const parsed = JSON.parse(cachedRaw);
+          setCity(parsed);
+          setLoading(false);
+          fetchWeather(city).then((fresh) => {
+            if(fresh) {
+              mutate(cacheKey, fresh, false);
+              sessionStorage.setItem(cacheKey, JSON.stringify(fresh));
+              setCity(fresh);
+            }
+          }).catch(()=> {});
+          return
+        }
+        const data = await fetchWeather(city);
+
+        const hourlyIcons = data.hourly.time.map((_: string, i: number) => {
           const code = data.daily.weathercode[i] ?? data.daily.weathercode[0];
           return weatherCodeToIcon[code] || "/images/default-icon.webp";
         });
@@ -67,7 +83,7 @@ export const useWeatherSearch = () => {
         setLoading(false);
       }
     },
-    [setCity, setLoading, setError, cache, mutate]
+    [setCity, setLoading, setError, fetchWeather, mutate]
   );
 
   return { handleSearch };

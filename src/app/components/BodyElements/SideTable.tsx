@@ -71,7 +71,7 @@ export const SideTable = () => {
             <Image src={dropdown} alt="icon-dropdown" width={0} height={0} />
           </button>
 
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             {isOpen && (
               <motion.div
                 initial={{ opacity: 0, y: -5 }}

@@ -10,7 +10,7 @@ export const MainBody = () => {
   return (
     <div className="flex w-full flex-col justify-center gap-8 lg:flex-row">
       {error ? (
-        <p className="font-DM-Sans font-[700] text-[28px]">
+        <p className=" font-[700] text-[28px]">
           No search result found!
         </p>
       ) : (

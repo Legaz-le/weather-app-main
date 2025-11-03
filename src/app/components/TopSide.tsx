@@ -71,7 +71,7 @@ export const TopSide = () => {
             Units
             <Image src={dropdown} alt="icon-dropDrown" />
           </button>
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             {isOpen && (
               <motion.div
                 initial={{ opacity: 0, y: -5 }}
@@ -111,13 +111,13 @@ export const TopSide = () => {
       {error === "city-not-found" ? (
         <div className="flex flex-col justify-center text-center items-center gap-3">
           <Image src={errorIcon} alt="error-icon" />
-          <p>Somethin went wrong</p>
+          <p>Something went wrong</p>
           <p>
             We couldn’t connect to the server (API error). Please try again in a
             few moments.
           </p>
-          <button className="flex gap-2">
-            <Image src={retry} alt="retry-icon" width={0} height={0} />
+          <button className="flex gap-2.5 font-Awesome text-[16px] px-4 py-3 rounded-lg bg-[#262540] hover:bg-Neutral-700 cursor-pointer">
+            <Image src={retry} alt="retry-icon"  />
             Retry
           </button>
         </div>
@@ -141,7 +141,7 @@ export const TopSide = () => {
                 onChange={(e) => setInputValue(e.target.value)}
                 onFocus={() => setFocused(true)}
               />
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {focused && (
                   <motion.div
                     initial={{ opacity: 0, y: -5 }}
