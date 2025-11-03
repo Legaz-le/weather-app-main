@@ -106,6 +106,7 @@ export const MainInfo = () => {
                 <Image
                   src={
                     city?.hourly?.weatherIcons?.[0] ||
+                    weatherCodeToIcon[city?.current?.weathercode || 0] ||
                     "/images/default-icon.webp"
                   }
                   alt="weather_icon"

@@ -22,7 +22,7 @@ export const useWeatherSearch = () => {
   )
 
   const handleSearch = useCallback(
-    async (city: string) => {
+    async (city: string, setInput: (val: string) => void) => {
       if (!city.trim()) {
         setError("Please enter a city name.");
         return;
@@ -76,6 +76,8 @@ export const useWeatherSearch = () => {
             weatherIcons: hourlyIcons,
           },
         });
+
+        setInput("");
       } catch (err) {
         console.error(err);
         setError("api-error");

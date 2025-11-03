@@ -8,8 +8,8 @@ import errorIcon from "../../../public/images/icon-error.svg";
 import retry from "../../../public/images/icon-retry.svg";
 import { useState, useRef, useEffect } from "react";
 import { DropDown } from "./BodyElements/Boxes/DropDown";
-import { OptionData } from "../../mockData/data";
-import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { OptionData } from "@/mockData/data";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useWeatherSearch } from "@/hooks/useWeatherSearch";
 import Image from "next/image";
 import { useUnit } from "@/context/UnitContext";
@@ -169,7 +169,7 @@ export const TopSide = () => {
 
             <button
               className="btn-primary w-full sm:w-[120px]"
-              onClick={() => handleSearch(inputValue)}
+              onClick={() => handleSearch(inputValue, setInputValue)}
             >
               Search
             </button>
