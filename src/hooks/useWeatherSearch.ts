@@ -4,7 +4,7 @@ import { useSWRConfig } from "swr";
 import useSWRMutation from "swr/mutation";
 import { useCallback } from "react";
 
-const fetcher = async (url: string) => {
+export const fetcher = async (url: string) => {
   const res = await fetch(url);
   if (!res.ok) throw new Error("api-error");
   return res.json();
@@ -20,6 +20,7 @@ export const useWeatherSearch = () => {
       return fetcher(`/api/weather?city=${encodeURIComponent(city)}`);
     }
   )
+
 
   const handleSearch = useCallback(
     async (city: string, setInput: (val: string) => void) => {

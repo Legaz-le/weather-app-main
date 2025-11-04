@@ -105,8 +105,7 @@ export const MainInfo = () => {
               <div className="flex items-center gap-5">
                 <Image
                   src={
-                    city?.hourly?.weatherIcons?.[0] ||
-                    weatherCodeToIcon[city?.current?.weathercode || 0] ||
+                    city?.hourly?.weatherIcons?.[0]  ||
                     "/images/default-icon.webp"
                   }
                   alt="weather_icon"

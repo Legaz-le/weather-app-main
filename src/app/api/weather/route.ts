@@ -1,6 +1,19 @@
+type geoData = {
+  name: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  timezone: string;
+}
+
+type GeoResponse = {
+  results: geoData[];
+};
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const city = searchParams.get("city");
+  const type = searchParams.get("type");
 
   if (!city) {
     return new Response(JSON.stringify({ error: "City not provided" }), {
@@ -9,7 +22,7 @@ export async function GET(req: Request) {
   }
 
   const geoResponse = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
+    `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=${type === "suggestions" ? "5" : "1"}`
   );
 
   if (!geoResponse.ok) {
@@ -20,13 +33,29 @@ export async function GET(req: Request) {
       }
     );
   }
-  const geoData = await geoResponse.json();
+
+  const geoData: GeoResponse = await geoResponse.json();
 
   if (!geoData.results || geoData.results.length === 0) {
     return new Response(JSON.stringify({ error: "city-not-found" }), {
       status: 404,
     });
   }
+  
+
+  if (type === "suggestions") {
+  return new Response(
+    JSON.stringify({
+      suggestions: geoData.results.map((c: geoData) => ({
+        name: c.name,
+        country: c.country,
+        lat: c.latitude,
+        lon: c.longitude,
+      })),
+    }),
+    { status: 200 }
+  );
+}
 
   const { latitude, longitude, timezone, name, country } = geoData.results[0];
 

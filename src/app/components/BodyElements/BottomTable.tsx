@@ -42,8 +42,7 @@ export const BottomTable = () => {
                 <WeatherForecast
                   key={index}
                   day={orderedWeekDays[index]}
-                  img={city?.daily?.weatherIcons?.[index] || 
-                    weatherCodeToIcon[city?.current?.weathercode] || " "}
+                  img={city?.daily?.weatherIcons?.[index] ||  " "}
                   highestTemp={Math.round(high)}
                   lowestTemp={Math.trunc(city?.daily?.lowTemp[index] || 0)}
                 />

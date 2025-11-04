@@ -15,6 +15,7 @@ import Image from "next/image";
 import { useUnit } from "@/context/UnitContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useWeather } from "@/context/WeatherContext";
+import { useWeatherSuggestion } from "@/hooks/useCitySuggestions";
 
 export const TopSide = () => {
   const { toggleUnitMode, unitMode } = useUnit();
@@ -24,14 +25,10 @@ export const TopSide = () => {
   >({});
   const [inputValue, setInputValue] = useState("");
   const [focused, setFocused] = useState(false);
-  const [history, setHistory] = useState<string[]>([
-    "London",
-    "Paris",
-    "Tokyo",
-    "New York",
-    "Berlin",
-  ]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+
   const { handleSearch } = useWeatherSearch();
+  const { handleCities } = useWeatherSuggestion(setSuggestions);
   const { error } = useWeather();
 
   const unitDropdownRef = useRef<HTMLDivElement>(null);
@@ -117,7 +114,7 @@ export const TopSide = () => {
             few moments.
           </p>
           <button className="flex gap-2.5 font-Awesome text-[16px] px-4 py-3 rounded-lg bg-[#262540] hover:bg-Neutral-700 cursor-pointer">
-            <Image src={retry} alt="retry-icon"  />
+            <Image src={retry} alt="retry-icon" />
             Retry
           </button>
         </div>
@@ -138,7 +135,11 @@ export const TopSide = () => {
                 placeholder="Search for the place.."
                 className="w-full border-none bg-transparent font-medium text-white placeholder:text-xl focus:outline-none"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                onChange={(e) => {
+                  const typed = e.target.value;
+                  setInputValue(typed);
+                  handleCities(typed);
+                }}
                 onFocus={() => setFocused(true)}
               />
               <AnimatePresence mode="wait">
@@ -150,13 +151,14 @@ export const TopSide = () => {
                     transition={{ duration: 0.2 }}
                     className="dropdown-box border-inline"
                   >
-                    {history.slice(0, 5).map((item, index) => (
+                    {suggestions.map((item, index) => (
                       <p
                         key={index}
                         className="hover:bg-Neutral-700 cursor-pointer rounded-lg px-2 py-2 text-white"
                         onClick={() => {
                           setInputValue(item);
                           setFocused(false);
+                          handleSearch(item, setInputValue);
                         }}
                       >
                         {item}
