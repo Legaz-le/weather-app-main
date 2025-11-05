@@ -59,9 +59,9 @@ export async function GET(req: Request) {
 
   const { latitude, longitude, timezone, name, country } = geoData.results[0];
 
-  const weatherResponse = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=${timezone}`
-  );
+ const weatherResponse = await fetch(
+  `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=${timezone}`
+);
 
   if (!weatherResponse.ok) {
     return new Response(JSON.stringify({ error: "Failed to fetch weather" }), {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { HourForecast } from "./Boxes/hourlyForecast";
 import { useWeather } from "@/context/WeatherContext";
-import { formatHour } from "@/utils/weatherCodeToIcon";
+import { getWeatherIcon } from "@/utils/weatherCodeToIcon";
 import dropdown from "../../../../public/images/icon-dropdown.svg";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,24 +30,72 @@ export const SideTable = () => {
   const todayText = weekDays[today];
   const [selectedDay, setSelectedDay] = useState(todayText);
 
-  const filteredHours =
-    city?.hourly?.time
-      .map((time, index) => {
-        const date = new Date(time);
-        const dayName = weekDays[date.getDay()];
-        return {
-          time,
-          temp: city.hourly?.temperature?.[index] ?? 0,
-          icon:
-            city.hourly?.weatherIcons?.[index] || "/images/default-icon.webp",
-          dayName,
-        };
-      })
-      .filter((hour) => {
-        if (hour.dayName !== selectedDay) return false;
-        if (selectedDay === todayText) return new Date(hour.time) >= now;
-        return true;
-      }) || [];
+  const filteredHours = (city?.hourly?.time || [])
+    .map((time, index) => {
+      const dateInCity = new Date(
+        new Intl.DateTimeFormat("en-US", {
+          timeZone: city?.timezone,
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+        }).format(new Date(time))
+      );
+
+      const hour = dateInCity.getHours();
+      const weatherCode = city?.hourly?.weathercode?.[index] ?? 0;
+      const icon = getWeatherIcon(weatherCode, hour);
+
+      return {
+        time: dateInCity,
+        temp: city?.hourly?.temperature?.[index] ?? 0,
+        icon,
+        dayName: new Intl.DateTimeFormat("en-US", {
+          weekday: "long",
+          timeZone: city?.timezone,
+        }).format(dateInCity),
+      };
+    })
+    .filter((hour) => {
+      if (!hour.time) return false;
+
+      const nowInCity = new Date(
+        new Intl.DateTimeFormat("en-US", {
+          timeZone: city?.timezone,
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+        }).format(new Date())
+      );
+
+      const todayInCity = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+        timeZone: city?.timezone,
+      }).format(nowInCity);
+
+      if (selectedDay === todayInCity) {
+        const nextDayNoon = new Date(nowInCity);
+        nextDayNoon.setDate(nowInCity.getDate() + 1);
+        nextDayNoon.setHours(12, 0, 0, 0);
+        return hour.time >= nowInCity && hour.time <= nextDayNoon;
+      } else {
+        const selectedDayIndex = weekDays.indexOf(selectedDay);
+        const dayStart = new Date(nowInCity);
+        const dayDiff = (selectedDayIndex - nowInCity.getDay() + 7) % 7;
+        dayStart.setDate(nowInCity.getDate() + dayDiff);
+        dayStart.setHours(0, 0, 0, 0);
+
+        const dayEnd = new Date(dayStart);
+        dayEnd.setHours(23, 59, 59, 99);
+
+        return hour.time >= dayStart && hour.time <= dayEnd;
+      }
+    });
 
   useEffect(() => {
     const savedDay = localStorage.getItem("selectedDay");
@@ -59,7 +107,6 @@ export const SideTable = () => {
       <div className="side-table__header">
         <p className="font-DM-Sans font-[600] xl:text-xl">Hourly forecast</p>
 
-        
         <div ref={dropdownRef} className="relative inline-block">
           <button
             onClick={() => setIsOpen((prev) => !prev)}
@@ -123,14 +170,21 @@ export const SideTable = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 1 }}
           >
-            {filteredHours.map((hour, index) => (
-              <HourForecast
-                key={index}
-                hour={formatHour(hour.time)}
-                img={hour.icon}
-                temp={Math.round(hour.temp)}
-              />
-            ))}
+            {filteredHours.map((hour, index) => {
+              const formattedHour = hour.time.toLocaleTimeString("en-US", {
+                hour: "numeric",
+                hour12: true,
+                timeZone: city.timezone,
+              });
+              return (
+                <HourForecast
+                  key={index}
+                  hour={formattedHour}
+                  img={hour.icon}
+                  temp={Math.round(hour.temp)}
+                />
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

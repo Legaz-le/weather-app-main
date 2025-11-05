@@ -16,11 +16,10 @@ export const useWeatherSearch = () => {
 
   const { trigger: fetchWeather } = useSWRMutation(
     "/api/weather",
-    async (_key, { arg : city}: {arg: string })  => {
+    async (_key, { arg: city }: { arg: string }) => {
       return fetcher(`/api/weather?city=${encodeURIComponent(city)}`);
     }
-  )
-
+  );
 
   const handleSearch = useCallback(
     async (city: string, setInput: (val: string) => void) => {
@@ -34,32 +33,35 @@ export const useWeatherSearch = () => {
 
       const cacheKey = `weather:${city.toLowerCase()}`;
       try {
-        const cachedRaw =  sessionStorage.getItem(cacheKey);
+        const cachedRaw = sessionStorage.getItem(cacheKey);
 
         if (cachedRaw) {
           const parsed = JSON.parse(cachedRaw);
           setCity(parsed);
           setLoading(false);
-          fetchWeather(city).then((fresh) => {
-            if(fresh) {
-              mutate(cacheKey, fresh, false);
-              sessionStorage.setItem(cacheKey, JSON.stringify(fresh));
-              setCity(fresh);
-            }
-          }).catch(()=> {});
-          return
+          fetchWeather(city)
+            .then((fresh) => {
+              if (fresh) {
+                mutate(cacheKey, fresh, false);
+                sessionStorage.setItem(cacheKey, JSON.stringify(fresh));
+                setCity(fresh);
+              }
+            })
+            .catch(() => {});
+          return;
         }
         const data = await fetchWeather(city);
 
-        const hourlyIcons = data.hourly.time.map((_: string, i: number) => {
-          const code = data.daily.weathercode[i] ?? data.daily.weathercode[0];
-          return weatherCodeToIcon[code] || "/images/default-icon.webp";
-        });
+        const hourlyIcons = data.hourly.weathercode.map(
+          (code: number) =>
+            weatherCodeToIcon[code] || "/images/default-icon.webp"
+        );
 
         setCity({
           city: data.city,
           country: data.country,
           temperature: data.current.temperature,
+          timezone: data.timezone,
           humidity: data.current.humidity,
           windSpeed: data.current.windSpeed,
           perception: data.current.perception,
@@ -75,6 +77,7 @@ export const useWeatherSearch = () => {
             time: data.hourly.time,
             temperature: data.hourly.temperature_2m,
             weatherIcons: hourlyIcons,
+            weathercode: data.hourly.weathercode,
           },
         });
 

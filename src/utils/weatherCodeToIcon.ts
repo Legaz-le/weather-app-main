@@ -1,3 +1,15 @@
+ export const getWeatherIcon = (code: number, hour: number): string => {
+  const isNight = hour >= 18 || hour < 6;
+  if (code === 0 || code === 1) {
+    return isNight ? "/images/icon-overcast.webp" : "/images/icon-sunny.webp";
+  }
+  if (code === 2) {
+    return isNight ? "/images/icon-overcast.webp" : "/images/icon-partly-cloudy.webp";
+  }
+
+  return weatherCodeToIcon[code] || "/images/default-icon.webp";
+};
+ 
  export const weatherCodeToIcon: Record<number, string> = {
   0: "/images/icon-sunny.webp",      
   1: "/images/icon-sunny.webp",      
@@ -21,11 +33,3 @@
   96: "/images/icon-storm.webp",     
   99: "/images/icon-storm.webp" 
 };
-
-export function formatHour(timeString: string) {
-  const date = new Date(timeString);
-  const hours = date.getHours();
-  const ampm = hours >= 12 ? "PM" : "AM";
-  const hour12 = hours % 12 === 0 ? 12 : hours % 12; 
-  return `${hour12} ${ampm}`;
-}

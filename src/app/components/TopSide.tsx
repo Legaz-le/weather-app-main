@@ -40,6 +40,11 @@ export const TopSide = () => {
   useOutsideClick(searchBoxRef, () => setFocused(false));
 
   useEffect(() => {
+    const defaultCity = "London";
+    handleSearch(defaultCity, setInputValue);
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("unitMode", unitMode);
   }, [unitMode]);
 

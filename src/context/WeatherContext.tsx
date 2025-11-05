@@ -5,6 +5,7 @@ import { createContext, useContext, ReactNode, useState } from "react";
 type WeatherData = {
   city: string;
   country: string;
+  timezone: string;
   temperature: number;
   humidity: number;
   windSpeed: number;
@@ -13,16 +14,12 @@ type WeatherData = {
     highTemp: number[];
     lowTemp: number[];
     weatherIcons?: string[];
-    hourly?: {
-      time: string[];
-      temperature: number[];
-      weatherIcons?: string[];
-    };
   };
   hourly?: {
     time: string[];
     temperature: number[];
     weatherIcons?: string[];
+    weathercode: number[];
   };
 };
 
