@@ -6,6 +6,7 @@ import dropdown from "../../../public/images/icon-dropdown.svg";
 import search from "../../../public/images/icon-search.svg";
 import errorIcon from "../../../public/images/icon-error.svg";
 import retry from "../../../public/images/icon-retry.svg";
+import load from "../../../public/images/icon-loading.svg";
 import { useState, useRef, useEffect } from "react";
 import { DropDown } from "./BodyElements/Boxes/DropDown";
 import { OptionData } from "@/mockData/data";
@@ -26,9 +27,10 @@ export const TopSide = () => {
   const [inputValue, setInputValue] = useState("");
   const [focused, setFocused] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const { handleSearch } = useWeatherSearch();
-  const { handleCities } = useWeatherSuggestion(setSuggestions);
+  const { handleCities } = useWeatherSuggestion(setLoading, setSuggestions);
   const { error } = useWeather();
 
   const unitDropdownRef = useRef<HTMLDivElement>(null);
@@ -139,11 +141,11 @@ export const TopSide = () => {
                   const typed = e.target.value;
                   setInputValue(typed);
                   handleCities(typed);
+                  setFocused(true);
                 }}
-                onFocus={() => setFocused(true)}
               />
               <AnimatePresence mode="wait">
-                {focused && (
+                {focused && (loading || suggestions.length > 0) && (
                   <motion.div
                     initial={{ opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -151,19 +153,38 @@ export const TopSide = () => {
                     transition={{ duration: 0.2 }}
                     className="dropdown-box border-inline"
                   >
-                    {suggestions.map((item, index) => (
-                      <p
-                        key={index}
-                        className="hover:bg-Neutral-700 cursor-pointer rounded-lg px-2 py-2 text-white"
-                        onClick={() => {
-                          setInputValue(item);
-                          setFocused(false);
-                          handleSearch(item, setInputValue);
-                        }}
-                      >
-                        {item}
-                      </p>
-                    ))}
+                    {loading ? (
+                      <div className="flex gap-3 items-center">
+                        <motion.div
+                          className="flex gap-3 items-center"
+                          animate={{ rotate: 360 }}
+                          transition={{
+                            repeat: Infinity,
+                            ease: "linear",
+                            duration: 1,
+                          }}
+                        >
+                          <Image src={load} alt="load-icon" />
+                        </motion.div>
+                        <p className=" text-white/70 text-sm tracking-wide">
+                          Search in progress
+                        </p>
+                      </div>
+                    ) : (
+                      suggestions.map((item, index) => (
+                        <p
+                          key={index}
+                          className="hover:bg-Neutral-700 cursor-pointer rounded-lg px-2 py-2 text-white"
+                          onClick={() => {
+                            setInputValue(item);
+                            setFocused(false);
+                            handleSearch(item, setInputValue);
+                          }}
+                        >
+                          {item}
+                        </p>
+                      ))
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>

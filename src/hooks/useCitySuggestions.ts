@@ -3,7 +3,7 @@ import { fetcher } from "./useWeatherSearch";
 import { useCallback } from "react";
 
 
-export const useWeatherSuggestion = (setSuggestions: (cities: string[]) => void) => {
+export const useWeatherSuggestion = (setLoading: (cities: boolean) => void, setSuggestions: (cities: string[]) => void)  => {
 
   const { trigger: fetchCities } = useSWRMutation(
     "/api/weather",
@@ -21,20 +21,23 @@ export const useWeatherSuggestion = (setSuggestions: (cities: string[]) => void)
       }
 
       try {
+        setLoading(true)
         const result = await fetchCities(city);
 
         if (result?.suggestions) {
           const cityNames = result.suggestions.map((c: {name: string, country: string}) => `${c.name}, ${c.country}`);
-          setSuggestions(cityNames); 
+          setSuggestions(cityNames);
+          setLoading(false) 
         } else {
           setSuggestions([]);
         }
       } catch (err) {
         console.error("Failed to fetch city suggestions:", err);
         setSuggestions([]);
+        setLoading(false)
       }
     },
-    [fetchCities, setSuggestions]
+    [fetchCities, setSuggestions, setLoading]
   );
 
   return { handleCities };
