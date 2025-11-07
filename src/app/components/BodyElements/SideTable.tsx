@@ -125,7 +125,7 @@ export const SideTable = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.2 }}
-                className="dropdown-menu border-inline absolute top-full  mt-2 z-50"
+                className="dropdown-menu border-inline absolute top-full  mt-2 z-50 cursor-pointer"
               >
                 {weekDays.map((day) => (
                   <p

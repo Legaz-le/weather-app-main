@@ -17,6 +17,11 @@ import { useUnit } from "@/context/UnitContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useWeather } from "@/context/WeatherContext";
 import { useWeatherSuggestion } from "@/hooks/useCitySuggestions";
+import { gsap } from "gsap";
+import { SplitText } from "gsap/all";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(SplitText, useGSAP);
 
 export const TopSide = () => {
   const { toggleUnitMode, unitMode } = useUnit();
@@ -25,13 +30,28 @@ export const TopSide = () => {
     Record<string, string>
   >({});
   const [inputValue, setInputValue] = useState("");
+  const [inputValueUse, setValueUse] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   const [focused, setFocused] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
   const { handleSearch } = useWeatherSearch();
   const { handleCities } = useWeatherSuggestion(setLoading, setSuggestions);
-  const { error } = useWeather();
+  const { error, city } = useWeather();
+  const textAccess = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const split = new SplitText(textAccess.current, { type: "words" });
+    gsap.from(split.words, {
+      opacity: 0,
+      stagger: 0.1,
+      duration: 7,
+      ease: "power2.out",
+    });
+
+    return () => split.revert();
+  }, [inputValueUse]);
 
   const unitDropdownRef = useRef<HTMLDivElement>(null);
   const searchBoxRef = useRef<HTMLDivElement>(null);
@@ -61,6 +81,10 @@ export const TopSide = () => {
     });
     setSelectedOptions(newSelections);
   }, [unitMode]);
+
+  useEffect(() => {
+    setValueUse(city?.city ?? " ");
+  }, [city]);
 
   return (
     <div className="mb-12 flex w-full flex-col">
@@ -127,9 +151,11 @@ export const TopSide = () => {
         </div>
       ) : (
         <div className="mt-16 flex flex-col items-center justify-center">
-          <h1 className="headline font-family ">
-            How&apos;s the sky looking today?
-          </h1>
+          <div ref={textAccess} className="headline font-family">
+            {inputValueUse && error
+              ? "How’s the sky looking today?"
+              : `How’s weather in ${inputValueUse}?`}
+          </div>
 
           <div
             ref={searchBoxRef}
@@ -145,6 +171,7 @@ export const TopSide = () => {
                 onChange={(e) => {
                   const typed = e.target.value;
                   setInputValue(typed);
+                  setSelectedCity("")
                   handleCities(typed);
                   setFocused(true);
                 }}
@@ -182,8 +209,8 @@ export const TopSide = () => {
                           className="hover:bg-Neutral-700 cursor-pointer rounded-lg px-2 py-2 text-white"
                           onClick={() => {
                             setInputValue(item);
+                            setSelectedCity(item);
                             setFocused(false);
-                            handleSearch(item, setInputValue);
                           }}
                         >
                           {item}
@@ -197,7 +224,7 @@ export const TopSide = () => {
 
             <button
               className="btn-primary w-full sm:w-[120px]"
-              onClick={() => handleSearch(inputValue, setInputValue)}
+              onClick={() => handleSearch(selectedCity || inputValue, setInputValue)}
             >
               Search
             </button>
