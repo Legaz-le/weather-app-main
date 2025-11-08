@@ -2,6 +2,7 @@
 
 import { useWeather } from "@/context/WeatherContext";
 import { useUnit } from "@/context/UnitContext";
+import { motion } from "framer-motion";
 
 type MainInfoType = {
   Name: string;
@@ -38,13 +39,23 @@ export const WeatherInfo = ({ Name }: MainInfoType) => {
     }
   };
   return (
-    <div className="border-inline flex w-full flex-col justify-start gap-6 rounded-xl bg-[#262540] p-5">
+    <div className=" backdrop-blur-md  flex w-full flex-col justify-start gap-6 rounded-xl border border-white/20 bg-white/10 p-5">
       <p className="text-lg leading-[120%] font-medium text-[#D4D3D9]">
         {Name}
       </p>
-      <span className="text-[32px] leading-[100%] font-light">
-        {getValue()}
-      </span>
+      <motion.div layout className="text-[32px] leading-[100%] font-light">
+        <motion.div
+          key={unitMode}
+          layout
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="block "
+        >
+          {getValue()}
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#0F0E1A] text-white">
+      <body className="app-bg min-h-screen transition-colors duration-500">
         <WeatherProvider>
           <UnitProvider>{children}</UnitProvider>
         </WeatherProvider>

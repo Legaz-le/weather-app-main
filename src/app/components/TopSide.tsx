@@ -40,6 +40,7 @@ export const TopSide = () => {
   const { handleCities } = useWeatherSuggestion(setLoading, setSuggestions);
   const { error, city } = useWeather();
   const textAccess = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   useGSAP(() => {
     const split = new SplitText(textAccess.current, { type: "words" });
@@ -85,6 +86,23 @@ export const TopSide = () => {
   useEffect(() => {
     setValueUse(city?.city ?? "");
   }, [city]);
+
+  useEffect(() => {
+    const btn = btnRef.current;
+    if (!btn) return;
+
+    const gradient = gsap.timeline({ paused: true })
+      .to(btn, {
+        backgroundPosition: "200% center",
+        duration: 1.5,
+        ease: "power2.inOut",
+      });
+
+    btn.addEventListener("mouseenter", () => gradient.play());
+    btn.addEventListener("mouseleave", () => gradient.reverse());
+    
+  }, []);
+  
 
   return (
     <div className="mb-12 flex w-full flex-col">
@@ -229,7 +247,15 @@ export const TopSide = () => {
               </AnimatePresence>
             </div>
 
-            <button className="btn-primary w-full sm:w-[120px]">Search</button>
+            <button
+              ref={btnRef}
+              type="submit"
+              onMouseEnter={() => gsap.to(btnRef.current, { scale: 1.05, duration: 0.2 })}
+              onMouseLeave={() => gsap.to(btnRef.current, { scale: 1, duration: 0.2 })}
+              className="btn-primary w-full sm:w-[120px]"
+            >
+              Search
+            </button>
           </div>
         </form>
       )}

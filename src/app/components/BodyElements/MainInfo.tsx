@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useWeather } from "@/context/WeatherContext";
 import { useUnit } from "@/context/UnitContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
 
 export const MainInfo = () => {
   const { city, loading } = useWeather();
@@ -105,18 +106,26 @@ export const MainInfo = () => {
               <div className="flex items-center gap-5">
                 <Image
                   src={
-                    city?.hourly?.weatherIcons?.[0]  ||
+                    city?.hourly?.weatherIcons?.[0] ||
                     "/images/default-icon.webp"
                   }
                   alt="weather_icon"
                   width={120}
                   height={120}
                 />
-                <span className="text-8xl font-[600] tracking-[-0.02em] text-white italic">
+                <motion.div
+                  key={unitMode}
+                  layout
+                  className="text-8xl font-[600] tracking-[-0.02em] text-white italic"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4,  ease: "easeInOut"}}
+                >
                   {unitMode === "metric"
                     ? `${Math.round(city?.temperature ?? 0)}°`
                     : `${Math.round(((city?.temperature ?? 0) * 9) / 5 + 32)}°`}
-                </span>
+                </motion.div>
               </div>
             </div>
 

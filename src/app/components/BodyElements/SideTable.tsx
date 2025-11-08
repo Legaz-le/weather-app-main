@@ -147,47 +147,47 @@ export const SideTable = () => {
           </AnimatePresence>
         </div>
       </div>
-
-      <AnimatePresence mode="wait">
-        {loading || !city ? (
-          <div className="w-full flex flex-col gap-3 overflow-y-auto lg:max-h-[500px] xl:max-h-[600px]">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between rounded-lg bg-[#302F4A]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              />
-            ))}
-          </div>
-        ) : (
-          <motion.div
-            key="loaded"
-            className="w-full flex flex-col gap-3 overflow-y-auto lg:max-h-[500px] xl:max-h-[600px]"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 1 }}
-          >
-            {filteredHours.map((hour, index) => {
-              const formattedHour = hour.time.toLocaleTimeString("en-US", {
-                hour: "numeric",
-                hour12: true,
-                timeZone: city.timezone,
-              });
-              return (
-                <HourForecast
-                  key={index}
-                  hour={formattedHour}
-                  img={hour.icon}
-                  temp={Math.round(hour.temp)}
+      <div className=" w-full flex flex-col gap-3 overflow-y-auto lg:max-h-[500px] xl:max-h-[600px]">
+        <AnimatePresence mode="wait">
+          {loading || !city
+            ? Array.from({ length: 12 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between rounded-lg bg-[#302F4A]"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
                 />
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
+              ))
+            : filteredHours.map((hour) => {
+                const formattedHour = hour.time.toLocaleTimeString("en-US", {
+                  hour: "numeric",
+                  hour12: true,
+                  timeZone: city.timezone,
+                });
+                return (
+                  <motion.div
+                    key={hour.time.toISOString()}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 1 }}
+                  >
+                    <HourForecast
+                      key={hour.time.toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        hour12: true,
+                        timeZone: city.timezone,
+                      })}
+                      hour={formattedHour}
+                      img={hour.icon}
+                      temp={Math.round(hour.temp)}
+                    />
+                  </motion.div>
+                );
+              })}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

@@ -36,7 +36,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .btn-primary {
-  @apply bg-Blue-500 hover:bg-Blue-700 text-xl focus:ring-Blue-500 focus:ring-offset-Blue-700 cursor-pointer rounded-xl px-6 py-4 font-medium text-white transition duration-300 focus:ring-2 focus:ring-offset-2 focus:outline-none;
+  @apply w-full sm:w-[120px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500  bg-[length:200%_200%] cursor-pointer rounded-xl px-6 py-4 font-medium text-white transition duration-300 focus:ring-2 focus:ring-offset-2 focus:outline-none;
 }
 
 .btn-neutral {
@@ -58,7 +58,7 @@ input[type="search"]::-webkit-search-cancel-button {
 /* === SideTable component styles === */
 
 .side-table {
-  @apply flex w-full flex-col items-start gap-4 rounded-[20px] bg-[#262540] p-6;
+  @apply flex w-full flex-col items-start gap-4 rounded-[20px] border backdrop-blur-md border-white/20 bg-white/10 p-6;
 }
 
 .side-table__header {
