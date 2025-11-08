@@ -83,7 +83,7 @@ export const TopSide = () => {
   }, [unitMode]);
 
   useEffect(() => {
-    setValueUse(city?.city ?? " ");
+    setValueUse(city?.city ?? "");
   }, [city]);
 
   return (
@@ -150,7 +150,13 @@ export const TopSide = () => {
           </button>
         </div>
       ) : (
-        <div className="mt-16 flex flex-col items-center justify-center">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch(selectedCity || inputValue, setInputValue);
+          }}
+          className="mt-16 flex flex-col items-center justify-center"
+        >
           <div ref={textAccess} className="headline font-family">
             {inputValueUse && error
               ? "How’s the sky looking today?"
@@ -171,10 +177,11 @@ export const TopSide = () => {
                 onChange={(e) => {
                   const typed = e.target.value;
                   setInputValue(typed);
-                  setSelectedCity("")
+                  setSelectedCity("");
                   handleCities(typed);
                   setFocused(true);
                 }}
+                required
               />
               <AnimatePresence mode="wait">
                 {focused && (loading || suggestions.length > 0) && (
@@ -222,14 +229,9 @@ export const TopSide = () => {
               </AnimatePresence>
             </div>
 
-            <button
-              className="btn-primary w-full sm:w-[120px]"
-              onClick={() => handleSearch(selectedCity || inputValue, setInputValue)}
-            >
-              Search
-            </button>
+            <button className="btn-primary w-full sm:w-[120px]">Search</button>
           </div>
-        </div>
+        </form>
       )}
     </div>
   );
