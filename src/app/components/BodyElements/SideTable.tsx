@@ -16,8 +16,6 @@ export const SideTable = () => {
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   const { city, loading } = useWeather();
-  const now = new Date();
-  const today = now.getDay();
   const weekDays = [
     "Monday",
     "Tuesday",
@@ -27,8 +25,13 @@ export const SideTable = () => {
     "Saturday",
     "Sunday",
   ];
-  const todayText = weekDays[today];
-  const [selectedDay, setSelectedDay] = useState(todayText);
+  const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
+  const todayIndex = weekDays.indexOf(today);
+  const orderedWeekDays = [
+    ...weekDays.slice(todayIndex),
+    ...weekDays.slice(0, todayIndex),
+  ];
+  const [selectedDay, setSelectedDay] = useState<string>(weekDays[todayIndex]);
 
   const filteredHours = (city?.hourly?.time || [])
     .map((time, index) => {
@@ -127,7 +130,7 @@ export const SideTable = () => {
                 transition={{ duration: 0.2 }}
                 className="dropdown-menu border-inline absolute top-full  mt-2 z-50 cursor-pointer"
               >
-                {weekDays.map((day) => (
+                {orderedWeekDays.map((day) => (
                   <p
                     key={day}
                     className={`dropdown-item ${

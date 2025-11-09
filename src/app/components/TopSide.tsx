@@ -91,18 +91,15 @@ export const TopSide = () => {
     const btn = btnRef.current;
     if (!btn) return;
 
-    const gradient = gsap.timeline({ paused: true })
-      .to(btn, {
-        backgroundPosition: "200% center",
-        duration: 1.5,
-        ease: "power2.inOut",
-      });
+    const gradient = gsap.timeline({ paused: true }).to(btn, {
+      backgroundPosition: "200% center",
+      duration: 1.5,
+      ease: "power2.inOut",
+    });
 
     btn.addEventListener("mouseenter", () => gradient.play());
     btn.addEventListener("mouseleave", () => gradient.reverse());
-    
   }, []);
-  
 
   return (
     <div className="mb-12 flex w-full flex-col">
@@ -250,13 +247,26 @@ export const TopSide = () => {
             <button
               ref={btnRef}
               type="submit"
-              onMouseEnter={() => gsap.to(btnRef.current, { scale: 1.05, duration: 0.2 })}
-              onMouseLeave={() => gsap.to(btnRef.current, { scale: 1, duration: 0.2 })}
+              onMouseEnter={() =>
+                gsap.to(btnRef.current, { scale: 1.05, duration: 0.2 })
+              }
+              onMouseLeave={() =>
+                gsap.to(btnRef.current, { scale: 1, duration: 0.2 })
+              }
               className="btn-primary w-full sm:w-[120px]"
             >
               Search
             </button>
           </div>
+          {/* <div className="w-full xl:w-[670px] mt-3">
+            <div className="divide-line w-full flex justify-between">
+              <h1 className="p-3 bg-Neutral-900 rounded-2xl">London</h1>
+              <h1 className="p-3 bg-Neutral-900 rounded-2xl">Tokyo</h1>
+              <h1 className="p-3 bg-Neutral-900 rounded-2xl">Dubai</h1>
+              <h1 className="p-3 bg-Neutral-900 rounded-2xl">Shymkent</h1>
+              <h1 className="p-3 bg-Neutral-900 rounded-2xl">Osaka</h1>
+            </div>
+          </div> */}
         </form>
       )}
     </div>

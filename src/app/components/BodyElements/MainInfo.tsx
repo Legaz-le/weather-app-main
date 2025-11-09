@@ -8,7 +8,6 @@ import Image from "next/image";
 import { useWeather } from "@/context/WeatherContext";
 import { useUnit } from "@/context/UnitContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { gsap } from "gsap";
 
 export const MainInfo = () => {
   const { city, loading } = useWeather();
