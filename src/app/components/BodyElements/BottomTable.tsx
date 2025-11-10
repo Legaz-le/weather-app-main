@@ -24,7 +24,7 @@ export const BottomTable = () => {
             Array.from({ length: 7 }).map((_, i) => (
               <motion.div
                 key={i}
-                className="border-inline rounded-xl bg-[#262540] px-2.5 py-4 w-[100px] h-[165px] text-center"
+                className="border-inline rounded-xl bg-[#262540] px-2.5 py-4 w-[100px] h-[165px] text-center animate-pulse"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

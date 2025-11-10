@@ -111,15 +111,30 @@ export const SideTable = () => {
         <p className="font-DM-Sans font-[600] xl:text-xl">Hourly forecast</p>
 
         <div ref={dropdownRef} className="relative inline-block">
-          <button
+          <motion.button
+            role="button"
             onClick={() => setIsOpen((prev) => !prev)}
-            className="dropdown-btn flex items-center gap-2"
+            whileHover={{
+              y: -3,
+              boxShadow: "0 4px 12px rgba(255,255,255,0.15)",
+            }}
+            whileTap={{
+              scale: 0.97,
+              boxShadow: "0 0 20px rgba(147, 51, 234, 0.5)",
+            }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="dropdown-btn btn-gradient  flex items-center gap-2"
           >
             <p className="font-DM-Sans font-[500] xl:text-[16px]">
               {selectedDay}
             </p>
-            <Image src={dropdown} alt="icon-dropdown" width={0} height={0} />
-          </button>
+            <motion.div
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <Image src={dropdown} alt="icon-dropdown" width={0} height={0} />
+            </motion.div>
+          </motion.button>
 
           <AnimatePresence mode="wait">
             {isOpen && (
@@ -156,7 +171,7 @@ export const SideTable = () => {
             ? Array.from({ length: 12 }).map((_, i) => (
                 <motion.div
                   key={i}
-                  className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between rounded-lg bg-[#302F4A]"
+                  className="p-forDailyForecast border-inline flex w-full h-[60px] items-center justify-between rounded-lg bg-[#302F4A] animate-pulse"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}

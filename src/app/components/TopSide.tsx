@@ -106,14 +106,34 @@ export const TopSide = () => {
       <div className="flex w-full items-center justify-between">
         <Image src={logo} alt="logo-icon" />
         <div ref={unitDropdownRef} className="relative">
-          <button
+          <motion.button
+            role="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="font-dm btn-neutral focus:ring-Neutral-0  flex items-center gap-2.5 focus:ring-1 focus:ring-offset-1 sm:px-4 sm:py-3"
+            whileHover={{
+              y: -3,
+              boxShadow: "0 4px 12px rgba(255,255,255,0.15)",
+            }}
+            whileTap={{
+              scale: 0.97,
+              boxShadow: "0 0 20px rgba(147, 51, 234, 0.5)",
+            }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="btn-gradient font-dm flex items-center gap-2.5 sm:px-4 sm:py-3 rounded-xl text-white focus:ring-1 focus:ring-offset-1 focus:ring-Neutral-0 cursor-pointer"
           >
-            <Image src={icon} alt="icon-units" />
+            <Image src={icon} alt="icon-units" width={20} height={20} />
             Units
-            <Image src={dropdown} alt="icon-dropDrown" />
-          </button>
+            <motion.div
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <Image
+                src={dropdown}
+                alt="icon-dropdown"
+                width={16}
+                height={16}
+              />
+            </motion.div>
+          </motion.button>
           <AnimatePresence mode="wait">
             {isOpen && (
               <motion.div
@@ -208,21 +228,20 @@ export const TopSide = () => {
                     className="dropdown-box border-inline"
                   >
                     {loading ? (
-                      <div className="flex gap-3 items-center">
-                        <motion.div
-                          className="flex gap-3 items-center"
-                          animate={{ rotate: 360 }}
-                          transition={{
-                            repeat: Infinity,
-                            ease: "linear",
-                            duration: 1,
-                          }}
-                        >
-                          <Image src={load} alt="load-icon" />
-                        </motion.div>
-                        <p className=" text-white/70 text-sm tracking-wide">
-                          Search in progress
-                        </p>
+                      <div className="flex flex-col gap-2">
+                        {[...Array(5)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="h-10 w-full rounded-lg bg-Neutral-700 bg-[length:200%_100%] animate-shimmer"
+                            initial={{ y: -10, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{
+                              delay: i * 0.15,
+                              duration: 0.5,
+                              ease: "easeOut",
+                            }}
+                          />
+                        ))}
                       </div>
                     ) : (
                       suggestions.map((item, index) => (

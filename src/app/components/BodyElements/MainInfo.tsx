@@ -46,7 +46,7 @@ export const MainInfo = () => {
                 Loading weather data...
               </p>
             </motion.div>
-            <div className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex">
+            <div className="grid w-full grid-cols-2 gap-6 sm:grid-cols-4 md:flex animate-pulse">
               {Array.from({ length: 4 }).map((_, i) => (
                 <motion.div
                   key={i}
