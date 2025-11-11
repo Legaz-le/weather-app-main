@@ -74,21 +74,20 @@ export const TopSide = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("unitMode", unitMode);
-  }, [unitMode]);
-
-  useEffect(() => {
-    const newSelections: Record<string, string> = {};
-    OptionData.forEach((data) => {
-      const matchedOption =
-        data.options.find((opt) =>
-          unitMode === "metric"
-            ? opt.includes("C") || opt.includes("m/s") || opt.includes("mm")
-            : opt.includes("F") || opt.includes("mph") || opt.includes("in")
-        ) || data.options[0];
-      newSelections[data.title] = matchedOption;
-    });
-    setSelectedOptions(newSelections);
+    const savedUnit = localStorage.getItem("unitMode");
+    if (savedUnit) {
+      const newSelections: Record<string, string> = {};
+      OptionData.forEach((data) => {
+        const matchedOption =
+          data.options.find((opt) =>
+            unitMode === "metric"
+              ? opt.includes("C") || opt.includes("m/s") || opt.includes("mm")
+              : opt.includes("F") || opt.includes("mph") || opt.includes("in")
+          ) || data.options[0];
+        newSelections[data.title] = matchedOption;
+      });
+    }
+    setSelectedOptions(savedUnit);
   }, [unitMode]);
 
   useEffect(() => {
