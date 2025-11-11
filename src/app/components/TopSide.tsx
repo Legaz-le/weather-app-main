@@ -6,7 +6,6 @@ import dropdown from "../../../public/images/icon-dropdown.svg";
 import search from "../../../public/images/icon-search.svg";
 import errorIcon from "../../../public/images/icon-error.svg";
 import retry from "../../../public/images/icon-retry.svg";
-import load from "../../../public/images/icon-loading.svg";
 import { useState, useRef, useEffect } from "react";
 import { DropDown } from "./BodyElements/Boxes/DropDown";
 import { OptionData } from "@/mockData/data";
@@ -20,6 +19,7 @@ import { useWeatherSuggestion } from "@/hooks/useCitySuggestions";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/all";
 import { useGSAP } from "@gsap/react";
+import { HistoryOfCities } from "./Shared/HistoryOfCities";
 
 gsap.registerPlugin(SplitText, useGSAP);
 
@@ -34,11 +34,15 @@ export const TopSide = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [focused, setFocused] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchedCities, setSearchedCities] = useState<string[]>([]);
 
   const { handleSearch } = useWeatherSearch();
-  const { handleCities } = useWeatherSuggestion(setLoading, setSuggestions);
-  const { error, city } = useWeather();
+  const { handleCities } = useWeatherSuggestion(
+    setSearchLoading,
+    setSuggestions
+  );
+  const { error, city, loading } = useWeather();
   const textAccess = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
@@ -61,8 +65,12 @@ export const TopSide = () => {
   useOutsideClick(searchBoxRef, () => setFocused(false));
 
   useEffect(() => {
+    localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+  }, [searchedCities]);
+
+  useEffect(() => {
     const defaultCity = "London";
-    handleSearch(defaultCity, setInputValue);
+    handleSearch(defaultCity);
   }, []);
 
   useEffect(() => {
@@ -188,7 +196,17 @@ export const TopSide = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSearch(selectedCity || inputValue, setInputValue);
+            handleSearch(selectedCity || inputValue);
+            setSearchedCities((prev) => {
+              const newCity = city?.city?.trim();
+              if (!newCity) return prev;
+              const filtered = prev.filter(
+                (c) => c.toLowerCase() !== newCity.toLowerCase()
+              );
+              const updated = [...filtered, newCity];
+              return updated.slice(-5);
+            });
+            setInputValue("");
           }}
           className="mt-16 flex flex-col items-center justify-center"
         >
@@ -219,7 +237,7 @@ export const TopSide = () => {
                 required
               />
               <AnimatePresence mode="wait">
-                {focused && (loading || suggestions.length > 0) && (
+                {focused && (searchLoading || suggestions.length > 0) && (
                   <motion.div
                     initial={{ opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -227,7 +245,7 @@ export const TopSide = () => {
                     transition={{ duration: 0.2 }}
                     className="dropdown-box border-inline"
                   >
-                    {loading ? (
+                    {searchLoading ? (
                       <div className="flex flex-col gap-2">
                         {[...Array(5)].map((_, i) => (
                           <motion.div
@@ -277,15 +295,33 @@ export const TopSide = () => {
               Search
             </button>
           </div>
-          {/* <div className="w-full xl:w-[670px] mt-3">
-            <div className="divide-line w-full flex justify-between">
-              <h1 className="p-3 bg-Neutral-900 rounded-2xl">London</h1>
-              <h1 className="p-3 bg-Neutral-900 rounded-2xl">Tokyo</h1>
-              <h1 className="p-3 bg-Neutral-900 rounded-2xl">Dubai</h1>
-              <h1 className="p-3 bg-Neutral-900 rounded-2xl">Shymkent</h1>
-              <h1 className="p-3 bg-Neutral-900 rounded-2xl">Osaka</h1>
+          <AnimatePresence mode="wait">
+            <div className="flex w-full xl:w-[680px] mt-5">
+              {loading ? (
+                <div className="w-full">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="px-13 py-5 rounded-2xl bg-Neutral-700 bg-[length:200%_100%] animate-shimmer mr-9.5"
+                        initial={{ y: -10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{
+                          delay: i * 0.15,
+                          duration: 0.5,
+                          ease: "easeOut",
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                searchedCities.map((item) => (
+                  <HistoryOfCities key={item} savedCities={item} />
+                ))
+              )}
             </div>
-          </div> */}
+          </AnimatePresence>
         </form>
       )}
     </div>

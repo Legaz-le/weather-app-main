@@ -11,15 +11,17 @@ export const MainBody = () => {
   return (
     <div className="flex w-full flex-col justify-center gap-8 lg:flex-row">
       {error ? (
-        <motion.div
-          className=" font-[700] text-[28px]"
-          initial={{ opacity: 0, y: -5 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -5 }}
-          transition={{ duration: 1 }}
-        >
-          No search result found!
-        </motion.div>
+        <AnimatePresence>
+          <motion.div
+            className=" font-[700] text-[28px]"
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 1 }}
+          >
+            No search result found!
+          </motion.div>
+        </AnimatePresence>
       ) : (
         <>
           <div className="w-full flex-col">
