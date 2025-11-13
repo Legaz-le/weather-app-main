@@ -11,6 +11,7 @@ import { DropDown } from "./BodyElements/Boxes/DropDown";
 import { OptionData } from "@/mockData/data";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useWeatherSearch } from "@/hooks/useWeatherSearch";
+import { useDebounce } from "@/hooks/useDebounce";
 import Image from "next/image";
 import { useUnit } from "@/context/UnitContext";
 import { motion, AnimatePresence } from "framer-motion";
@@ -42,6 +43,8 @@ export const TopSide = () => {
     setSearchLoading,
     setSuggestions
   );
+  const debouncedInput = useDebounce(inputValue, 300);
+
   const { error, city, loading } = useWeather();
   const textAccess = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -95,6 +98,14 @@ export const TopSide = () => {
   useEffect(() => {
     setValueUse(city?.city ?? "");
   }, [city]);
+
+  useEffect(() => {
+    if (debouncedInput.trim()) {
+      handleCities(debouncedInput);
+    } else {
+      setSuggestions([]);
+    }
+  }, [debouncedInput]);
 
   useEffect(() => {
     const btn = btnRef.current;
@@ -232,7 +243,6 @@ export const TopSide = () => {
                   const typed = e.target.value;
                   setInputValue(typed);
                   setSelectedCity("");
-                  handleCities(typed);
                   setFocused(true);
                 }}
                 required

@@ -2,6 +2,7 @@ import "../styles/index.css";
 import { Metadata } from "next";
 import { WeatherProvider } from "@/context/WeatherContext";
 import { UnitProvider } from "@/context/UnitContext";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 export const metadata: Metadata = {
   title: "Weather App",
@@ -21,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="app-bg min-h-screen transition-colors duration-500">
-        <WeatherProvider>
-          <UnitProvider>{children}</UnitProvider>
-        </WeatherProvider>
+        <ErrorBoundary>
+          <WeatherProvider>
+            <UnitProvider>{children}</UnitProvider>
+          </WeatherProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );
