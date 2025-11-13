@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { HourForecast } from "./Boxes/hourlyForecast";
+import { HourForecast } from "./Boxes/HourlyForecast";
 import { useWeather } from "@/context/WeatherContext";
 import { getWeatherIcon } from "@/utils/weatherCodeToIcon";
 import dropdown from "../../../../public/images/icon-dropdown.svg";
@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 export const SideTable = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useOutsideClick(dropdownRef, () => setIsOpen(false));

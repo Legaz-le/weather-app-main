@@ -25,14 +25,14 @@ gsap.registerPlugin(SplitText, useGSAP);
 
 export const TopSide = () => {
   const { toggleUnitMode, unitMode } = useUnit();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
-  const [inputValue, setInputValue] = useState("");
-  const [inputValueUse, setValueUse] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [focused, setFocused] = useState(false);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValueUse, setValueUse] = useState<string>("");
+  const [selectedCity, setSelectedCity] = useState<string>("");
+  const [focused, setFocused] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchedCities, setSearchedCities] = useState<string[]>([]);
@@ -86,8 +86,10 @@ export const TopSide = () => {
           ) || data.options[0];
         newSelections[data.title] = matchedOption;
       });
+      setSelectedOptions(newSelections);
+    } else {
+      setSelectedOptions({});
     }
-    setSelectedOptions(savedUnit);
   }, [unitMode]);
 
   useEffect(() => {

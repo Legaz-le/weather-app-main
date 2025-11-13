@@ -1,11 +1,6 @@
 import Image from "next/image";
 import checkMark from "../../../../../public/images/icon-checkmark.svg";
-
-type DropDownProps = {
-  title: string;
-  options: string[];
-  selectedOption?: string;
-};
+import { DropDownProps } from "@/types/component";
 
 export const DropDown = ({
   title,

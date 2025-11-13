@@ -1,14 +1,9 @@
 import { useUnit } from "@/context/UnitContext";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { HourForecastProps } from "@/types/component";
 
-type HourForecastType = {
-  img: string;
-  hour: string;
-  temp: number;
-};
-
-export const HourForecast = ({ img, hour, temp }: HourForecastType) => {
+export const HourForecast = ({ img, hour, temp }: HourForecastProps) => {
   const { unitMode } = useUnit();
   return (
     <div className="p-forDailyForecast  flex w-full items-center justify-between rounded-lg border backdrop-blur-md border-white/20 bg-white/10">

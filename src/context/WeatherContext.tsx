@@ -1,45 +1,20 @@
 "use client";
 
 import { createContext, useContext, ReactNode, useState } from "react";
+import {
+  WeatherData,
+  WeatherContextType,
+  WeatherErrorType,
+} from "@/types/weather";
 
-type WeatherData = {
-  city: string;
-  country: string;
-  timezone: string;
-  temperature: number;
-  humidity: number;
-  windSpeed: number;
-  perception: number;
-  daily?: {
-    highTemp: number[];
-    lowTemp: number[];
-    weatherIcons?: string[];
-  };
-  hourly?: {
-    time: string[];
-    temperature: number[];
-    weatherIcons?: string[];
-    weathercode: number[];
-  };
-};
-
-interface WeatherContextProps {
-  city: WeatherData | null;
-  loading: boolean;
-  error: string | null;
-  setCity: (data: WeatherData) => void;
-  setLoading: (value: boolean) => void;
-  setError: (error: string | null) => void;
-}
-
-const WeatherContext = createContext<WeatherContextProps | undefined>(
+const WeatherContext = createContext<WeatherContextType | undefined>(
   undefined
 );
 
 export const WeatherProvider = ({ children }: { children: ReactNode }) => {
   const [city, setCity] = useState<WeatherData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<WeatherErrorType>(null);
 
   return (
     <WeatherContext.Provider

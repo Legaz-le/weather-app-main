@@ -1,20 +1,14 @@
 import Image from "next/image";
 import { useUnit } from "@/context/UnitContext";
 import { motion } from "framer-motion";
-
-type weatherForecastType = {
-  day: string;
-  img: string;
-  highestTemp: number;
-  lowestTemp: number;
-};
+import { WeatherForecastProps } from "@/types/component";
 
 export const WeatherForecast = ({
   day,
   img,
   highestTemp,
   lowestTemp,
-}: weatherForecastType) => {
+}: WeatherForecastProps) => {
   const { unitMode } = useUnit();
   return (
     <div className="w-full backdrop-blur-md  rounded-xl flex flex-col items-center border border-white/20 bg-white/10 px-2.5 py-4 text-center xl:w-[100.57px]">

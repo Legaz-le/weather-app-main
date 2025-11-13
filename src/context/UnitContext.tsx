@@ -7,13 +7,7 @@ import {
   ReactNode,
 } from "react";
 
-type UnitMode = "metric" | "imperial";
-
-type UnitContextType = {
-  unitMode: UnitMode;
-  toggleUnitMode: () => void;
-  setUnitMode: (mode: UnitMode) => void;
-};
+import { UnitMode, UnitContextType } from "@/types/weather";
 
 const UnitContext = createContext<UnitContextType | undefined>(undefined);
 

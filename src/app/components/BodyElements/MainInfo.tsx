@@ -2,7 +2,7 @@
 
 import bg from "../../../../public/images/bg-today-large.svg";
 import bg_mobile from "../../../../public/images/bg-today-small.svg";
-import { WeatherInfo } from "./Boxes/weatherInfo";
+import { WeatherInfo } from "./Boxes/WeatherInfo";
 import { MainInfoData } from "../../../mockData/data";
 import Image from "next/image";
 import { useWeather } from "@/context/WeatherContext";
@@ -119,7 +119,7 @@ export const MainInfo = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4,  ease: "easeInOut"}}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
                   {unitMode === "metric"
                     ? `${Math.round(city?.temperature ?? 0)}°`

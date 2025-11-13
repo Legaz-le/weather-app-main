@@ -1,6 +1,6 @@
 import { MainBody } from "./components/MainBody";
 import { TopSide } from "./components/TopSide";
-import { BackgroundController } from "@/hooks/BackgroundController";
+import { BackgroundController } from "@/utils/BackgroundController";
 
 export default function Page() {
   return (

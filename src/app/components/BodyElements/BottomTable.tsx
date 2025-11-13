@@ -1,6 +1,6 @@
 "use client";
 
-import { WeatherForecast } from "./Boxes/weatherForecast";
+import { WeatherForecast } from "./Boxes/WeatherForecast";
 import { useWeather } from "@/context/WeatherContext";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -42,7 +42,7 @@ export const BottomTable = () => {
                 <WeatherForecast
                   key={index}
                   day={orderedWeekDays[index]}
-                  img={city?.daily?.weatherIcons?.[index] ||  " "}
+                  img={city?.daily?.weatherIcons?.[index] || " "}
                   highestTemp={Math.round(high)}
                   lowestTemp={Math.trunc(city?.daily?.lowTemp[index] || 0)}
                 />

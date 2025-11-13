@@ -3,12 +3,9 @@
 import { useWeather } from "@/context/WeatherContext";
 import { useUnit } from "@/context/UnitContext";
 import { motion } from "framer-motion";
+import { WeatherInfoProps } from "@/types/component";
 
-type MainInfoType = {
-  Name: string;
-};
-
-export const WeatherInfo = ({ Name }: MainInfoType) => {
+export const WeatherInfo = ({ Name }: WeatherInfoProps) => {
   const { city } = useWeather();
   const { unitMode } = useUnit();
 
