@@ -258,6 +258,7 @@ export const TopSide = () => {
             <button
               ref={btnRef}
               type="submit"
+              disable={loading}
               onMouseEnter={() =>
                 gsap.to(btnRef.current, { scale: 1.05, duration: 0.2 })
               }
@@ -266,7 +267,22 @@ export const TopSide = () => {
               }
               className="btn-primary w-full sm:w-[120px]"
             >
-              Search
+              {loading ? (
+                <div className="flex items-center gap-2">
+                  <motion.div
+                    className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white"
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1,
+                      ease: "linear",
+                    }}
+                  />
+                  <span>Loading...</span>
+                </div>
+              ) : (
+                "Search"
+              )}
             </button>
           </div>
           <AnimatePresence mode="wait">
