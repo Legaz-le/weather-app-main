@@ -18,6 +18,7 @@ export const WeatherForecast = ({
         alt="icon-overcast"
         width={64}
         height={64}
+        loading="lazy"
         className="object-cover xl:py-2"
       />
       <motion.div

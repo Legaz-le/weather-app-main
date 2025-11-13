@@ -111,6 +111,7 @@ export const MainInfo = () => {
                   alt="weather_icon"
                   width={120}
                   height={120}
+                  priority
                 />
                 <motion.div
                   key={unitMode}

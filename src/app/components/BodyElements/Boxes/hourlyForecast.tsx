@@ -8,7 +8,7 @@ export const HourForecast = ({ img, hour, temp }: HourForecastProps) => {
   return (
     <div className="p-forDailyForecast  flex w-full items-center justify-between rounded-lg border backdrop-blur-md border-white/20 bg-white/10">
       <div className="flex flex-row items-center gap-3">
-        <Image src={img} alt="weather-icon" width={40} height={40} />
+        <Image src={img} alt="weather-icon" width={40} height={40} loading="lazy" />
         <span className=" text-xl font-[500]">{hour}</span>
       </div>
       <motion.div

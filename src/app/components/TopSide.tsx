@@ -12,31 +12,27 @@ import { OptionData } from "@/mockData/data";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useWeatherSearch } from "@/hooks/useWeatherSearch";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useSearchHistory } from "@/hooks/useSearchHistory";
+import { useAnimatedHeadline } from "@/hooks/useAnimatedHeadline";
+import { useUnitPreference } from "@/hooks/useUnitPreference";
 import Image from "next/image";
 import { useUnit } from "@/context/UnitContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useWeather } from "@/context/WeatherContext";
 import { useWeatherSuggestion } from "@/hooks/useCitySuggestions";
 import { gsap } from "gsap";
-import { SplitText } from "gsap/all";
-import { useGSAP } from "@gsap/react";
 import { HistoryOfCities } from "./Shared/HistoryOfCities";
-
-gsap.registerPlugin(SplitText, useGSAP);
 
 export const TopSide = () => {
   const { toggleUnitMode, unitMode } = useUnit();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedOptions, setSelectedOptions] = useState<
-    Record<string, string>
-  >({});
   const [inputValue, setInputValue] = useState<string>("");
   const [inputValueUse, setValueUse] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [focused, setFocused] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
-  const [searchedCities, setSearchedCities] = useState<string[]>([]);
+  const { searchedCities, addCity } = useSearchHistory();
 
   const { handleSearch } = useWeatherSearch();
   const { handleCities } = useWeatherSuggestion(
@@ -46,20 +42,15 @@ export const TopSide = () => {
   const debouncedInput = useDebounce(inputValue, 300);
 
   const { error, city, loading } = useWeather();
-  const textAccess = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  useGSAP(() => {
-    const split = new SplitText(textAccess.current, { type: "words" });
-    gsap.from(split.words, {
-      opacity: 0,
-      stagger: 0.1,
-      duration: 7,
-      ease: "power2.out",
-    });
+  const headlineText =
+    inputValueUse && error
+      ? "How's the sky looking today?"
+      : `How's weather in ${inputValueUse}?`;
+  const textRef = useAnimatedHeadline(headlineText);
 
-    return () => split.revert();
-  }, [inputValueUse]);
+  const unitPreferences = useUnitPreference(unitMode);
 
   const unitDropdownRef = useRef<HTMLDivElement>(null);
   const searchBoxRef = useRef<HTMLDivElement>(null);
@@ -75,25 +66,6 @@ export const TopSide = () => {
     const defaultCity = "London";
     handleSearch(defaultCity);
   }, []);
-
-  useEffect(() => {
-    const savedUnit = localStorage.getItem("unitMode");
-    if (savedUnit) {
-      const newSelections: Record<string, string> = {};
-      OptionData.forEach((data) => {
-        const matchedOption =
-          data.options.find((opt) =>
-            unitMode === "metric"
-              ? opt.includes("C") || opt.includes("m/s") || opt.includes("mm")
-              : opt.includes("F") || opt.includes("mph") || opt.includes("in")
-          ) || data.options[0];
-        newSelections[data.title] = matchedOption;
-      });
-      setSelectedOptions(newSelections);
-    } else {
-      setSelectedOptions({});
-    }
-  }, [unitMode]);
 
   useEffect(() => {
     setValueUse(city?.city ?? "");
@@ -179,7 +151,7 @@ export const TopSide = () => {
                     <DropDown
                       title={data.title}
                       options={data.options}
-                      selectedOption={selectedOptions[data.title]}
+                      selectedOption={unitPreferences[data.title]}
                     />
                     {index < OptionData.length - 1 && index < 2 && (
                       <hr className="border-Neutral-500 border-0.5 w-full border-[#3C3B5E]" />
@@ -208,24 +180,15 @@ export const TopSide = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSearch(selectedCity || inputValue);
-            setSearchedCities((prev) => {
-              const newCity = city?.city?.trim();
-              if (!newCity) return prev;
-              const filtered = prev.filter(
-                (c) => c.toLowerCase() !== newCity.toLowerCase()
-              );
-              const updated = [...filtered, newCity];
-              return updated.slice(-5);
-            });
+            const cityToSearch = selectedCity || inputValue;
+            handleSearch(cityToSearch);
+            addCity(city?.city || cityToSearch);
             setInputValue("");
           }}
           className="mt-16 flex flex-col items-center justify-center"
         >
-          <div ref={textAccess} className="headline font-family">
-            {inputValueUse && error
-              ? "How’s the sky looking today?"
-              : `How’s weather in ${inputValueUse}?`}
+          <div ref={textRef} className="headline font-family">
+            {headlineText}
           </div>
 
           <div
