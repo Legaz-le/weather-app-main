@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { HourForecast } from "./Boxes/HourlyForecast";
 import { useWeather } from "@/context/WeatherContext";
-import { getWeatherIcon } from "@/utils/weatherCodeToIcon";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { useFilteredHours } from "@/hooks/useFilteredHours";
 
 export const SideTable = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -31,73 +31,7 @@ export const SideTable = () => {
     ...weekDays.slice(0, todayIndex),
   ];
   const [selectedDay, setSelectedDay] = useState<string>(weekDays[todayIndex]);
-
-  const filteredHours = (city?.hourly?.time || [])
-    .map((time, index) => {
-      const dateInCity = new Date(
-        new Intl.DateTimeFormat("en-US", {
-          timeZone: city?.timezone,
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric",
-        }).format(new Date(time))
-      );
-
-      const hour = dateInCity.getHours();
-      const weatherCode = city?.hourly?.weathercode?.[index] ?? 0;
-      const icon = getWeatherIcon(weatherCode, hour);
-
-      return {
-        time: dateInCity,
-        temp: city?.hourly?.temperature?.[index] ?? 0,
-        icon,
-        dayName: new Intl.DateTimeFormat("en-US", {
-          weekday: "long",
-          timeZone: city?.timezone,
-        }).format(dateInCity),
-      };
-    })
-    .filter((hour) => {
-      if (!hour.time) return false;
-
-      const nowInCity = new Date(
-        new Intl.DateTimeFormat("en-US", {
-          timeZone: city?.timezone,
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric",
-        }).format(new Date())
-      );
-
-      const todayInCity = new Intl.DateTimeFormat("en-US", {
-        weekday: "long",
-        timeZone: city?.timezone,
-      }).format(nowInCity);
-
-      if (selectedDay === todayInCity) {
-        const nextDayNoon = new Date(nowInCity);
-        nextDayNoon.setDate(nowInCity.getDate() + 1);
-        nextDayNoon.setHours(12, 0, 0, 0);
-        return hour.time >= nowInCity && hour.time <= nextDayNoon;
-      } else {
-        const selectedDayIndex = weekDays.indexOf(selectedDay);
-        const dayStart = new Date(nowInCity);
-        const dayDiff = (selectedDayIndex - nowInCity.getDay() + 7) % 7;
-        dayStart.setDate(nowInCity.getDate() + dayDiff);
-        dayStart.setHours(0, 0, 0, 0);
-
-        const dayEnd = new Date(dayStart);
-        dayEnd.setHours(23, 59, 59, 99);
-
-        return hour.time >= dayStart && hour.time <= dayEnd;
-      }
-    });
+  const { filteredHours } = useFilteredHours(selectedDay);
 
   useEffect(() => {
     const savedDay = localStorage.getItem("selectedDay");
@@ -131,7 +65,12 @@ export const SideTable = () => {
               animate={{ rotate: isOpen ? 180 : 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <Image src="/images/icon-dropdown.svg" alt="icon-dropdown" width={0} height={0} />
+              <Image
+                src="/images/icon-dropdown.svg"
+                alt="icon-dropdown"
+                width={0}
+                height={0}
+              />
             </motion.div>
           </motion.button>
 
