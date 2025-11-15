@@ -1,3 +1,5 @@
+"use client";
+
 import { MainBody } from "./components/MainBody";
 import { TopSide } from "./components/TopSide";
 import { BackgroundController } from "@/utils/BackgroundController";

@@ -1,3 +1,5 @@
+"use client"
+
 import { useWeatherSearch } from "@/hooks/useWeatherSearch";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -19,9 +21,9 @@ export const HistoryOfCities: React.FC<HistoryOfCitiesInterface> = ({
           exit={{ opacity: 0, y: -5 }}
           transition={{ duration: 2.5 }}
           whileHover={{
-              y: -3,
-              boxShadow: "0 4px 12px rgba(255,255,255,0.15)",
-            }}
+            y: -3,
+            boxShadow: "0 4px 12px rgba(255,255,255,0.15)",
+          }}
           className=" w-full flex cursor-pointer"
         >
           <h5

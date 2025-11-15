@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useUnit } from "@/context/UnitContext";
 import { motion } from "framer-motion";

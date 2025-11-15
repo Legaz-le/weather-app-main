@@ -1,9 +1,7 @@
 "use client";
 
-import bg from "../../../../public/images/bg-today-large.svg";
-import bg_mobile from "../../../../public/images/bg-today-small.svg";
 import { WeatherInfo } from "./Boxes/WeatherInfo";
-import { MainInfoData } from "../../../mockData/data";
+import { MainInfoData } from "@/mockData/data";
 import Image from "next/image";
 import { useWeather } from "@/context/WeatherContext";
 import { useUnit } from "@/context/UnitContext";
@@ -76,12 +74,16 @@ export const MainInfo = () => {
                 transition={{ duration: 1 }}
               >
                 <Image
-                  src={bg_mobile}
+                  width={0}
+                  height={0}
+                  src="/images/bg-today-small.svg"
                   alt="blue-background"
                   className="object-cover sm:hidden w-full"
                 />
                 <Image
-                  src={bg}
+                  width={0}
+                  height={0}
+                  src="/images/bg-today-large.svg"
                   alt="blue-background-large"
                   className="hidden sm:block w-full"
                 />

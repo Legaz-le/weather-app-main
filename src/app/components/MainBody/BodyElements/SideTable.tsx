@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { HourForecast } from "./Boxes/HourlyForecast";
 import { useWeather } from "@/context/WeatherContext";
 import { getWeatherIcon } from "@/utils/weatherCodeToIcon";
-import dropdown from "../../../../public/images/icon-dropdown.svg";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
@@ -132,7 +131,7 @@ export const SideTable = () => {
               animate={{ rotate: isOpen ? 180 : 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <Image src={dropdown} alt="icon-dropdown" width={0} height={0} />
+              <Image src="/images/icon-dropdown.svg" alt="icon-dropdown" width={0} height={0} />
             </motion.div>
           </motion.button>
 
