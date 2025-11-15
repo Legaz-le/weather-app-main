@@ -45,6 +45,7 @@ export const SideTable = () => {
 
         <div ref={dropdownRef} className="relative inline-block">
           <motion.button
+            disabled={loading}
             role="button"
             onClick={() => setIsOpen((prev) => !prev)}
             whileHover={{
@@ -58,20 +59,37 @@ export const SideTable = () => {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="dropdown-btn btn-gradient  flex items-center gap-2"
           >
-            <p className="font-DM-Sans font-[500] xl:text-[16px]">
-              {selectedDay}
-            </p>
-            <motion.div
-              animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
-              <Image
-                src="/images/icon-dropdown.svg"
-                alt="icon-dropdown"
-                width={0}
-                height={0}
-              />
-            </motion.div>
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <motion.div
+                  className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white"
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 1,
+                    ease: "linear",
+                  }}
+                />
+                <span>Loading...</span>
+              </div>
+            ) : (
+              <>
+                <p className="font-DM-Sans font-[500] xl:text-[16px]">
+                  {selectedDay}
+                </p>
+                <motion.div
+                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <Image
+                    src="/images/icon-dropdown.svg"
+                    alt="icon-dropdown"
+                    width={0}
+                    height={0}
+                  />
+                </motion.div>
+              </>
+            )}
           </motion.button>
 
           <AnimatePresence mode="wait">

@@ -8,6 +8,7 @@ import { useUnit } from "@/context/UnitContext";
 import { useUnitPreference } from "@/hooks/useUnitPreference";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { OptionData } from "@/mockData/data";
+import { useWeather } from "@/context/WeatherContext";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -18,12 +19,14 @@ export const Header = () => {
   const unitPreferences = useUnitPreference(unitMode);
 
   useOutsideClick(unitDropdownRef, () => setIsOpen(false));
+  const { loading } = useWeather();
 
   return (
     <div className="flex w-full items-center justify-between">
       <Image src="/images/logo.svg" alt="logo-icon" width={220} height={100} />
       <div ref={unitDropdownRef} className="relative">
         <motion.button
+          disabled={loading}
           role="button"
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{
@@ -37,24 +40,41 @@ export const Header = () => {
           transition={{ duration: 0.2, ease: "easeOut" }}
           className="btn-gradient font-dm flex items-center gap-2.5 sm:px-4 sm:py-3 rounded-xl text-white focus:ring-1 focus:ring-offset-1 focus:ring-Neutral-0 cursor-pointer"
         >
-          <Image
-            src="/images/icon-units.svg"
-            alt="icon-units"
-            width={20}
-            height={20}
-          />
-          Units
-          <motion.div
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <Image
-              src="/images/icon-dropdown.svg"
-              alt="icon-dropdown"
-              width={16}
-              height={16}
-            />
-          </motion.div>
+          {loading ? (
+            <div className="flex items-center gap-2">
+              <motion.div
+                className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white"
+                animate={{ rotate: 360 }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 1,
+                  ease: "linear",
+                }}
+              />
+              <span>Loading...</span>
+            </div>
+          ) : (
+            <>
+              <Image
+                src="/images/icon-units.svg"
+                alt="icon-units"
+                width={20}
+                height={20}
+              />
+              Units
+              <motion.div
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                <Image
+                  src="/images/icon-dropdown.svg"
+                  alt="icon-dropdown"
+                  width={16}
+                  height={16}
+                />
+              </motion.div>
+            </>
+          )}
         </motion.button>
         <AnimatePresence mode="wait">
           {isOpen && (
