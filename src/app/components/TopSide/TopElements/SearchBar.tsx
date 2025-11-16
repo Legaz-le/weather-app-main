@@ -10,6 +10,7 @@ import { HeadlineText } from "./HeadlineText";
 import { SearchButton } from "./SearchButton";
 import { SuggestionDropdown } from "./SuggestionDropdown";
 import { HistoryList } from "./HistoryList";
+import { useGeolocation } from "@/hooks/useGeolocation";
 
 export const SearchBar = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -28,6 +29,7 @@ export const SearchBar = () => {
     setSuggestions
   );
   const { searchedCities, addCity } = useSearchHistory();
+  const { location, getLocation, error } = useGeolocation();
 
   const debouncedInput = useDebounce(inputValue, 300);
   useOutsideClick(searchBoxRef, () => setFocused(false));
@@ -37,9 +39,16 @@ export const SearchBar = () => {
   }, [searchedCities]);
 
   useEffect(() => {
-    const defaultCity = "London";
-    handleSearch(defaultCity);
+    getLocation();
   }, []);
+
+  useEffect(() => {
+    if (location) {
+      handleSearch(undefined, location.lat, location.lon);
+    } else if (error) {
+      handleSearch("London");
+    }
+  }, [location, error]);
 
   useEffect(() => {
     if (debouncedInput.trim()) {

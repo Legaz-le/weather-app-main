@@ -84,8 +84,8 @@ export const SideTable = () => {
                   <Image
                     src="/images/icon-dropdown.svg"
                     alt="icon-dropdown"
-                    width={0}
-                    height={0}
+                    width={15}
+                    height={15}
                   />
                 </motion.div>
               </>

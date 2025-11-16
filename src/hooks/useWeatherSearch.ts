@@ -16,14 +16,27 @@ export const useWeatherSearch = () => {
 
   const { trigger: fetchWeather } = useSWRMutation(
     "/api/weather",
-    async (_key, { arg: city }: { arg: string }) => {
-      return fetcher(`/api/weather?city=${encodeURIComponent(city)}`);
+    async (
+      _key,
+      { arg }: { arg: { city?: string; lat?: number; lon?: number } }
+    ) => {
+      let url = "/api/weather";
+
+      if (arg.lat && arg.lon) {
+        url += `?lat=${arg.lat}&lon=${arg.lon}`;
+      } else if (arg.city) {
+        url += `?city=${encodeURIComponent(arg.city)}`;
+      } else {
+        throw new Error("invalid-params");
+      }
+
+      return fetcher(url);
     }
   );
 
   const handleSearch = useCallback(
-    async (city: string) => {
-      if (!city.trim()) {
+    async (city: string, lat?: number, lon?: number) => {
+      if (!city && (!lat || !lon)) {
         setError("Please enter a city name.");
         return;
       }
@@ -31,7 +44,8 @@ export const useWeatherSearch = () => {
       setLoading(true);
       setError(null);
 
-      const cacheKey = `weather:${city.toLowerCase()}`;
+      const cacheKey =
+        lat && lon ? `weather:${lat},${lon}` : `weather:${city!.toLowerCase()}`;
       try {
         const cachedRaw = sessionStorage.getItem(cacheKey);
 
@@ -50,7 +64,7 @@ export const useWeatherSearch = () => {
             .catch(() => {});
           return;
         }
-        const data = await fetchWeather(city);
+        const data = await fetchWeather({ city, lat, lon });
 
         const hourlyIcons = data.hourly.weathercode.map(
           (code: number) =>
