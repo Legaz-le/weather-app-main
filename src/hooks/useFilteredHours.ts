@@ -3,7 +3,15 @@ import { getWeatherIcon } from "@/utils/weatherCodeToIcon";
 
 export const useFilteredHours = (selectedDay: string) => {
   const { city } = useWeather();
-
+  const weekDays = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
   const filteredHours = (city?.hourly?.time || [])
     .map((time, index) => {
       const dateInCity = new Date(

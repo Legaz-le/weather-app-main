@@ -39,9 +39,7 @@ export async function GET(req: Request): Promise<Response> {
       geo.address.town ||
       geo.address.village ||
       geo.address.suburb ||
-      geo.address.county ||
       "Unknown";
-    country = geo.address.country || "";
     timezone = "auto";
   } else if (city) {
     const geoResponse = await fetch(
