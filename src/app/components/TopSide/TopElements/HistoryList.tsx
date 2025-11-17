@@ -1,7 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { HistoryOfCities } from "./TopData/HistoryOfCities";
 
-export const HistoryList = ({loading, cities}: {loading: boolean, cities: string[]}) => {
+export const HistoryList = ({
+  loading,
+  cities,
+  deleteCity
+}: {
+  loading: boolean;
+  cities: string[];
+  deleteCity: (cityName: string) => void;
+}) => {
   return (
     <AnimatePresence mode="wait">
       <div className="flex w-full xl:w-[675px] mt-5">
@@ -25,7 +33,7 @@ export const HistoryList = ({loading, cities}: {loading: boolean, cities: string
           </div>
         ) : (
           cities.map((item) => (
-            <HistoryOfCities key={item} savedCities={item} />
+            <HistoryOfCities key={item} savedCities={item} deleteCity={deleteCity} />
           ))
         )}
       </div>

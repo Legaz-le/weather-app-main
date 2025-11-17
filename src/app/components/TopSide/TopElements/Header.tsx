@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { DropDown } from "../../MainBody/BodyElements/Boxes/DropDown";
 import { useUnit } from "@/context/UnitContext";
-import { useUnitPreference } from "@/hooks/useUnitPreference";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { OptionData } from "@/mockData/data";
 import { useWeather } from "@/context/WeatherContext";
@@ -15,8 +14,6 @@ export const Header = () => {
   const unitDropdownRef = useRef<HTMLDivElement>(null);
 
   const { toggleUnitMode, unitMode } = useUnit();
-
-  const unitPreferences = useUnitPreference(unitMode);
 
   useOutsideClick(unitDropdownRef, () => setIsOpen(false));
   const { loading } = useWeather();
@@ -101,7 +98,9 @@ export const Header = () => {
                   <DropDown
                     title={data.title}
                     options={data.options}
-                    selectedOption={unitPreferences[data.title]}
+                    selectedOption={
+                      unitMode === "metric" ? data.options[0] : data.options[1]
+                    }
                   />
                   {index < OptionData.length - 1 && index < 2 && (
                     <hr className="border-Neutral-500 border-0.5 w-full border-[#3C3B5E]" />

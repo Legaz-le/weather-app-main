@@ -24,8 +24,8 @@ export const DropDown = ({ title, options, selectedOption }: DropDownProps) => {
                 src="/images/icon-checkmark.svg"
                 alt="checkMark-icon"
                 className={isSelected ? "block" : "hidden"}
-                width={0}
-                height={0}
+                width={15}
+                height={15}
               />
             </p>
           );

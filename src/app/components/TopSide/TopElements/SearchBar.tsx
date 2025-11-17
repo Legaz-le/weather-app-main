@@ -28,7 +28,7 @@ export const SearchBar = () => {
     setSearchLoading,
     setSuggestions
   );
-  const { searchedCities, addCity } = useSearchHistory();
+  const { searchedCities, addCity, deleteCity } = useSearchHistory();
   const { location, getLocation, error } = useGeolocation();
 
   const debouncedInput = useDebounce(inputValue, 300);
@@ -108,7 +108,7 @@ export const SearchBar = () => {
 
         <SearchButton loading={loading}>Search</SearchButton>
       </div>
-      <HistoryList loading={loading} cities={searchedCities} />
+      <HistoryList loading={loading} cities={searchedCities} deleteCity={deleteCity} />
     </form>
   );
 };

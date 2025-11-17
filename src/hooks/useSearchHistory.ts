@@ -19,7 +19,6 @@ export const useSearchHistory = () => {
     }
   }, []);
 
- 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(searchedCities));
   }, [searchedCities]);
@@ -29,18 +28,30 @@ export const useSearchHistory = () => {
     if (!trimmed) return;
 
     setSearchedCities((prev) => {
-      
       const filtered = prev.filter(
         (c) => c.toLowerCase() !== trimmed.toLowerCase()
       );
-      
+
       const updated = [...filtered, trimmed];
       localStorage.setItem(LAST_CITY_KEY, trimmed);
       return updated.slice(-MAX_HISTORY);
     });
   };
 
+  const deleteCity = (cityName: string) => {
+    const trimmed = cityName.trim();
+    if (!trimmed) return;
+    setSearchedCities((prev) => {
+      
+      const filtered = prev.filter(
+        (c) => c.toLowerCase() !== trimmed.toLowerCase()
+      );
+      return filtered
+    });
+  };
+
   return {
+    deleteCity,
     searchedCities,
     addCity,
   };
