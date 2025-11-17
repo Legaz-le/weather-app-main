@@ -79,6 +79,7 @@ export const MainInfo = () => {
                   src="/images/bg-today-small.svg"
                   alt="blue-background"
                   className="object-cover sm:hidden w-full"
+                  priority
                 />
                 <Image
                   width={0}
@@ -86,6 +87,7 @@ export const MainInfo = () => {
                   src="/images/bg-today-large.svg"
                   alt="blue-background-large"
                   className="hidden sm:block w-full"
+                  priority
                 />
               </motion.div>
             </div>

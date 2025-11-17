@@ -35,10 +35,10 @@ export const useWeatherSearch = () => {
   );
 
   const handleSearch = useCallback(
-    async (city: string, lat?: number, lon?: number) => {
+    async (city?: string, lat?: number, lon?: number): Promise<string | null> => {
       if (!city && (!lat || !lon)) {
         setError("Please enter a city name.");
-        return;
+        return null;
       }
 
       setLoading(true);
@@ -57,12 +57,41 @@ export const useWeatherSearch = () => {
             .then((fresh) => {
               if (fresh) {
                 mutate(cacheKey, fresh, false);
-                sessionStorage.setItem(cacheKey, JSON.stringify(fresh));
-                setCity(fresh);
+                const hourlyIcons = fresh.hourly.weathercode.map(
+                  (code: number) =>
+                    weatherCodeToIcon[code] || "/images/default-icon.webp"
+                );
+
+                const weatherData = {
+                  city: fresh.city,
+                  country: fresh.country,
+                  temperature: fresh.current.temperature,
+                  timezone: fresh.timezone,
+                  humidity: fresh.current.humidity,
+                  windSpeed: fresh.current.windSpeed,
+                  perception: fresh.current.perception,
+                  daily: {
+                    highTemp: fresh.daily.temperature_2m_max,
+                    lowTemp: fresh.daily.temperature_2m_min,
+                    weatherIcons: fresh.daily.weathercode.map(
+                      (code: number) =>
+                        weatherCodeToIcon[code] || "/images/default-icon.webp"
+                    ),
+                  },
+                  hourly: {
+                    time: fresh.hourly.time,
+                    temperature: fresh.hourly.temperature_2m,
+                    weatherIcons: hourlyIcons,
+                    weathercode: fresh.hourly.weathercode,
+                  },
+                };
+
+                sessionStorage.setItem(cacheKey, JSON.stringify(weatherData));
+                setCity(weatherData);
               }
             })
             .catch(() => {});
-          return;
+          return parsed.city;
         }
         const data = await fetchWeather({ city, lat, lon });
 

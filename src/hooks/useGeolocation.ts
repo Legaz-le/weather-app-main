@@ -24,14 +24,3 @@ export function useGeolocation() {
 
   return { location, error, getLocation };
 }
-
-export async function translateToEnglish(text: string) {
-  if (!text.trim()) return text;
-  const res = await fetch("/api/translate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text }),
-  });
-  const data = await res.json();
-  return data.translated;
-}

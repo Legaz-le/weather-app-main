@@ -29,18 +29,27 @@ export async function GET(req: Request): Promise<Response> {
     latitude = parseFloat(latParam);
     longitude = parseFloat(lonParam);
 
-    const geoRes = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
-      { headers: { "User-Agent": "MyWeatherApp/1.0" } }
-    );
-    const geo: GeoResponse = await geoRes.json();
-    name =
-      geo.address.city ||
-      geo.address.town ||
-      geo.address.village ||
-      geo.address.suburb ||
-      "Unknown";
-    timezone = "auto";
+    try {
+      const geoRes = await fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+      );
+
+      if (!geoRes.ok) {
+        throw new Error("Reverse geocoding failed");
+      }
+      const geo = await geoRes.json();
+
+      name = geo.city || geo.locality || geo.principalSubdivision || "Unknown";
+      country = geo.countryName || "";
+
+      timezone = "auto";
+    } catch (error) {
+      console.error("Reverse geocoding error:", error);
+      return new Response(
+        JSON.stringify({ error: "Failed to determine location" }),
+        { status: 500 }
+      );
+    }
   } else if (city) {
     const geoResponse = await fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=${type === "suggestions" ? "5" : "1"}`

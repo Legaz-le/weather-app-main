@@ -10,7 +10,7 @@ import { HeadlineText } from "./HeadlineText";
 import { SearchButton } from "./SearchButton";
 import { SuggestionDropdown } from "./SuggestionDropdown";
 import { HistoryList } from "./HistoryList";
-import { useGeolocation, translateToEnglish } from "@/hooks/useGeolocation";
+import { useGeolocation } from "@/hooks/useGeolocation";
 
 export const SearchBar = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -60,12 +60,11 @@ export const SearchBar = () => {
 
   return (
     <form
-      onSubmit={async (e) => {
+      onSubmit={(e) => {
         e.preventDefault();
         const cityToSearch = selectedCity || inputValue;
-        const translated = await translateToEnglish(cityToSearch);
-        handleSearch(city?.city || translated);
-        addCity(translated);
+        handleSearch(cityToSearch);
+        addCity(city?.city || cityToSearch);
         setInputValue("");
       }}
       className="mt-16 flex flex-col items-center justify-center"
