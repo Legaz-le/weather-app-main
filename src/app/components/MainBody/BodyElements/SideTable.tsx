@@ -137,7 +137,6 @@ export const SideTable = () => {
                 const formattedHour = hour.time.toLocaleTimeString("en-US", {
                   hour: "numeric",
                   hour12: true,
-                  timeZone: city.timezone,
                 });
                 return (
                   <motion.div
@@ -151,7 +150,6 @@ export const SideTable = () => {
                       key={hour.time.toLocaleTimeString("en-US", {
                         hour: "numeric",
                         hour12: true,
-                        timeZone: city.timezone,
                       })}
                       hour={formattedHour}
                       img={hour.icon}

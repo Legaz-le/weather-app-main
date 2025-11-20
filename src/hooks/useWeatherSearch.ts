@@ -35,7 +35,7 @@ export const useWeatherSearch = () => {
   );
 
   const handleSearch = useCallback(
-    async (city?: string, lat?: number, lon?: number): Promise<string | null> => {
+    async (city?: string, lat?: number, lon?: number) => {
       if (!city && (!lat || !lon)) {
         setError("Please enter a city name.");
         return null;
@@ -53,7 +53,7 @@ export const useWeatherSearch = () => {
           const parsed = JSON.parse(cachedRaw);
           setCity(parsed);
           setLoading(false);
-          fetchWeather(city)
+          fetchWeather({ city })
             .then((fresh) => {
               if (fresh) {
                 mutate(cacheKey, fresh, false);
@@ -65,11 +65,12 @@ export const useWeatherSearch = () => {
                 const weatherData = {
                   city: fresh.city,
                   country: fresh.country,
-                  temperature: fresh.current.temperature,
-                  timezone: fresh.timezone,
-                  humidity: fresh.current.humidity,
-                  windSpeed: fresh.current.windSpeed,
-                  perception: fresh.current.perception,
+                  current: {
+                    temperature: fresh.current.temperature,
+                    humidity: fresh.current.humidity,
+                    windSpeed: fresh.current.windSpeed,
+                    perception: fresh.current.perception,
+                  },
                   daily: {
                     highTemp: fresh.daily.temperature_2m_max,
                     lowTemp: fresh.daily.temperature_2m_min,
@@ -103,11 +104,12 @@ export const useWeatherSearch = () => {
         setCity({
           city: data.city,
           country: data.country,
-          temperature: data.current.temperature,
-          timezone: data.timezone,
-          humidity: data.current.humidity,
-          windSpeed: data.current.windSpeed,
-          perception: data.current.perception,
+          current: {
+            temperature: data.current.temperature,
+            humidity: data.current.humidity,
+            windSpeed: data.current.windSpeed,
+            perception: data.current.perception,
+          },
           daily: {
             highTemp: data.daily.temperature_2m_max,
             lowTemp: data.daily.temperature_2m_min,

@@ -127,8 +127,8 @@ export const MainInfo = () => {
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
                   {unitMode === "metric"
-                    ? `${Math.round(city?.temperature ?? 0)}°`
-                    : `${Math.round(((city?.temperature ?? 0) * 9) / 5 + 32)}°`}
+                    ? `${Math.round(city?.current.temperature ?? 0)}°`
+                    : `${Math.round(((city?.current.temperature ?? 0) * 9) / 5 + 32)}°`}
                 </motion.div>
               </div>
             </div>

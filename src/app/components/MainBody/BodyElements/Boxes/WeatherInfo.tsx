@@ -15,21 +15,21 @@ export const WeatherInfo = ({ Name }: WeatherInfoProps) => {
     switch (Name.toLowerCase()) {
       case "feels like":
         return unitMode === "metric"
-          ? `${Math.round(city.temperature)}°`
-          : `${Math.round((city.temperature * 9) / 5 + 32)}°`;
+          ? `${Math.round(city.current.temperature)}°`
+          : `${Math.round((city.current.temperature * 9) / 5 + 32)}°`;
 
       case "humidity":
-        return `${city.humidity}%`;
+        return `${city.current.humidity}%`;
 
       case "wind":
         return unitMode === "metric"
-          ? `${Math.round(city.windSpeed * 3.6)} km/h`
-          : `${Math.round(city.windSpeed * 2.237)} mph`;
+          ? `${Math.round(city.current.windSpeed * 3.6)} km/h`
+          : `${Math.round(city.current.windSpeed * 2.237)} mph`;
 
       case "perception":
         return unitMode === "metric"
-          ? `${city.perception} mm`
-          : `${(city.perception * 0.03937).toFixed(2)} in`;
+          ? `${city.current.perception} mm`
+          : `${(city.current.perception * 0.03937).toFixed(2)} in`;
 
       default:
         return "N/A";

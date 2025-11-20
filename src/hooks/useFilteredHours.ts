@@ -16,7 +16,6 @@ export const useFilteredHours = (selectedDay: string) => {
     .map((time, index) => {
       const dateInCity = new Date(
         new Intl.DateTimeFormat("en-US", {
-          timeZone: city?.timezone,
           year: "numeric",
           month: "numeric",
           day: "numeric",
@@ -36,7 +35,6 @@ export const useFilteredHours = (selectedDay: string) => {
         icon,
         dayName: new Intl.DateTimeFormat("en-US", {
           weekday: "long",
-          timeZone: city?.timezone,
         }).format(dateInCity),
       };
     })
@@ -45,7 +43,6 @@ export const useFilteredHours = (selectedDay: string) => {
 
       const nowInCity = new Date(
         new Intl.DateTimeFormat("en-US", {
-          timeZone: city?.timezone,
           year: "numeric",
           month: "numeric",
           day: "numeric",
@@ -57,7 +54,6 @@ export const useFilteredHours = (selectedDay: string) => {
 
       const todayInCity = new Intl.DateTimeFormat("en-US", {
         weekday: "long",
-        timeZone: city?.timezone,
       }).format(nowInCity);
 
       if (selectedDay === todayInCity) {

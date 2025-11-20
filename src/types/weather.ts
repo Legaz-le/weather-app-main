@@ -19,36 +19,35 @@ export interface CityLocation {
   timezone: string;
 }
 
-
 export interface CurrentWeather {
   temperature: number;
   humidity: number;
   windSpeed: number;
-  perception: number;  
+  perception: number;
 }
 
 export interface DailyForecast {
   highTemp: number[];
   lowTemp: number[];
-  weatherIcons: string[];  
+  weatherIcons: string[];
 }
 
 export interface HourlyForecast {
   time: string[];
   temperature: number[];
-  weatherIcons: string[];  
+  weatherIcons: string[];
   weathercode: number[];
 }
 
 export interface WeatherData {
- 
   city: string;
   country: string;
-  timezone: string;
-  temperature: number;
-  humidity: number;
-  windSpeed: number;
-  perception: number;  
+  current: {
+    temperature: number;
+    humidity: number;
+    windSpeed: number;
+    perception: number;
+  };
   daily: DailyForecast;
   hourly: HourlyForecast;
 }
